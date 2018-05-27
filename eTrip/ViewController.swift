@@ -20,7 +20,8 @@ class ViewController: UITableViewController {
         super.viewDidLoad()
         db = DBManager.instance
         
-        placeInfos = db.searchForPlaceInfos(with: "石門旗艦", of: 12)
+        // TESTs for Database read
+        placeInfos = db.searchForPlaceInfos(with: "石門旗艦", of: 4)
         if placeInfos.count > 0 {
             let place = placeInfos[0]
             image.image = place.getUIImage()

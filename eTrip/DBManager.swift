@@ -43,10 +43,7 @@ class DBManager{
                 let name = sqlite3_column_text(queryStatement, 1)
                 let addressid = sqlite3_column_int(queryStatement, 2)
                 let roadno = sqlite3_column_text(queryStatement, 3)
-//                let no = sqlite3_column_text(queryStatement, 4)
-//                var addressNo = ""
-//
-//                if "0" == String(cString: no!) { addressNo.append("\(String(cString: no!)) 號")}
+
                 var address = getAddressById(addressid)
                 address?.append(String(cString: roadno!))
                 
@@ -133,13 +130,9 @@ class DBManager{
         
         if sqlite3_prepare_v2(db, queryString, -1, &queryStatement, nil) == SQLITE_OK {
             if sqlite3_step(queryStatement) == SQLITE_ROW {
-                
-                
+             
                 ticketId = sqlite3_column_int(queryStatement, 0)
-                
-                
-            }
-            
+            }   
         } else {
             print("getNormalTicketId(\(placeId)) query not exist")
         }
@@ -186,7 +179,6 @@ class DBManager{
         return abstract
     }
     
-    
     func getAllCityNames() -> [String]{
         let queryString = "SELECT DISTINCT city FROM address;"
         var queryStatement: OpaquePointer? = nil
@@ -195,14 +187,11 @@ class DBManager{
         if sqlite3_prepare_v2(db, queryString, -1, &queryStatement, nil) == SQLITE_OK {
             while sqlite3_step(queryStatement) == SQLITE_ROW {
                 
-               
                 let queryResultCol1 = sqlite3_column_text(queryStatement, 0)
                 let name = String(cString: queryResultCol1!)
 
                 names.append(name)
-                
             }
-            
         } else {
             print("getAllCityNames() query not prepared")
         }
@@ -216,13 +205,11 @@ class DBManager{
         
         if sqlite3_prepare_v2(db, queryString, -1, &queryStatement, nil) == SQLITE_OK {
             while sqlite3_step(queryStatement) == SQLITE_ROW {
-                
-                
+            
                 let queryResultCol1 = sqlite3_column_text(queryStatement, 0)
                 let name = String(cString: queryResultCol1!)
                 
                 names.append(name)
-                
             }
             
         } else {
@@ -239,13 +226,9 @@ class DBManager{
         if sqlite3_prepare_v2(db, queryString, -1, &queryStatement, nil) == SQLITE_OK {
             if sqlite3_step(queryStatement) == SQLITE_ROW {
                 
-                
                 let queryResultCol1 = sqlite3_column_text(queryStatement, 1)
                 let queryResultCol2 = sqlite3_column_text(queryStatement, 2)
                 address = String(cString: queryResultCol1!) + String(cString: queryResultCol2!)
-                
-              
-                
             }
             
         } else {
