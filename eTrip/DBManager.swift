@@ -88,10 +88,20 @@ class DBManager{
     
     func searchForPlaceInfos(with searchText: String, of form: Int) -> [PlaceInfo]{
         var queryString = "SELECT * FROM place WHERE name LIKE '%\(searchText)%'"
-        if form != 4 {
-            queryString.append(" AND formid = \(form)")
+        
+        switch form {
+        case 1, 2, 3:
+            queryString.append(" AND formid = \(form);")
+        case 12:
+            queryString.append(" AND formid != 3;")
+        case 23:
+            queryString.append(" AND formid != 1;")
+        case 13:
+            queryString.append(" AND formid != 2;")
+        default:
+            queryString.append(";")
         }
-        queryString.append(";")
+        
         
         return queryOfPlaceInfos(with: queryString)
         
@@ -99,16 +109,25 @@ class DBManager{
     
     func searchForPlaceInfos(by addressid: Int, of form: Int) -> [PlaceInfo]{
         var queryString = "SELECT * FROM place WHERE addressid = \(addressid)"
-        if form != 4 {
-            queryString.append(" AND formid = \(form)")
+        switch form {
+        case 1, 2, 3:
+            queryString.append(" AND formid = \(form);")
+        case 12:
+            queryString.append(" AND formid != 3;")
+        case 23:
+            queryString.append(" AND formid != 1;")
+        case 13:
+            queryString.append(" AND formid != 2;")
+        default:
+            queryString.append(";")
         }
-        queryString.append(";")
+        
         
         return queryOfPlaceInfos(with: queryString)
     }
     
     func getNormalTicketId(of placeId: Int32) -> Int32{
-        let queryString = "SELECT ticket FROM landmarkticket WHERE placeid = \(placeId) AND identity = '普通票';"
+        let queryString = "SELECT ticket FROM landmarkticket WHERE placeid = \(placeId) AND identityid = 1;"
         var queryStatement: OpaquePointer? = nil
         var ticketId: Int32 = -1
         

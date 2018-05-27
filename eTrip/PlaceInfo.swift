@@ -47,8 +47,12 @@ class PlaceInfo {
         self.lng = lng
     }
     
-    func getUIImage() -> UIImage {
-        return UIImage(data: image as Data)!
+    func getUIImage() -> UIImage? {
+        guard let img = UIImage(data: image as Data) else {
+            return nil
+        }
+        return img
+        
     }
     
 }
