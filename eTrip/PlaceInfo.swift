@@ -27,10 +27,12 @@ class PlaceInfo {
     let hightime: Int32
     let phone: String
     let abstract: String
+    let lat: Double
+    let lng: Double
     
 //    let score: Int
     
-    init(id: Int32, name: String, address: String, form: PlaceForm, image: NSData, ticket: Int32, staytime: Int32, hightime: Int32, phone: String, abstract: String) {
+    init(id: Int32, name: String, address: String, form: PlaceForm, image: NSData, ticket: Int32, staytime: Int32, hightime: Int32, phone: String, abstract: String, lat: Double, lng: Double) {
         self.id = id
         self.name = name
         self.address = address
@@ -41,6 +43,8 @@ class PlaceInfo {
         self.hightime = hightime
         self.phone = phone
         self.abstract = abstract
+        self.lat = lat
+        self.lng = lng
     }
     
     func getUIImage() -> UIImage {

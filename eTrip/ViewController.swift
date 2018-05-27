@@ -20,10 +20,11 @@ class ViewController: UITableViewController {
         super.viewDidLoad()
         db = DBManager.instance
         
-        placeInfos = db.searchForPlaceInfos(by: 3, of: 4)
+        placeInfos = db.searchForPlaceInfos(with: "舊金山", of: 4)
         if placeInfos.count > 0 {
             let place = placeInfos[0]
             image.image = place.getUIImage()
+            print(place.lng, "  ", place.lat)
             
         }
         

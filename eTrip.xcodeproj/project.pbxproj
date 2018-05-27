@@ -12,10 +12,10 @@
 		1FD54CA920B9E3FC001AE1C1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FD54CA720B9E3FC001AE1C1 /* Main.storyboard */; };
 		1FD54CAB20B9E400001AE1C1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FD54CAA20B9E400001AE1C1 /* Assets.xcassets */; };
 		1FD54CAE20B9E400001AE1C1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FD54CAC20B9E400001AE1C1 /* LaunchScreen.storyboard */; };
-		1FD54CB620B9E46F001AE1C1 /* etrip.db in Resources */ = {isa = PBXBuildFile; fileRef = 1FD54CB520B9E46F001AE1C1 /* etrip.db */; };
 		1FD54CB820B9E60A001AE1C1 /* DBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD54CB720B9E60A001AE1C1 /* DBManager.swift */; };
 		1FD54CBA20BA01F7001AE1C1 /* PlaceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD54CB920BA01F7001AE1C1 /* PlaceInfo.swift */; };
 		1FD54CBC20BAA9E7001AE1C1 /* TicketInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD54CBB20BAA9E7001AE1C1 /* TicketInfo.swift */; };
+		1FD54CBE20BADE57001AE1C1 /* etrip.db in Resources */ = {isa = PBXBuildFile; fileRef = 1FD54CBD20BADE57001AE1C1 /* etrip.db */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,10 +26,10 @@
 		1FD54CAA20B9E400001AE1C1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1FD54CAD20B9E400001AE1C1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1FD54CAF20B9E400001AE1C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1FD54CB520B9E46F001AE1C1 /* etrip.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = etrip.db; sourceTree = "<group>"; };
 		1FD54CB720B9E60A001AE1C1 /* DBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBManager.swift; sourceTree = "<group>"; };
 		1FD54CB920BA01F7001AE1C1 /* PlaceInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInfo.swift; sourceTree = "<group>"; };
 		1FD54CBB20BAA9E7001AE1C1 /* TicketInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketInfo.swift; sourceTree = "<group>"; };
+		1FD54CBD20BADE57001AE1C1 /* etrip.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = etrip.db; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,7 +62,7 @@
 		1FD54CA220B9E3FC001AE1C1 /* eTrip */ = {
 			isa = PBXGroup;
 			children = (
-				1FD54CB520B9E46F001AE1C1 /* etrip.db */,
+				1FD54CBD20BADE57001AE1C1 /* etrip.db */,
 				1FD54CA320B9E3FC001AE1C1 /* AppDelegate.swift */,
 				1FD54CA520B9E3FC001AE1C1 /* ViewController.swift */,
 				1FD54CA720B9E3FC001AE1C1 /* Main.storyboard */,
@@ -134,9 +134,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1FD54CB620B9E46F001AE1C1 /* etrip.db in Resources */,
 				1FD54CAE20B9E400001AE1C1 /* LaunchScreen.storyboard in Resources */,
 				1FD54CAB20B9E400001AE1C1 /* Assets.xcassets in Resources */,
+				1FD54CBE20BADE57001AE1C1 /* etrip.db in Resources */,
 				1FD54CA920B9E3FC001AE1C1 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -37,40 +37,42 @@ class DBManager{
         if sqlite3_prepare_v2(db, queryString, -1, &queryStatement, nil) == SQLITE_OK {
             while sqlite3_step(queryStatement) == SQLITE_ROW {
                 var placeInfo: PlaceInfo
-                let placeForm = sqlite3_column_int(queryStatement, 7)
+                let placeForm = sqlite3_column_int(queryStatement, 6)
                 
                 let id = sqlite3_column_int(queryStatement, 0)
                 let name = sqlite3_column_text(queryStatement, 1)
                 let addressid = sqlite3_column_int(queryStatement, 2)
-                let road = sqlite3_column_text(queryStatement, 3)
-                let no = sqlite3_column_text(queryStatement, 4)
-                var addressNo = ""
-                
-                if "0" == String(cString: no!) { addressNo.append("\(String(cString: no!)) 號")}
+                let roadno = sqlite3_column_text(queryStatement, 3)
+//                let no = sqlite3_column_text(queryStatement, 4)
+//                var addressNo = ""
+//
+//                if "0" == String(cString: no!) { addressNo.append("\(String(cString: no!)) 號")}
                 var address = getAddressById(addressid)
-                address?.append(String(cString: road!))
-                address?.append(addressNo)
+                address?.append(String(cString: roadno!))
                 
-                let phone = sqlite3_column_text(queryStatement, 8)
-                let imageBlob = sqlite3_column_blob(queryStatement, 9)
-                let imageLength = sqlite3_column_bytes(queryStatement, 9)
-                let abstract = sqlite3_column_text(queryStatement, 10)
-                let staytime = sqlite3_column_int(queryStatement, 5)
-                let hightime = sqlite3_column_int(queryStatement, 6)
+                
+                let phone = sqlite3_column_text(queryStatement, 7)
+                let imageBlob = sqlite3_column_blob(queryStatement, 8)
+                let imageLength = sqlite3_column_bytes(queryStatement, 8)
+                let abstract = sqlite3_column_text(queryStatement, 9)
+                let staytime = sqlite3_column_int(queryStatement, 4)
+                let hightime = sqlite3_column_int(queryStatement, 5)
+                let lat = sqlite3_column_double(queryStatement, 10)
+                let lng = sqlite3_column_double(queryStatement, 11)
                 
                 var ticket: Int32 = -1
                 
                 // Not a Landmark
                 if placeForm != PlaceForm.landmark.rawValue {
                     placeInfo = PlaceInfo(id: id, name: String(cString: name!), address: address!, form: PlaceForm(rawValue: placeForm)!,
-                                          image: NSData(bytes: imageBlob, length: Int(imageLength)), ticket: ticket, staytime: staytime, hightime: hightime, phone: String(cString: phone!), abstract: String(cString: abstract!))
+                                          image: NSData(bytes: imageBlob, length: Int(imageLength)), ticket: ticket, staytime: staytime, hightime: hightime, phone: String(cString: phone!), abstract: String(cString: abstract!), lat: lat, lng: lng)
                     
                     
                     
                 } else {
                     ticket = getNormalTicketId(of: id)
                     placeInfo = PlaceInfo(id: id, name: String(cString: name!), address: address!, form: PlaceForm(rawValue: placeForm)!,
-                                          image: NSData(bytes: imageBlob, length: Int(imageLength)), ticket: ticket, staytime: staytime, hightime: hightime, phone: String(cString: phone!), abstract: String(cString: abstract!))
+                                          image: NSData(bytes: imageBlob, length: Int(imageLength)), ticket: ticket, staytime: staytime, hightime: hightime, phone: String(cString: phone!), abstract: String(cString: abstract!), lat: lat, lng: lng)
                 }
                 
                 placeInfos.append(placeInfo)
