@@ -61,18 +61,30 @@ class DBManager{
                 let placeForm = sqlite3_column_int(queryStatement, 6)
                 
                 let id = sqlite3_column_int(queryStatement, 0)
-                let name = sqlite3_column_text(queryStatement, 1)
+                var nameString = ""
+                if let name = sqlite3_column_text(queryStatement, 1) {
+                    nameString = String(cString: name)
+                }
                 let addressid = sqlite3_column_int(queryStatement, 2)
-                let roadno = sqlite3_column_text(queryStatement, 3)
+                var road = ""
+                if let roadno = sqlite3_column_text(queryStatement, 3) {
+                    road = String(cString: roadno)
+                }
 
                 var address = getAddressById(addressid)
-                address?.append(String(cString: roadno!))
+                address?.append(road)
                 
+                var phoneString = ""
+                if let phone = sqlite3_column_text(queryStatement, 7) {
+                    phoneString = String(cString: phone)
+                }
                 
-                let phone = sqlite3_column_text(queryStatement, 7)
                 let imageBlob = sqlite3_column_blob(queryStatement, 8)
                 let imageLength = sqlite3_column_bytes(queryStatement, 8)
-                let abstract = sqlite3_column_text(queryStatement, 9)
+                var abstractText = ""
+                if let abstract = sqlite3_column_text(queryStatement, 9) {
+                    abstractText = String(cString: abstract)
+                }
                 let staytime = sqlite3_column_int(queryStatement, 4)
                 let hightime = sqlite3_column_int(queryStatement, 5)
                 let lat = sqlite3_column_double(queryStatement, 10)
@@ -82,15 +94,15 @@ class DBManager{
                 
                 // Not a Landmark
                 if placeForm != PlaceForm.landmark.rawValue {
-                    placeInfo = PlaceInfo(id: id, name: String(cString: name!), address: address!, form: PlaceForm(rawValue: placeForm)!,
-                                          image: NSData(bytes: imageBlob, length: Int(imageLength)), ticket: ticket, staytime: staytime, hightime: hightime, phone: String(cString: phone!), abstract: String(cString: abstract!), lat: lat, lng: lng, score: getScore(of: id))
+                    placeInfo = PlaceInfo(id: id, name: nameString, address: address!, form: PlaceForm(rawValue: placeForm)!,
+                                          image: NSData(bytes: imageBlob, length: Int(imageLength)), ticket: ticket, staytime: staytime, hightime: hightime, phone: phoneString, abstract: abstractText, lat: lat, lng: lng, score: getScore(of: id))
                     
                     
                     
                 } else {
                     ticket = getNormalTicketId(of: id)
-                    placeInfo = PlaceInfo(id: id, name: String(cString: name!), address: address!, form: PlaceForm(rawValue: placeForm)!,
-                                          image: NSData(bytes: imageBlob, length: Int(imageLength)), ticket: ticket, staytime: staytime, hightime: hightime, phone: String(cString: phone!), abstract: String(cString: abstract!), lat: lat, lng: lng, score: getScore(of: id))
+                    placeInfo = PlaceInfo(id: id, name: nameString, address: address!, form: PlaceForm(rawValue: placeForm)!,
+                                          image: NSData(bytes: imageBlob, length: Int(imageLength)), ticket: ticket, staytime: staytime, hightime: hightime, phone: phoneString, abstract: abstractText, lat: lat, lng: lng, score: getScore(of: id))
                 }
                 
                 placeInfos.append(placeInfo)
@@ -100,7 +112,8 @@ class DBManager{
         } else {
             print("queryOfPlaceInfos() query not prepared")
         }
-        return placeInfos
+        
+        return placeInfos.sorted(by: >)
     }
     
     

@@ -21,15 +21,15 @@ class ViewController: UITableViewController {
         db = DBManager.instance
         db.test()
         // TESTs for Database read
-        placeInfos = db.searchForPlaceInfos(with: "石門旗艦", of: 4)
-        if placeInfos.count > 0 {
-            let place = placeInfos[0]
+        placeInfos = db.searchForPlaceInfos(with: "", of: 4)
+        for place in placeInfos {
             image.image = place.getUIImage()
             
-            print(place.name, place.lng, "  ", place.lat)
-            
+            print(place.id, place.name, place.score )
+            break
         }
         
+        print(placeInfos.count)
         // Do any additional setup after loading the view, typically from a nib.
     }
 
