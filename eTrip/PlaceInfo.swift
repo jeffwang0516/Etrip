@@ -9,12 +9,18 @@
 import Foundation
 import UIKit
 
-enum PlaceForm: Int32{
+enum PlaceForm: Int32 {
     case landmark = 1
     case restaurant = 2
     case hotel = 3
     
 }
+
+struct Score {
+    var average = 0.0
+    var total = 0
+}
+
 class PlaceInfo {
     
     let id: Int32
@@ -30,9 +36,9 @@ class PlaceInfo {
     let lat: Double
     let lng: Double
     
-//    let score: Int
+    let score: Score
     
-    init(id: Int32, name: String, address: String, form: PlaceForm, image: NSData, ticket: Int32, staytime: Int32, hightime: Int32, phone: String, abstract: String, lat: Double, lng: Double) {
+    init(id: Int32, name: String, address: String, form: PlaceForm, image: NSData, ticket: Int32, staytime: Int32, hightime: Int32, phone: String, abstract: String, lat: Double, lng: Double, score: Score) {
         self.id = id
         self.name = name
         self.address = address
@@ -45,6 +51,7 @@ class PlaceInfo {
         self.abstract = abstract
         self.lat = lat
         self.lng = lng
+        self.score = score
     }
     
     func getUIImage() -> UIImage? {
@@ -55,4 +62,19 @@ class PlaceInfo {
         
     }
     
+    
+    
+}
+
+extension PlaceInfo: Comparable {
+    static func == (lhs: PlaceInfo, rhs: PlaceInfo) -> Bool {
+        return lhs.score.average == rhs.score.average && lhs.score.total == rhs.score.total
+    }
+    
+    static func < (lhs: PlaceInfo, rhs: PlaceInfo) -> Bool {
+        if lhs.score.average != rhs.score.average {
+            return lhs.score.average < rhs.score.average
+        }
+        return lhs.score.total <= rhs.score.total
+    }
 }

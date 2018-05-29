@@ -25,9 +25,30 @@ class DBManager{
         print("TEST")
         print(getAllCityNames())
         print(getCityDistrict(city: "臺北市"))
-        print(getAddressById(6)!)
+        print(getAddressById(100))
         print(searchForPlaceInfos(with: "舊金山", of: 4))
+        print(getScore(of: 334))
         
+    }
+    
+    private func getScore(of placeId: Int32) -> Score{
+        let queryString = "SELECT * FROM score WHERE placeid = \(placeId);"
+        var queryStatement: OpaquePointer? = nil
+        var count = 0.0
+        var total = 0.0
+        
+        if sqlite3_prepare_v2(db, queryString, -1, &queryStatement, nil) == SQLITE_OK {
+            while sqlite3_step(queryStatement) == SQLITE_ROW {
+                
+                let score = sqlite3_column_int(queryStatement, 2)
+                total = total + Double(score)
+                count = count +  1            
+            }
+        } else {
+            print("getScore(\(placeId)) query not exist")
+        }
+        let avg = total/count
+        return Score(average: avg, total: Int(total))
     }
     
     private func queryOfPlaceInfos(with queryString: String) -> [PlaceInfo] {
@@ -62,14 +83,14 @@ class DBManager{
                 // Not a Landmark
                 if placeForm != PlaceForm.landmark.rawValue {
                     placeInfo = PlaceInfo(id: id, name: String(cString: name!), address: address!, form: PlaceForm(rawValue: placeForm)!,
-                                          image: NSData(bytes: imageBlob, length: Int(imageLength)), ticket: ticket, staytime: staytime, hightime: hightime, phone: String(cString: phone!), abstract: String(cString: abstract!), lat: lat, lng: lng)
+                                          image: NSData(bytes: imageBlob, length: Int(imageLength)), ticket: ticket, staytime: staytime, hightime: hightime, phone: String(cString: phone!), abstract: String(cString: abstract!), lat: lat, lng: lng, score: getScore(of: id))
                     
                     
                     
                 } else {
                     ticket = getNormalTicketId(of: id)
                     placeInfo = PlaceInfo(id: id, name: String(cString: name!), address: address!, form: PlaceForm(rawValue: placeForm)!,
-                                          image: NSData(bytes: imageBlob, length: Int(imageLength)), ticket: ticket, staytime: staytime, hightime: hightime, phone: String(cString: phone!), abstract: String(cString: abstract!), lat: lat, lng: lng)
+                                          image: NSData(bytes: imageBlob, length: Int(imageLength)), ticket: ticket, staytime: staytime, hightime: hightime, phone: String(cString: phone!), abstract: String(cString: abstract!), lat: lat, lng: lng, score: getScore(of: id))
                 }
                 
                 placeInfos.append(placeInfo)

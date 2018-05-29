@@ -19,7 +19,7 @@ class ViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         db = DBManager.instance
-        
+        db.test()
         // TESTs for Database read
         placeInfos = db.searchForPlaceInfos(with: "石門旗艦", of: 4)
         if placeInfos.count > 0 {
