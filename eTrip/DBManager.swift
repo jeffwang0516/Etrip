@@ -21,6 +21,11 @@ class DBManager{
             print("Error opening database")
         }
     }
+    
+    deinit {
+        sqlite3_close(db)
+    }
+    
     func test() {
         print("TEST")
         print(getAllCityNames())
@@ -31,6 +36,208 @@ class DBManager{
         
     }
     
+    
+    // Places query
+    func searchForPlaceInfos(with searchText: String, of form: Int) -> [PlaceInfo]{
+        var queryString = "SELECT * FROM place WHERE name LIKE '%\(searchText)%'"
+        queryString = addFormRule(to: queryString, with: form)
+        
+        return queryOfPlaceInfos(with: queryString)
+    }
+    
+    func searchForPlaceInfos(by addressid: Int, of form: Int) -> [PlaceInfo]{
+        var queryString = "SELECT * FROM place WHERE addressid = \(addressid)"
+        queryString = addFormRule(to: queryString, with: form)
+
+        return queryOfPlaceInfos(with: queryString)
+    }
+    
+    func searchForPlaceInfos(by addressid: Int, with wayid: LandmarkWay) -> [PlaceInfo]{
+
+        if wayid == LandmarkWay.all {
+            let queryString = "SELECT * FROM place WHERE addressid = \(addressid);"
+            return queryOfPlaceInfos(with: queryString)
+        }
+        
+        let queryString = "SELECT distinct place.* from place,landmarkway where (formid = 1 and place.placeid=landmarkway.placeid and addressid =\(addressid) and wayid =\(wayid.rawValue) ) or (formid = 2 and addressid =\(addressid)) or (formid = 3 and addressid =\(addressid));"
+        
+        return queryOfPlaceInfos(with: queryString)
+    }
+    
+    
+    // PlaceInfo Related
+    func getAbstract(of placeId: Int) -> String{
+        let queryString = "SELECT abstract FROM landmarkticket WHERE placeid = \(placeId);"
+        var queryStatement: OpaquePointer? = nil
+        var abstract: String = ""
+        
+        if sqlite3_prepare_v2(db, queryString, -1, &queryStatement, nil) == SQLITE_OK {
+            while sqlite3_step(queryStatement) == SQLITE_ROW {
+                
+                let text = sqlite3_column_text(queryStatement, 0)
+                abstract = String(cString: text!)
+            }
+            
+        } else {
+            print("getAbstract(\(placeId)) query not exist")
+        }
+        return abstract
+    }
+    
+    func getAllCityNames() -> [String]{
+        let queryString = "SELECT DISTINCT city FROM address;"
+        var queryStatement: OpaquePointer? = nil
+        var names: [String] = []
+        
+        if sqlite3_prepare_v2(db, queryString, -1, &queryStatement, nil) == SQLITE_OK {
+            while sqlite3_step(queryStatement) == SQLITE_ROW {
+                
+                let queryResultCol1 = sqlite3_column_text(queryStatement, 0)
+                let name = String(cString: queryResultCol1!)
+                
+                names.append(name)
+            }
+        } else {
+            print("getAllCityNames() query not prepared")
+        }
+        return names
+    }
+    
+    func getCityDistrict(city: String) -> [String]{
+        let queryString = "SELECT district FROM address WHERE city='\(city)';"
+        var queryStatement: OpaquePointer? = nil
+        var names: [String] = []
+        
+        if sqlite3_prepare_v2(db, queryString, -1, &queryStatement, nil) == SQLITE_OK {
+            while sqlite3_step(queryStatement) == SQLITE_ROW {
+                
+                let queryResultCol1 = sqlite3_column_text(queryStatement, 0)
+                let name = String(cString: queryResultCol1!)
+                
+                names.append(name)
+            }
+            
+        } else {
+            print("getCityDistrict() query not prepared")
+        }
+        return names
+    }
+    
+    func getAddressById(_ id: Int32) -> String?{
+        let queryString = "SELECT * FROM address WHERE addressid= \(id);"
+        var queryStatement: OpaquePointer? = nil
+        var address: String?
+        
+        if sqlite3_prepare_v2(db, queryString, -1, &queryStatement, nil) == SQLITE_OK {
+            if sqlite3_step(queryStatement) == SQLITE_ROW {
+                
+                let queryResultCol1 = sqlite3_column_text(queryStatement, 1)
+                let queryResultCol2 = sqlite3_column_text(queryStatement, 2)
+                address = String(cString: queryResultCol1!) + String(cString: queryResultCol2!)
+            }
+            
+        } else {
+            print("getAddressById() query not prepared")
+        }
+        return address
+    }
+    
+    
+    // Tickets
+    func getNormalTicketId(of placeId: Int32) -> Int32{
+        let queryString = "SELECT ticket FROM landmarkticket WHERE placeid = \(placeId) AND identityid = 1;"
+        var queryStatement: OpaquePointer? = nil
+        var ticketId: Int32 = -1
+        
+        if sqlite3_prepare_v2(db, queryString, -1, &queryStatement, nil) == SQLITE_OK {
+            if sqlite3_step(queryStatement) == SQLITE_ROW {
+             
+                ticketId = sqlite3_column_int(queryStatement, 0)
+            }   
+        } else {
+            print("getNormalTicketId(\(placeId)) query not exist")
+        }
+        return ticketId
+    }
+    
+    func getTickcetInfos(of placeId: Int) -> [TicketInfo]{
+        let queryString = "SELECT * FROM landmarkticket WHERE placeid = \(placeId);"
+        var queryStatement: OpaquePointer? = nil
+        var ticketInfos: [TicketInfo] = []
+        
+        if sqlite3_prepare_v2(db, queryString, -1, &queryStatement, nil) == SQLITE_OK {
+            while sqlite3_step(queryStatement) == SQLITE_ROW {
+                
+                let identity = sqlite3_column_text(queryStatement, 1)
+                let price = sqlite3_column_int(queryStatement, 2)
+                
+                let ticket = TicketInfo(identity: String(cString: identity!), cost: Int(price))
+                
+                ticketInfos.append(ticket)
+            }
+            
+        } else {
+            print("getTickcetInfos(\(placeId)) query not exist")
+        }
+        return ticketInfos
+    }
+    
+    
+    // Favorites
+    func ifPlaceIsFavorite(of userid: String, placeid: Int) -> Bool {
+       
+        return false
+    }
+    
+    func alterFavorites(of userid: String, placeid: Int) -> Bool {
+        // Either Add or Del from one's favorite list, return successful or not
+        
+        return false
+    }
+    
+    func getFavoritePlaces(of userid: Int) -> [PlaceInfo] {
+        // TODO
+        let queryString = ""
+        return queryOfPlaceInfos(with: queryString)
+    }
+    
+    // Ratings
+    func getRatings(of placeid: Int, by userid: String) -> Int {
+        
+        return 0
+    }
+    
+    
+    // AutoPlanning Related:
+    // Nearby queries & Time constrained queries
+    func searchForDiningPlaces(near placeid: Int, considerOf timeFactor: Int) -> [PlaceInfo] {
+        // TODO
+        let queryString = ""
+        return queryOfPlaceInfos(with: queryString)
+    }
+    
+    func searchForLandmarks(with wayid: LandmarkWay, near addressid: Int, considerOf timeFactor: Int) -> [PlaceInfo]  {
+        // TODO
+        let queryString = ""
+        return queryOfPlaceInfos(with: queryString)
+    }
+    
+    func searchForHotels(near addressid: Int) -> [PlaceInfo]  {
+        // TODO
+        let queryString = ""
+        return queryOfPlaceInfos(with: queryString)
+    }
+    
+    func getAvailableTransportation(near addressid: Int) -> [PlaceInfo]  {
+        // TODO
+        let queryString = ""
+        return queryOfPlaceInfos(with: queryString)
+    }
+    
+    
+    // Diary
+    
+    /*** Private Helper Functions Below NOT FOR CALL ***/
     private func getScore(of placeId: Int32) -> Score{
         let queryString = "SELECT * FROM score WHERE placeid = \(placeId);"
         var queryStatement: OpaquePointer? = nil
@@ -42,7 +249,7 @@ class DBManager{
                 
                 let score = sqlite3_column_int(queryStatement, 2)
                 total = total + Double(score)
-                count = count +  1            
+                count = count +  1
             }
         } else {
             print("getScore(\(placeId)) query not exist")
@@ -70,7 +277,7 @@ class DBManager{
                 if let roadno = sqlite3_column_text(queryStatement, 3) {
                     road = String(cString: roadno)
                 }
-
+                
                 var address = getAddressById(addressid)
                 address?.append(road)
                 
@@ -134,148 +341,5 @@ class DBManager{
         }
         
         return queryString
-    }
-    
-    func searchForPlaceInfos(with searchText: String, of form: Int) -> [PlaceInfo]{
-        var queryString = "SELECT * FROM place WHERE name LIKE '%\(searchText)%'"
-        queryString = addFormRule(to: queryString, with: form)
-        
-        return queryOfPlaceInfos(with: queryString)
-    }
-    
-    func searchForPlaceInfos(by addressid: Int, of form: Int) -> [PlaceInfo]{
-        var queryString = "SELECT * FROM place WHERE addressid = \(addressid)"
-        queryString = addFormRule(to: queryString, with: form)
-
-        return queryOfPlaceInfos(with: queryString)
-    }
-    
-    func searchForPlaceInfos(by addressid: Int, with wayid: LandmarkWay) -> [PlaceInfo]{
-
-        if wayid == LandmarkWay.all {
-            let queryString = "SELECT * FROM place WHERE addressid = \(addressid);"
-            return queryOfPlaceInfos(with: queryString)
-        }
-        
-        let queryString = "SELECT distinct place.* from place,landmarkway where (formid = 1 and place.placeid=landmarkway.placeid and addressid =\(addressid) and wayid =\(wayid.rawValue) ) or (formid = 2 and addressid =\(addressid)) or (formid = 3 and addressid =\(addressid));"
-        
-        return queryOfPlaceInfos(with: queryString)
-    }
-    
-    func getNormalTicketId(of placeId: Int32) -> Int32{
-        let queryString = "SELECT ticket FROM landmarkticket WHERE placeid = \(placeId) AND identityid = 1;"
-        var queryStatement: OpaquePointer? = nil
-        var ticketId: Int32 = -1
-        
-        if sqlite3_prepare_v2(db, queryString, -1, &queryStatement, nil) == SQLITE_OK {
-            if sqlite3_step(queryStatement) == SQLITE_ROW {
-             
-                ticketId = sqlite3_column_int(queryStatement, 0)
-            }   
-        } else {
-            print("getNormalTicketId(\(placeId)) query not exist")
-        }
-        return ticketId
-    }
-    
-    func getTickcetInfos(of placeId: Int) -> [TicketInfo]{
-        let queryString = "SELECT * FROM landmarkticket WHERE placeid = \(placeId);"
-        var queryStatement: OpaquePointer? = nil
-        var ticketInfos: [TicketInfo] = []
-        
-        if sqlite3_prepare_v2(db, queryString, -1, &queryStatement, nil) == SQLITE_OK {
-            while sqlite3_step(queryStatement) == SQLITE_ROW {
-                
-                let identity = sqlite3_column_text(queryStatement, 1)
-                let price = sqlite3_column_int(queryStatement, 2)
-                
-                let ticket = TicketInfo(identity: String(cString: identity!), cost: Int(price))
-                
-                ticketInfos.append(ticket)
-            }
-            
-        } else {
-            print("getTickcetInfos(\(placeId)) query not exist")
-        }
-        return ticketInfos
-    }
-    
-    func getAbstract(of placeId: Int) -> String{
-        let queryString = "SELECT abstract FROM landmarkticket WHERE placeid = \(placeId);"
-        var queryStatement: OpaquePointer? = nil
-        var abstract: String = ""
-        
-        if sqlite3_prepare_v2(db, queryString, -1, &queryStatement, nil) == SQLITE_OK {
-            while sqlite3_step(queryStatement) == SQLITE_ROW {
-                
-                let text = sqlite3_column_text(queryStatement, 0)
-                abstract = String(cString: text!)
-            }
-            
-        } else {
-            print("getAbstract(\(placeId)) query not exist")
-        }
-        return abstract
-    }
-    
-    func getAllCityNames() -> [String]{
-        let queryString = "SELECT DISTINCT city FROM address;"
-        var queryStatement: OpaquePointer? = nil
-        var names: [String] = []
-
-        if sqlite3_prepare_v2(db, queryString, -1, &queryStatement, nil) == SQLITE_OK {
-            while sqlite3_step(queryStatement) == SQLITE_ROW {
-                
-                let queryResultCol1 = sqlite3_column_text(queryStatement, 0)
-                let name = String(cString: queryResultCol1!)
-
-                names.append(name)
-            }
-        } else {
-            print("getAllCityNames() query not prepared")
-        }
-        return names
-    }
-    
-    func getCityDistrict(city: String) -> [String]{
-        let queryString = "SELECT district FROM address WHERE city='\(city)';"
-        var queryStatement: OpaquePointer? = nil
-        var names: [String] = []
-        
-        if sqlite3_prepare_v2(db, queryString, -1, &queryStatement, nil) == SQLITE_OK {
-            while sqlite3_step(queryStatement) == SQLITE_ROW {
-            
-                let queryResultCol1 = sqlite3_column_text(queryStatement, 0)
-                let name = String(cString: queryResultCol1!)
-                
-                names.append(name)
-            }
-            
-        } else {
-            print("getCityDistrict() query not prepared")
-        }
-        return names
-    }
-    
-    func getAddressById(_ id: Int32) -> String?{
-        let queryString = "SELECT * FROM address WHERE addressid= \(id);"
-        var queryStatement: OpaquePointer? = nil
-        var address: String?
-        
-        if sqlite3_prepare_v2(db, queryString, -1, &queryStatement, nil) == SQLITE_OK {
-            if sqlite3_step(queryStatement) == SQLITE_ROW {
-                
-                let queryResultCol1 = sqlite3_column_text(queryStatement, 1)
-                let queryResultCol2 = sqlite3_column_text(queryStatement, 2)
-                address = String(cString: queryResultCol1!) + String(cString: queryResultCol2!)
-            }
-            
-        } else {
-            print("getAddressById() query not prepared")
-        }
-        return address
-    }
-    deinit {
-        sqlite3_close(db)
     }
 }
