@@ -16,6 +16,13 @@ enum PlaceForm: Int32 {
     
 }
 
+// Information for whether a landmark is indoor/outdoor preferred
+enum LandmarkWay: Int32 {
+    case indoor = 1
+    case outdoor = 2
+    case all = 3
+}
+
 struct Score {
     var average = 0.0
     var total = 0

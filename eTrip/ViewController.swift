@@ -21,7 +21,7 @@ class ViewController: UITableViewController {
         db = DBManager.instance
         db.test()
         // TESTs for Database read
-        placeInfos = db.searchForPlaceInfos(with: "", of: 4)
+        placeInfos = db.searchForPlaceInfos(by: 243, with: LandmarkWay.all)
         for place in placeInfos {
             image.image = place.getUIImage()
             

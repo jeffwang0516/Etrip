@@ -27,7 +27,7 @@ class DBManager{
         print(getCityDistrict(city: "臺北市"))
         print(getAddressById(100))
         print(searchForPlaceInfos(with: "舊金山", of: 4))
-        print(getScore(of: 334))
+        print(getScore(of: 334)) 
         
     }
     
@@ -116,9 +116,9 @@ class DBManager{
         return placeInfos.sorted(by: >)
     }
     
-    
-    func searchForPlaceInfos(with searchText: String, of form: Int) -> [PlaceInfo]{
-        var queryString = "SELECT * FROM place WHERE name LIKE '%\(searchText)%'"
+    private func addFormRule(to originalQueryString: String, with form: Int) -> String {
+        
+        var queryString = originalQueryString
         
         switch form {
         case 1, 2, 3:
@@ -133,26 +133,31 @@ class DBManager{
             queryString.append(";")
         }
         
+        return queryString
+    }
+    
+    func searchForPlaceInfos(with searchText: String, of form: Int) -> [PlaceInfo]{
+        var queryString = "SELECT * FROM place WHERE name LIKE '%\(searchText)%'"
+        queryString = addFormRule(to: queryString, with: form)
         
         return queryOfPlaceInfos(with: queryString)
-        
     }
     
     func searchForPlaceInfos(by addressid: Int, of form: Int) -> [PlaceInfo]{
         var queryString = "SELECT * FROM place WHERE addressid = \(addressid)"
-        switch form {
-        case 1, 2, 3:
-            queryString.append(" AND formid = \(form);")
-        case 12:
-            queryString.append(" AND formid != 3;")
-        case 23:
-            queryString.append(" AND formid != 1;")
-        case 13:
-            queryString.append(" AND formid != 2;")
-        default:
-            queryString.append(";")
+        queryString = addFormRule(to: queryString, with: form)
+
+        return queryOfPlaceInfos(with: queryString)
+    }
+    
+    func searchForPlaceInfos(by addressid: Int, with wayid: LandmarkWay) -> [PlaceInfo]{
+
+        if wayid == LandmarkWay.all {
+            let queryString = "SELECT * FROM place WHERE addressid = \(addressid);"
+            return queryOfPlaceInfos(with: queryString)
         }
         
+        let queryString = "SELECT distinct place.* from place,landmarkway where (formid = 1 and place.placeid=landmarkway.placeid and addressid =\(addressid) and wayid =\(wayid.rawValue) ) or (formid = 2 and addressid =\(addressid)) or (formid = 3 and addressid =\(addressid));"
         
         return queryOfPlaceInfos(with: queryString)
     }
