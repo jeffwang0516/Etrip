@@ -13,9 +13,11 @@ class FavoriteViewController: UIViewController {
     @IBOutlet weak var restaurantButton: UIButton!
     @IBOutlet weak var hotelButton: UIButton!
     
+    let colorClicked = UIColor(red: 92/255, green: 0, blue: 0, alpha: 1)
+    let colorUnclicked = UIColor(red: 177/255, green: 49/255, blue: 45/255, alpha: 1)
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
 
@@ -27,25 +29,24 @@ class FavoriteViewController: UIViewController {
     @IBAction func searchFavorite(_ sender: UIButton) {
         switch sender {
         case landmarkButton:
-            landmarkButton.backgroundColor = UIColor(red: 92/255, green: 0, blue: 0, alpha: 1)
-
-            restaurantButton.backgroundColor = UIColor(red: 177/255, green: 49/255, blue: 45/255, alpha: 1)
-            hotelButton.backgroundColor = UIColor(red: 177/255, green: 49/255, blue: 45/255, alpha: 1)
+            landmarkButton.backgroundColor = colorClicked
+            restaurantButton.backgroundColor = colorUnclicked
+            hotelButton.backgroundColor = colorUnclicked
             //search favoriteLM and list in table view
         case restaurantButton:
-            restaurantButton.backgroundColor = UIColor(red: 92/255, green: 0, blue: 0, alpha: 1)
-            landmarkButton.backgroundColor = UIColor(red: 177/255, green: 49/255, blue: 45/255, alpha: 1)
-            hotelButton.backgroundColor = UIColor(red: 177/255, green: 49/255, blue: 45/255, alpha: 1)
+            restaurantButton.backgroundColor = colorClicked
+            landmarkButton.backgroundColor = colorUnclicked
+            hotelButton.backgroundColor = colorUnclicked
             //search favoriteRest and list in table view
         case hotelButton:
-            hotelButton.backgroundColor = UIColor(red: 92/255, green: 0, blue: 0, alpha: 1)
-            landmarkButton.backgroundColor = UIColor(red: 177/255, green: 49/255, blue: 45/255, alpha: 1)
-            restaurantButton.backgroundColor = UIColor(red: 177/255, green: 49/255, blue: 45/255, alpha: 1)
+            hotelButton.backgroundColor = colorClicked
+            landmarkButton.backgroundColor = colorUnclicked
+            restaurantButton.backgroundColor = colorUnclicked
             //search favoriteHotel and list in table view
         default:
-            landmarkButton.backgroundColor = UIColor(red: 92/255, green: 0, blue: 0, alpha: 1)
-            restaurantButton.backgroundColor = UIColor(red: 177/255, green: 49/255, blue: 45/255, alpha: 1)
-            hotelButton.backgroundColor = UIColor(red: 177/255, green: 49/255, blue: 45/255, alpha: 1)
+            landmarkButton.backgroundColor = colorClicked
+            restaurantButton.backgroundColor = colorUnclicked
+            hotelButton.backgroundColor = colorUnclicked
             //search favoriteLM and list in table view
         }
         

@@ -11,6 +11,16 @@ import UIKit
 class SearchViewController: UIViewController {
 
     let db = DBManager.instance
+    
+    @IBOutlet weak var landmarkButton: UIButton!
+    @IBOutlet weak var restaurantButton: UIButton!
+    @IBOutlet weak var hotelButton: UIButton!
+    
+    var isLandMarkButtonClicked = true
+    var isRestaurantButtonClicked = true
+    var isHotelButtonClicked = true
+    var placeFormCodeForQuery = Int(PlaceForm.all.rawValue)
+    
     @IBOutlet weak var tableView: UITableView!
     var placeInfos: [PlaceInfo] = []
     
@@ -36,6 +46,10 @@ class SearchViewController: UIViewController {
         
         searchBar.delegate = self
         activityIndicator.isHidden = true
+        
+        landmarkButton.backgroundColor = colorClicked
+        restaurantButton.backgroundColor = colorClicked
+        hotelButton.backgroundColor = colorClicked
 //        searchBar.contro
 //
 //        self.searchController = ({
@@ -53,7 +67,59 @@ class SearchViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
+    
+    let colorClicked = UIColor(red: 92/255, green: 0, blue: 0, alpha: 1)
+    let colorUnclicked = UIColor(red: 177/255, green: 49/255, blue: 45/255, alpha: 1)
+    @IBAction func buttonClicked(_ sender: UIButton) {
+        switch sender {
+            case landmarkButton:
+                if isLandMarkButtonClicked {
+                    landmarkButton.backgroundColor = colorUnclicked
+                    isLandMarkButtonClicked = false
+                } else {
+                    landmarkButton.backgroundColor = colorClicked
+                    isLandMarkButtonClicked = true
+                }
+            
+            //search favoriteLM and list in table view
+            case restaurantButton:
+                if isRestaurantButtonClicked {
+                    restaurantButton.backgroundColor = colorUnclicked
+                    isRestaurantButtonClicked = false
+                } else {
+                    restaurantButton.backgroundColor = colorClicked
+                    isRestaurantButtonClicked = true
+                }
+            //search favoriteRest and list in table view
+            case hotelButton:
+                if isHotelButtonClicked {
+                    hotelButton.backgroundColor = colorUnclicked
+                    isHotelButtonClicked = false
+                } else {
+                    hotelButton.backgroundColor = colorClicked
+                    isHotelButtonClicked = true
+                }
+            //search favoriteHotel and list in table view
+            default:
+                landmarkButton.backgroundColor = colorUnclicked
+                restaurantButton.backgroundColor = colorUnclicked
+                hotelButton.backgroundColor = colorUnclicked
+                //search favoriteLM and list in table view
+        }
+        
+        var form = ""
+        if isLandMarkButtonClicked { form.append("\(PlaceForm.landmark.rawValue)")}
+        if isRestaurantButtonClicked { form.append("\(PlaceForm.restaurant.rawValue)")}
+        if isHotelButtonClicked { form.append("\(PlaceForm.hotel.rawValue)")}
+        
+        guard let code = Int(form) else {
+            self.placeFormCodeForQuery = Int(PlaceForm.all.rawValue)
+            return
+        }
+        self.placeFormCodeForQuery = code
+    }
+   
+    
     /*
     // MARK: - Navigation
 
@@ -108,41 +174,25 @@ extension SearchViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         
-        guard let searchString = searchBar.text else {
+        guard let searchString = searchBar.text,  searchString.count > 0 else {
             return
         }
         activityIndicator.isHidden = false
         activityIndicator.startAnimating()
+
+        self.tableView.isUserInteractionEnabled = false
         DispatchQueue.global().async {
-            
-            self.placeInfos = self.db.searchForPlaceInfos(with: searchString, of: Int(PlaceForm.all.rawValue))
+//            print(self.placeFormCodeForQuery)
+            self.placeInfos = self.db.searchForPlaceInfos(with: searchString, of: self.placeFormCodeForQuery)
             DispatchQueue.main.async {
                 self.tableView.reloadData()
                 self.activityIndicator.stopAnimating()
                 self.activityIndicator.isHidden = true
+                self.tableView.isUserInteractionEnabled = true
             }          
         }
     
         self.searchBar.endEditing(true)
         searchActive = false;
     }
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
-//        print(searchText)
-//        filtered = data.filter({ (text) -> Bool in
-//            let tmp: NSString = text
-//            let range = tmp.rangeOfString(searchText, options: NSStringCompareOptions.CaseInsensitiveSearch)
-//            return range.location != NSNotFound
-//        })
-//        if(filtered.count == 0){
-//            searchActive = false;
-//        } else {
-//            searchActive = true;
-//        }
-//        self.tableView.reloadData()
-    }
-    
-    
-    
 }
