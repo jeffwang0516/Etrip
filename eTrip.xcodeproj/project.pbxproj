@@ -16,6 +16,12 @@
 		1FD54CBA20BA01F7001AE1C1 /* PlaceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD54CB920BA01F7001AE1C1 /* PlaceInfo.swift */; };
 		1FD54CBC20BAA9E7001AE1C1 /* TicketInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD54CBB20BAA9E7001AE1C1 /* TicketInfo.swift */; };
 		1FD54CBE20BADE57001AE1C1 /* etrip.db in Resources */ = {isa = PBXBuildFile; fileRef = 1FD54CBD20BADE57001AE1C1 /* etrip.db */; };
+		8C08104720BEC44D0068B44C /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C08104620BEC44D0068B44C /* SearchViewController.swift */; };
+		8C08104D20BEC4A50068B44C /* PlaceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C08104C20BEC4A50068B44C /* PlaceTableViewCell.swift */; };
+		8C08104F20BECFC70068B44C /* LocationCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C08104E20BECFC70068B44C /* LocationCollectionViewController.swift */; };
+		8C08105120BED47D0068B44C /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C08105020BED47D0068B44C /* FavoriteViewController.swift */; };
+		8C08105320BED4AF0068B44C /* AutoPlaneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C08105220BED4AF0068B44C /* AutoPlaneViewController.swift */; };
+		8C08105520BED4D40068B44C /* DiaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C08105420BED4D40068B44C /* DiaryViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +36,12 @@
 		1FD54CB920BA01F7001AE1C1 /* PlaceInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInfo.swift; sourceTree = "<group>"; };
 		1FD54CBB20BAA9E7001AE1C1 /* TicketInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketInfo.swift; sourceTree = "<group>"; };
 		1FD54CBD20BADE57001AE1C1 /* etrip.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = etrip.db; sourceTree = "<group>"; };
+		8C08104620BEC44D0068B44C /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		8C08104C20BEC4A50068B44C /* PlaceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceTableViewCell.swift; sourceTree = "<group>"; };
+		8C08104E20BECFC70068B44C /* LocationCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCollectionViewController.swift; sourceTree = "<group>"; };
+		8C08105020BED47D0068B44C /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
+		8C08105220BED4AF0068B44C /* AutoPlaneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoPlaneViewController.swift; sourceTree = "<group>"; };
+		8C08105420BED4D40068B44C /* DiaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +84,12 @@
 				1FD54CB720B9E60A001AE1C1 /* DBManager.swift */,
 				1FD54CB920BA01F7001AE1C1 /* PlaceInfo.swift */,
 				1FD54CBB20BAA9E7001AE1C1 /* TicketInfo.swift */,
+				8C08104620BEC44D0068B44C /* SearchViewController.swift */,
+				8C08104C20BEC4A50068B44C /* PlaceTableViewCell.swift */,
+				8C08104E20BECFC70068B44C /* LocationCollectionViewController.swift */,
+				8C08105020BED47D0068B44C /* FavoriteViewController.swift */,
+				8C08105220BED4AF0068B44C /* AutoPlaneViewController.swift */,
+				8C08105420BED4D40068B44C /* DiaryViewController.swift */,
 			);
 			path = eTrip;
 			sourceTree = "<group>";
@@ -148,10 +166,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C08104720BEC44D0068B44C /* SearchViewController.swift in Sources */,
 				1FD54CA620B9E3FC001AE1C1 /* ViewController.swift in Sources */,
+				8C08104D20BEC4A50068B44C /* PlaceTableViewCell.swift in Sources */,
+				8C08105520BED4D40068B44C /* DiaryViewController.swift in Sources */,
 				1FD54CB820B9E60A001AE1C1 /* DBManager.swift in Sources */,
+				8C08105120BED47D0068B44C /* FavoriteViewController.swift in Sources */,
 				1FD54CA420B9E3FC001AE1C1 /* AppDelegate.swift in Sources */,
+				8C08104F20BECFC70068B44C /* LocationCollectionViewController.swift in Sources */,
 				1FD54CBC20BAA9E7001AE1C1 /* TicketInfo.swift in Sources */,
+				8C08105320BED4AF0068B44C /* AutoPlaneViewController.swift in Sources */,
 				1FD54CBA20BA01F7001AE1C1 /* PlaceInfo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
