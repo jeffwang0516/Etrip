@@ -47,9 +47,13 @@ class SearchViewController: UIViewController {
         searchBar.delegate = self
         activityIndicator.isHidden = true
         
-        landmarkButton.backgroundColor = colorClicked
-        restaurantButton.backgroundColor = colorClicked
-        hotelButton.backgroundColor = colorClicked
+        landmarkButton.backgroundColor = UIColor.clear
+        restaurantButton.backgroundColor = UIColor.clear
+        hotelButton.backgroundColor = UIColor.clear
+        buttonHightlight(landmarkButton)
+        buttonHightlight(restaurantButton)
+        buttonHightlight(hotelButton)
+
 //        searchBar.contro
 //
 //        self.searchController = ({
@@ -69,41 +73,41 @@ class SearchViewController: UIViewController {
     
     
     let colorClicked = UIColor(red: 92/255, green: 0, blue: 0, alpha: 1)
-    let colorUnclicked = UIColor(red: 177/255, green: 49/255, blue: 45/255, alpha: 1)
+    let colorUnclicked = UIColor(red: 177/255, green: 177/255, blue: 177/255, alpha: 1)
     @IBAction func buttonClicked(_ sender: UIButton) {
         switch sender {
             case landmarkButton:
                 if isLandMarkButtonClicked {
-                    landmarkButton.backgroundColor = colorUnclicked
+                    buttonLowlight(landmarkButton)
                     isLandMarkButtonClicked = false
                 } else {
-                    landmarkButton.backgroundColor = colorClicked
+                    buttonHightlight(landmarkButton)
                     isLandMarkButtonClicked = true
                 }
             
             //search favoriteLM and list in table view
             case restaurantButton:
                 if isRestaurantButtonClicked {
-                    restaurantButton.backgroundColor = colorUnclicked
+                    buttonLowlight(restaurantButton)
                     isRestaurantButtonClicked = false
                 } else {
-                    restaurantButton.backgroundColor = colorClicked
+                    buttonHightlight(restaurantButton)
                     isRestaurantButtonClicked = true
                 }
             //search favoriteRest and list in table view
             case hotelButton:
                 if isHotelButtonClicked {
-                    hotelButton.backgroundColor = colorUnclicked
+                    buttonLowlight(hotelButton)
                     isHotelButtonClicked = false
                 } else {
-                    hotelButton.backgroundColor = colorClicked
+                    buttonHightlight(hotelButton)
                     isHotelButtonClicked = true
                 }
             //search favoriteHotel and list in table view
             default:
-                landmarkButton.backgroundColor = colorUnclicked
-                restaurantButton.backgroundColor = colorUnclicked
-                hotelButton.backgroundColor = colorUnclicked
+                buttonHightlight(landmarkButton)
+                buttonHightlight(restaurantButton)
+                buttonHightlight(hotelButton)
                 //search favoriteLM and list in table view
         }
         
@@ -118,7 +122,15 @@ class SearchViewController: UIViewController {
         }
         self.placeFormCodeForQuery = code
     }
-   
+    
+    func buttonLowlight(_ button: UIButton){
+        button.setTitleColor(colorUnclicked, for: UIControlState.normal)
+        button.titleLabel?.font = UIFont.italicSystemFont(ofSize: 18)
+    }
+    func buttonHightlight(_ button: UIButton){
+        button.setTitleColor(colorClicked, for: UIControlState.normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+    }
     
     /*
     // MARK: - Navigation
