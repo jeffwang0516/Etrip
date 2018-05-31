@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AutoPlaneViewController: UIViewController {
+class AutoPlanViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

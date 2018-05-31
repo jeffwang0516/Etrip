@@ -9,13 +9,38 @@
 import UIKit
 
 class FavoriteViewController: UIViewController {
+    // User id for test
+    let testUserId = "TCA"
+    
+    let db = DBManager.instance
+    
+    @IBOutlet weak var tableView: UITableView!
+    var placeInfoListToDisplay: [PlaceInfo] = []
+    var favoriteLandmark: [PlaceInfo] = []
+    var favoriteRestaurant: [PlaceInfo] = []
+    var favoriteHotel: [PlaceInfo] = []
+    
     @IBOutlet weak var landmarkButton: UIButton!
     @IBOutlet weak var restaurantButton: UIButton!
     @IBOutlet weak var hotelButton: UIButton!
     
+    let colorClicked = UIColor(red: 92/255, green: 0, blue: 0, alpha: 1)
+    let colorUnclicked = UIColor(red: 177/255, green: 49/255, blue: 45/255, alpha: 1)
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        
+        self.favoriteLandmark = db.getFavoritePlaces(of: testUserId, with: Int(PlaceForm.landmark.rawValue))
+        self.favoriteRestaurant = db.getFavoritePlaces(of: testUserId, with: Int(PlaceForm.restaurant.rawValue))
+        self.favoriteHotel = db.getFavoritePlaces(of: testUserId, with: Int(PlaceForm.hotel.rawValue))
+        
+        self.placeInfoListToDisplay = self.favoriteLandmark
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
 
@@ -26,28 +51,36 @@ class FavoriteViewController: UIViewController {
     
     @IBAction func searchFavorite(_ sender: UIButton) {
         switch sender {
-        case landmarkButton:
-            landmarkButton.backgroundColor = UIColor(red: 92/255, green: 0, blue: 0, alpha: 1)
-
-            restaurantButton.backgroundColor = UIColor(red: 177/255, green: 49/255, blue: 45/255, alpha: 1)
-            hotelButton.backgroundColor = UIColor(red: 177/255, green: 49/255, blue: 45/255, alpha: 1)
-            //search favoriteLM and list in table view
-        case restaurantButton:
-            restaurantButton.backgroundColor = UIColor(red: 92/255, green: 0, blue: 0, alpha: 1)
-            landmarkButton.backgroundColor = UIColor(red: 177/255, green: 49/255, blue: 45/255, alpha: 1)
-            hotelButton.backgroundColor = UIColor(red: 177/255, green: 49/255, blue: 45/255, alpha: 1)
-            //search favoriteRest and list in table view
-        case hotelButton:
-            hotelButton.backgroundColor = UIColor(red: 92/255, green: 0, blue: 0, alpha: 1)
-            landmarkButton.backgroundColor = UIColor(red: 177/255, green: 49/255, blue: 45/255, alpha: 1)
-            restaurantButton.backgroundColor = UIColor(red: 177/255, green: 49/255, blue: 45/255, alpha: 1)
-            //search favoriteHotel and list in table view
-        default:
-            landmarkButton.backgroundColor = UIColor(red: 92/255, green: 0, blue: 0, alpha: 1)
-            restaurantButton.backgroundColor = UIColor(red: 177/255, green: 49/255, blue: 45/255, alpha: 1)
-            hotelButton.backgroundColor = UIColor(red: 177/255, green: 49/255, blue: 45/255, alpha: 1)
-            //search favoriteLM and list in table view
+            case landmarkButton:
+                landmarkButton.backgroundColor = colorClicked
+                restaurantButton.backgroundColor = colorUnclicked
+                hotelButton.backgroundColor = colorUnclicked
+                
+                placeInfoListToDisplay = self.favoriteLandmark
+                //search favoriteLM and list in table view
+            case restaurantButton:
+                restaurantButton.backgroundColor = colorClicked
+                landmarkButton.backgroundColor = colorUnclicked
+                hotelButton.backgroundColor = colorUnclicked
+                
+                placeInfoListToDisplay = self.favoriteRestaurant
+                //search favoriteRest and list in table view
+            case hotelButton:
+                hotelButton.backgroundColor = colorClicked
+                landmarkButton.backgroundColor = colorUnclicked
+                restaurantButton.backgroundColor = colorUnclicked
+                
+                placeInfoListToDisplay = self.favoriteHotel
+                //search favoriteHotel and list in table view
+            default:
+                landmarkButton.backgroundColor = colorClicked
+                restaurantButton.backgroundColor = colorUnclicked
+                hotelButton.backgroundColor = colorUnclicked
+                //search favoriteLM and list in table view
         }
+        
+        self.tableView.reloadData()
+        
         
     }
     
@@ -61,5 +94,27 @@ class FavoriteViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    
 }
+
+extension FavoriteViewController: UITableViewDelegate, UITableViewDataSource{
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return placeInfoListToDisplay.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let placeCell = tableView.dequeueReusableCell(withIdentifier: "PlaceCellFavorite", for: indexPath) as! PlaceTableViewCell
+        let placeInfo = placeInfoListToDisplay[indexPath.row]
+        
+        placeCell.updateUIDisplays(name: placeInfo.name, address: placeInfo.address, rateScore: placeInfo.score, image: placeInfo.getUIImage())
+        
+        return placeCell
+    }
+    
+}
+

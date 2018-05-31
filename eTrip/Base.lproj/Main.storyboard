@@ -23,12 +23,16 @@
                                 <rect key="frame" x="0.0" y="60" width="375" height="56"/>
                                 <offsetWrapper key="searchTextPositionAdjustment" horizontal="0.0" vertical="0.0"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <scopeButtonTitles>
+                                    <string>Title</string>
+                                    <string>Title</string>
+                                </scopeButtonTitles>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="VQP-vc-n9U">
                                 <rect key="frame" x="0.0" y="150" width="375" height="468"/>
                                 <color key="backgroundColor" red="1" green="0.99215686270000003" blue="0.90588235289999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="131" id="jOG-D6-RVi" customClass="PlaceTableViewCell" customModule="eTrip" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PlaceCell" rowHeight="131" id="jOG-D6-RVi" customClass="PlaceTableViewCell" customModule="eTrip" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="131"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jOG-D6-RVi" id="GKa-iN-lWL">
@@ -40,18 +44,22 @@
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZZU-OT-hT5">
                                                             <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="120" id="31T-0X-yag"/>
+                                                                <constraint firstAttribute="height" priority="750" constant="120" id="jmK-eo-zhs"/>
+                                                            </constraints>
                                                         </imageView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="cKL-MX-hil">
                                                             <rect key="frame" x="125" y="0.0" width="250" height="120"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H5u-Hq-qtT">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H5u-Hq-qtT" userLabel="Name">
                                                                     <rect key="frame" x="0.0" y="0.0" width="61.5" height="40"/>
                                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3bP-jZ-fPn">
-                                                                    <rect key="frame" x="0.0" y="40" width="106" height="40"/>
+                                                                    <rect key="frame" x="0.0" y="40" width="241" height="40"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="地址：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yBd-ie-tAC">
                                                                             <rect key="frame" x="0.0" y="0.0" width="46" height="40"/>
@@ -60,7 +68,10 @@
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="address..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ELm-hN-J1a">
-                                                                            <rect key="frame" x="46" y="0.0" width="60" height="40"/>
+                                                                            <rect key="frame" x="46" y="0.0" width="195" height="40"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="width" constant="195" id="1c8-MB-OmG"/>
+                                                                            </constraints>
                                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
@@ -88,7 +99,10 @@
                                                         </stackView>
                                                     </subviews>
                                                     <constraints>
-                                                        <constraint firstItem="cKL-MX-hil" firstAttribute="height" secondItem="XDY-qE-fxE" secondAttribute="height" id="6hJ-5z-xHB"/>
+                                                        <constraint firstItem="cKL-MX-hil" firstAttribute="leading" secondItem="ZZU-OT-hT5" secondAttribute="trailing" constant="5" id="SVq-dI-mfC"/>
+                                                        <constraint firstItem="ZZU-OT-hT5" firstAttribute="leading" secondItem="XDY-qE-fxE" secondAttribute="leading" id="THM-mM-mzZ"/>
+                                                        <constraint firstItem="ZZU-OT-hT5" firstAttribute="top" secondItem="XDY-qE-fxE" secondAttribute="top" id="Vm1-TH-cdT"/>
+                                                        <constraint firstAttribute="bottom" secondItem="ZZU-OT-hT5" secondAttribute="bottom" id="vup-p4-DKQ"/>
                                                     </constraints>
                                                 </stackView>
                                             </subviews>
@@ -100,16 +114,30 @@
                                                 <constraint firstItem="XDY-qE-fxE" firstAttribute="leading" secondItem="GKa-iN-lWL" secondAttribute="leading" constant="5" id="v2u-0A-wFH"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="addressLabel" destination="ELm-hN-J1a" id="6Fs-aP-zjo"/>
+                                            <outlet property="placeNameLabel" destination="H5u-Hq-qtT" id="h3T-oq-jV1"/>
+                                            <outlet property="previewImageView" destination="ZZU-OT-hT5" id="fN9-Dp-gMp"/>
+                                            <outlet property="rateScoreLabel" destination="h6s-Uz-fe3" id="kqF-FD-Lhz"/>
+                                            <segue destination="OCE-hP-vcN" kind="show" identifier="OpenPlaceDetailFromSearch" id="UFa-IR-5mM"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="375" placeholderIntrinsicHeight="40" text="搜尋" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Mf-aX-145">
-                                <rect key="frame" x="-0.5" y="20" width="375" height="40"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="40"/>
                                 <color key="backgroundColor" red="1" green="0.81176470590000005" blue="0.42745098040000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="oBS-X3-mWq">
+                                <rect key="frame" x="137" y="283" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="VKi-rE-0xH"/>
+                                    <constraint firstAttribute="height" constant="100" id="orE-SA-VxP"/>
+                                </constraints>
+                            </activityIndicatorView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="jR1-dU-OaT">
                                 <rect key="frame" x="0.0" y="116" width="375" height="34"/>
                                 <subviews>
@@ -120,6 +148,9 @@
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <color key="titleShadowColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                         </state>
+                                        <connections>
+                                            <action selector="buttonClicked:" destination="1bk-Sn-1HZ" eventType="touchDown" id="fL7-1n-M7d"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b3e-Y6-KYQ" userLabel="餐廳">
                                         <rect key="frame" x="127.5" y="0.0" width="120" height="34"/>
@@ -128,6 +159,9 @@
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <color key="titleShadowColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                         </state>
+                                        <connections>
+                                            <action selector="buttonClicked:" destination="1bk-Sn-1HZ" eventType="touchDown" id="1C4-7c-JXx"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1vL-yy-zDv">
                                         <rect key="frame" x="255.5" y="0.0" width="119.5" height="34"/>
@@ -136,12 +170,17 @@
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <color key="titleShadowColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                         </state>
+                                        <connections>
+                                            <action selector="buttonClicked:" destination="1bk-Sn-1HZ" eventType="touchDown" id="ffZ-ec-Qqv"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="oBS-X3-mWq" firstAttribute="centerX" secondItem="jR1-dU-OaT" secondAttribute="centerX" id="7ky-R8-nz4"/>
+                            <constraint firstItem="oBS-X3-mWq" firstAttribute="centerY" secondItem="cod-9c-Gqn" secondAttribute="centerY" id="EQk-Ub-fb0"/>
                             <constraint firstItem="jR1-dU-OaT" firstAttribute="width" secondItem="cod-9c-Gqn" secondAttribute="width" id="EyM-yI-qWZ"/>
                             <constraint firstItem="VQP-vc-n9U" firstAttribute="width" secondItem="cod-9c-Gqn" secondAttribute="width" id="JT8-dX-gI4"/>
                             <constraint firstItem="Kvo-1F-ZkM" firstAttribute="top" secondItem="6Mf-aX-145" secondAttribute="bottom" id="P0x-e1-3Tf"/>
@@ -159,15 +198,38 @@
                         <viewLayoutGuide key="safeArea" id="dol-op-4g2"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="搜尋" id="h2L-o3-aAL"/>
+                    <connections>
+                        <outlet property="activityIndicator" destination="oBS-X3-mWq" id="7V4-vV-E99"/>
+                        <outlet property="hotelButton" destination="1vL-yy-zDv" id="baV-FM-KHy"/>
+                        <outlet property="landmarkButton" destination="1Nc-aw-ZHd" id="LfQ-hR-lAg"/>
+                        <outlet property="restaurantButton" destination="b3e-Y6-KYQ" id="eoS-To-1YC"/>
+                        <outlet property="searchBar" destination="Kvo-1F-ZkM" id="KQ4-q9-0qf"/>
+                        <outlet property="tableView" destination="VQP-vc-n9U" id="h3r-ya-pgp"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lng-4t-hna" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1440.8" y="178.56071964017991"/>
+            <point key="canvasLocation" x="502" y="1178"/>
+        </scene>
+        <!--地點詳細-->
+        <scene sceneID="36t-yw-nhF">
+            <objects>
+                <viewController title="地點詳細" id="OCE-hP-vcN" customClass="PlaceInfoDetailViewController" customModule="eTrip" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="lw7-wB-U0u">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="JlI-FE-uaP"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="w5l-mC-IOd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1414" y="1988"/>
         </scene>
         <!--Auto-->
         <scene sceneID="dwr-oI-zXZ">
             <objects>
-                <viewController id="IJC-Hh-6ox" customClass="AutoPlaneViewController" customModule="eTrip" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="IJC-Hh-6ox" customClass="AutoPlanViewController" customModule="eTrip" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bAl-3y-qzs">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -281,7 +343,7 @@
                                 <rect key="frame" x="0.0" y="94" width="375" height="524"/>
                                 <color key="backgroundColor" red="1" green="0.99215686270000003" blue="0.90588235289999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="131" id="AN5-od-uIj" customClass="PlaceTableViewCell" customModule="eTrip" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PlaceCellFavorite" rowHeight="131" id="AN5-od-uIj" customClass="PlaceTableViewCell" customModule="eTrip" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="131"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="AN5-od-uIj" id="HlQ-5u-VZJ">
@@ -293,6 +355,10 @@
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0Kb-i7-Vww">
                                                             <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="120" id="MLP-Tb-Bod"/>
+                                                                <constraint firstAttribute="height" priority="750" constant="120" id="oHD-9w-K0M"/>
+                                                            </constraints>
                                                         </imageView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="ggj-PC-da2">
                                                             <rect key="frame" x="125" y="0.0" width="250" height="120"/>
@@ -304,7 +370,7 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DFb-Uj-a0c">
-                                                                    <rect key="frame" x="0.0" y="40" width="106" height="40"/>
+                                                                    <rect key="frame" x="0.0" y="40" width="241" height="40"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="地址：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N2M-uN-awg">
                                                                             <rect key="frame" x="0.0" y="0.0" width="46" height="40"/>
@@ -313,7 +379,10 @@
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="address..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cds-G9-Jf1">
-                                                                            <rect key="frame" x="46" y="0.0" width="60" height="40"/>
+                                                                            <rect key="frame" x="46" y="0.0" width="195" height="40"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="width" constant="195" id="Xi3-As-WSJ"/>
+                                                                            </constraints>
                                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
@@ -353,6 +422,13 @@
                                                 <constraint firstAttribute="bottom" secondItem="Irz-Eq-glV" secondAttribute="bottom" constant="5" id="uw5-Yi-36r"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="addressLabel" destination="cds-G9-Jf1" id="mEH-NB-aWb"/>
+                                            <outlet property="placeNameLabel" destination="gGA-xJ-48S" id="qXk-ff-t2c"/>
+                                            <outlet property="previewImageView" destination="0Kb-i7-Vww" id="TtJ-y8-CRG"/>
+                                            <outlet property="rateScoreLabel" destination="vYD-Xo-zGn" id="8Rd-OE-3ea"/>
+                                            <segue destination="OCE-hP-vcN" kind="show" id="8aC-hm-qOi"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -377,11 +453,12 @@
                         <outlet property="hotelButton" destination="cRy-fm-Me9" id="lEX-Mw-Wc1"/>
                         <outlet property="landmarkButton" destination="eey-va-bZD" id="eQB-k7-BRp"/>
                         <outlet property="restaurantButton" destination="E2t-3t-hsS" id="sfb-Fb-02j"/>
+                        <outlet property="tableView" destination="6bb-TI-v7C" id="AEc-Yx-dfn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bOj-PV-HaM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2378" y="957"/>
+            <point key="canvasLocation" x="2330" y="1178"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="MMv-uV-PgC">
@@ -389,6 +466,7 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="b7i-Ig-Eo3" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="hco-zB-kga">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
@@ -407,7 +485,6 @@
         <!--地區-->
         <scene sceneID="spB-uY-PGq">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="gBJ-ad-POq" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="asD-pB-4WI" customClass="LocationViewController" customModule="eTrip" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="oIh-pz-PZ6">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -453,7 +530,7 @@
                                 <rect key="frame" x="0.0" y="94" width="375" height="524"/>
                                 <color key="backgroundColor" red="1" green="0.99215686270000003" blue="0.90588235289999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="131" id="olB-dM-BwT" customClass="PlaceTableViewCell" customModule="eTrip" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PlaceCellLocation" rowHeight="131" id="olB-dM-BwT" customClass="PlaceTableViewCell" customModule="eTrip" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="131"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="olB-dM-BwT" id="qPR-Gh-FzP">
@@ -465,6 +542,10 @@
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qQQ-6L-m93">
                                                             <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="120" id="evh-xU-ClE"/>
+                                                                <constraint firstAttribute="height" priority="750" constant="120" id="y7U-rG-uyr"/>
+                                                            </constraints>
                                                         </imageView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="qHX-VR-JWU">
                                                             <rect key="frame" x="125" y="0.0" width="250" height="120"/>
@@ -476,7 +557,7 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dLX-8v-spu">
-                                                                    <rect key="frame" x="0.0" y="40" width="106" height="40"/>
+                                                                    <rect key="frame" x="0.0" y="40" width="241" height="40"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="地址：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DbR-KS-gro">
                                                                             <rect key="frame" x="0.0" y="0.0" width="46" height="40"/>
@@ -485,7 +566,10 @@
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="address..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eDP-Hi-RWH">
-                                                                            <rect key="frame" x="46" y="0.0" width="60" height="40"/>
+                                                                            <rect key="frame" x="46" y="0.0" width="195" height="40"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="width" constant="195" id="luM-yg-gop"/>
+                                                                            </constraints>
                                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
@@ -525,6 +609,13 @@
                                                 <constraint firstAttribute="trailing" secondItem="sWb-8c-I3V" secondAttribute="trailing" constant="-5" id="tBt-0I-BFR"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="addressLabel" destination="eDP-Hi-RWH" id="yMe-VC-3GD"/>
+                                            <outlet property="placeNameLabel" destination="LVC-ej-YjF" id="7M1-LR-vcl"/>
+                                            <outlet property="previewImageView" destination="qQQ-6L-m93" id="Vfy-kL-03g"/>
+                                            <outlet property="rateScoreLabel" destination="oGH-Q1-4Ew" id="qcK-54-gzb"/>
+                                            <segue destination="OCE-hP-vcN" kind="show" id="INQ-ds-CAi"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -545,9 +636,16 @@
                         <viewLayoutGuide key="safeArea" id="xco-AZ-fhd"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="地區" id="ZoD-lf-I5x"/>
+                    <connections>
+                        <outlet property="tableView" destination="k1U-JK-K5p" id="YkR-wL-VHA"/>
+                    </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gBJ-ad-POq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1441" y="957"/>
+            <point key="canvasLocation" x="1414" y="1178"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="INQ-ds-CAi"/>
+    </inferredMetricsTieBreakers>
 </document>

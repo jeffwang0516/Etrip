@@ -10,6 +10,16 @@ import UIKit
 
 class PlaceTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var previewImageView: UIImageView!
+    
+    @IBOutlet weak var placeNameLabel: UILabel!
+    
+    @IBOutlet weak var addressLabel: UILabel!
+    
+    @IBOutlet weak var rateScoreLabel: UILabel!
+    
+    let defaultImage = UIImage(named: "no-image")
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -19,6 +29,20 @@ class PlaceTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    func updateUIDisplays(name: String, address: String, rateScore: Score, image: UIImage?) {
+        self.placeNameLabel.text = name
+        self.addressLabel.text = address
+        let avgScore = NSString(format:"%.1f", rateScore.average)
+        let ratePeopleCount = Int(Double(rateScore.total) / rateScore.average)
+        self.rateScoreLabel.text = "\(avgScore) 分, 共\(ratePeopleCount)人評分"
+        if image != nil {
+            self.previewImageView.image = image
+        } else {
+            self.previewImageView.image = defaultImage
+        }
+        
     }
 
 }
