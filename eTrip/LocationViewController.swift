@@ -24,6 +24,35 @@ class LocationViewController: UIViewController {
         self.tableView.dataSource = self
         
     }
+    
+    /*
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "OpenPlaceDetailFromLoacation" {
+            guard let cell = sender as? UITableViewCell else {
+                fatalError("Mis-configured storyboard! The sender should be a cell.")
+            }
+            self.prepareOpeningDetail(for: segue, sender: cell)
+        } else {
+            super.prepare(for: segue, sender: sender)
+        }
+    }
+    
+    private func prepareOpeningDetail(for segue: UIStoryboardSegue, sender: UITableViewCell) {
+        
+        let placeInfoViewController = segue.destination as! PlaceInfoDetailViewController
+        let senderPath = self.tableView.indexPath(for: sender)!
+        let placeInfo = placeInfos[senderPath.row]
+        placeInfoViewController.placeInfo = placeInfo
+    }
 }
 
 extension LocationViewController: UITableViewDelegate, UITableViewDataSource{

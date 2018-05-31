@@ -10,4 +10,17 @@ import UIKit
 
 class PlaceInfoDetailViewController: UIViewController {
     
+    var placeInfo: PlaceInfo?
+    
+    @IBOutlet weak var navBarItem: UINavigationItem!
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        
+        guard let titleText = placeInfo?.name else {
+            navBarItem.title = "景點介紹"
+            return
+        }
+        navBarItem.title = titleText
+    }
 }

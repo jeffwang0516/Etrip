@@ -99,6 +99,25 @@ class FavoriteViewController: UIViewController {
     }
     */
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "OpenPlaceDetailFromFavorite" {
+            guard let cell = sender as? UITableViewCell else {
+                fatalError("Mis-configured storyboard! The sender should be a cell.")
+            }
+            self.prepareOpeningDetail(for: segue, sender: cell)
+        } else {
+            super.prepare(for: segue, sender: sender)
+        }
+    }
+    
+    private func prepareOpeningDetail(for segue: UIStoryboardSegue, sender: UITableViewCell) {
+        
+        let placeInfoViewController = segue.destination as! PlaceInfoDetailViewController
+        let senderPath = self.tableView.indexPath(for: sender)!
+        let placeInfo = placeInfoListToDisplay[senderPath.row]
+        placeInfoViewController.placeInfo = placeInfo
+    }
+    
 }
 
 extension FavoriteViewController: UITableViewDelegate, UITableViewDataSource{
@@ -119,6 +138,7 @@ extension FavoriteViewController: UITableViewDelegate, UITableViewDataSource{
         
         return placeCell
     }
+    
     
 }
 

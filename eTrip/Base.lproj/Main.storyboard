@@ -33,7 +33,7 @@
                                 <rect key="frame" x="0.0" y="148" width="375" height="470"/>
                                 <color key="backgroundColor" red="1" green="0.99215686270000003" blue="0.90588235289999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PlaceCell" rowHeight="131" id="jOG-D6-RVi" customClass="PlaceTableViewCell" customModule="eTrip" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="PlaceCell" rowHeight="131" id="jOG-D6-RVi" customClass="PlaceTableViewCell" customModule="eTrip" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="131"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jOG-D6-RVi" id="GKa-iN-lWL">
@@ -210,36 +210,13 @@
                     <view key="view" contentMode="scaleToFill" id="lw7-wB-U0u">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hWO-NA-VnH">
-                                <rect key="frame" x="0.0" y="64" width="375" height="50.5"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="375" placeholderIntrinsicHeight="40" text="景點名" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XXH-rU-juk">
-                                        <rect key="frame" x="0.0" y="5" width="375" height="40"/>
-                                        <color key="backgroundColor" red="1" green="0.81176470590000005" blue="0.42745098040000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="26"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" red="1" green="0.81176470590000005" blue="0.42745098040000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <constraints>
-                                    <constraint firstItem="XXH-rU-juk" firstAttribute="width" secondItem="hWO-NA-VnH" secondAttribute="width" id="TKM-OQ-Mgy"/>
-                                    <constraint firstItem="XXH-rU-juk" firstAttribute="centerY" secondItem="hWO-NA-VnH" secondAttribute="centerY" id="d8Q-JU-yXb"/>
-                                    <constraint firstItem="XXH-rU-juk" firstAttribute="centerX" secondItem="hWO-NA-VnH" secondAttribute="centerX" id="mPA-HE-Pbt"/>
-                                </constraints>
-                            </view>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="hWO-NA-VnH" firstAttribute="height" secondItem="JlI-FE-uaP" secondAttribute="height" multiplier="1:12" id="E6k-Yc-k5h"/>
-                            <constraint firstItem="hWO-NA-VnH" firstAttribute="width" secondItem="JlI-FE-uaP" secondAttribute="width" id="MJr-Jk-jMP"/>
-                            <constraint firstItem="JlI-FE-uaP" firstAttribute="top" secondItem="hWO-NA-VnH" secondAttribute="top" id="OgJ-rr-XK7"/>
-                            <constraint firstItem="JlI-FE-uaP" firstAttribute="centerX" secondItem="hWO-NA-VnH" secondAttribute="centerX" id="Tmu-s5-Jfw"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="JlI-FE-uaP"/>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="WTZ-bE-jHx"/>
+                    <connections>
+                        <outlet property="navBarItem" destination="WTZ-bE-jHx" id="y7P-LU-UYI"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w5l-mC-IOd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -327,7 +304,7 @@
                                 <rect key="frame" x="0.0" y="110.5" width="375" height="507.5"/>
                                 <color key="backgroundColor" red="1" green="0.99215686270000003" blue="0.90588235289999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PlaceCellFavorite" rowHeight="131" id="AN5-od-uIj" customClass="PlaceTableViewCell" customModule="eTrip" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="PlaceCellFavorite" rowHeight="131" id="AN5-od-uIj" customClass="PlaceTableViewCell" customModule="eTrip" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="131"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="AN5-od-uIj" id="HlQ-5u-VZJ">
@@ -523,7 +500,7 @@
                                 <rect key="frame" x="0.0" y="103.5" width="375" height="514.5"/>
                                 <color key="backgroundColor" red="1" green="0.99215686270000003" blue="0.90588235289999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PlaceCellLocation" rowHeight="131" id="olB-dM-BwT" customClass="PlaceTableViewCell" customModule="eTrip" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="PlaceCellLocation" rowHeight="131" id="olB-dM-BwT" customClass="PlaceTableViewCell" customModule="eTrip" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="131"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="olB-dM-BwT" id="qPR-Gh-FzP">

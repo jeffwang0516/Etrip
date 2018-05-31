@@ -158,15 +158,11 @@ class SearchViewController: UIViewController {
     }
     
     private func prepareOpeningDetail(for segue: UIStoryboardSegue, sender: UITableViewCell) {
-//        let airportViewController = segue.destination as! AirportViewController
-//        let senderPath = self.tableView.indexPath(for: sender)!
-//        let nation = orderedNationNames[senderPath.section]
-//        let arr = self.nations[nation]
-//        let airportId = arr![senderPath.row]
-//        let airport: Airport = self.airports[airportId]
-//        airportViewController.airport = airport
         
-        
+        let placeInfoViewController = segue.destination as! PlaceInfoDetailViewController
+        let senderPath = self.tableView.indexPath(for: sender)!
+        let placeInfo = placeInfos[senderPath.row]
+        placeInfoViewController.placeInfo = placeInfo
     }
 
 }
