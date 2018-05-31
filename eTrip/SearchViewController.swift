@@ -129,6 +129,28 @@ class SearchViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "OpenPlaceDetailFromSearch" {
+            guard let cell = sender as? UITableViewCell else {
+                fatalError("Mis-configured storyboard! The sender should be a cell.")
+            }
+            self.prepareOpeningDetail(for: segue, sender: cell)
+        } else {
+            super.prepare(for: segue, sender: sender)
+        }
+    }
+    
+    private func prepareOpeningDetail(for segue: UIStoryboardSegue, sender: UITableViewCell) {
+//        let airportViewController = segue.destination as! AirportViewController
+//        let senderPath = self.tableView.indexPath(for: sender)!
+//        let nation = orderedNationNames[senderPath.section]
+//        let arr = self.nations[nation]
+//        let airportId = arr![senderPath.row]
+//        let airport: Airport = self.airports[airportId]
+//        airportViewController.airport = airport
+        
+        
+    }
 
 }
 

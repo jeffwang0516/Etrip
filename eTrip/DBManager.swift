@@ -195,10 +195,12 @@ class DBManager{
         return false
     }
     
-    func getFavoritePlaces(of userid: Int) -> [PlaceInfo] {
+    func getFavoritePlaces(of userid: String, with formid: Int) -> [PlaceInfo] {
         // TODO
-        let queryString = ""
+        
+        let queryString = "SELECT * FROM place WHERE placeid = 1"
         return queryOfPlaceInfos(with: queryString)
+//        return []
     }
     
     // Ratings
