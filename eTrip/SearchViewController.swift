@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import Foundation
 
 class SearchViewController: UIViewController {
 
+    let viewTitle = "搜尋"
     let db = DBManager.instance
     
     @IBOutlet weak var landmarkButton: UIButton!
@@ -31,14 +33,17 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.topItem?.title = viewTitle
+        
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
         // Query only while first time loading
         if placeInfos.count == 0 {
             self.placeInfos = self.db.searchForPlaceInfos(with: "", of: Int(PlaceForm.all.rawValue))
+            self.navigationController?.navigationBar.barTintColor = UIColor(red: 249.0/255.0, green: 199.0/255.0, blue: 60.0/255.0, alpha: 1.0)
+            
         }
-        
     }
     
     override func viewDidLoad() {

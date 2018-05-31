@@ -9,7 +9,12 @@
 import UIKit
 
 class DiaryViewController: UIViewController {
+    
+    let viewTitle = "行程日記"
 
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.topItem?.title = viewTitle
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
 

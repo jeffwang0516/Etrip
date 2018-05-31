@@ -9,6 +9,8 @@
 import UIKit
 
 class FavoriteViewController: UIViewController {
+    
+    let viewTitle = "我的收藏"
     // User id for test
     let testUserId = "TCA"
     
@@ -28,6 +30,8 @@ class FavoriteViewController: UIViewController {
     let colorUnclicked = UIColor(red: 177/255, green: 49/255, blue: 45/255, alpha: 1)
     
     override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.topItem?.title = viewTitle
+        
         self.tableView.delegate = self
         self.tableView.dataSource = self
         

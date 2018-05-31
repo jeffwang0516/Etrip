@@ -10,12 +10,16 @@ import UIKit
 
 class LocationViewController: UIViewController {
     
+    let viewTitle = "地區排行"
+    
     let db = DBManager.instance
     
     @IBOutlet weak var tableView: UITableView!
     var placeInfos: [PlaceInfo] = []
     
     override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.topItem?.title = viewTitle
+        
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
