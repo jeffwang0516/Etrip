@@ -9,6 +9,8 @@
 import UIKit
 
 class FavoriteViewController: UIViewController {
+    
+    let viewTitle = "我的收藏"
     // User id for test
     let testUserId = "TCA"
     
@@ -28,6 +30,8 @@ class FavoriteViewController: UIViewController {
     let colorUnclicked = UIColor(red: 177/255, green: 49/255, blue: 45/255, alpha: 1)
     
     override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.topItem?.title = viewTitle
+        
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
@@ -95,6 +99,25 @@ class FavoriteViewController: UIViewController {
     }
     */
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "OpenPlaceDetailFromFavorite" {
+            guard let cell = sender as? UITableViewCell else {
+                fatalError("Mis-configured storyboard! The sender should be a cell.")
+            }
+            self.prepareOpeningDetail(for: segue, sender: cell)
+        } else {
+            super.prepare(for: segue, sender: sender)
+        }
+    }
+    
+    private func prepareOpeningDetail(for segue: UIStoryboardSegue, sender: UITableViewCell) {
+        
+        let placeInfoViewController = segue.destination as! PlaceInfoDetailViewController
+        let senderPath = self.tableView.indexPath(for: sender)!
+        let placeInfo = placeInfoListToDisplay[senderPath.row]
+        placeInfoViewController.placeInfo = placeInfo
+    }
+    
 }
 
 extension FavoriteViewController: UITableViewDelegate, UITableViewDataSource{
@@ -115,6 +138,7 @@ extension FavoriteViewController: UITableViewDelegate, UITableViewDataSource{
         
         return placeCell
     }
+    
     
 }
 
