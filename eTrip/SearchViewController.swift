@@ -58,17 +58,6 @@ class SearchViewController: UIViewController {
         buttonHightlight(landmarkButton)
         buttonHightlight(restaurantButton)
         buttonHightlight(hotelButton)
-
-//        searchBar.contro
-//
-//        self.searchController = ({
-//            let controller = UISearchController(searchResultsController: nil)
-//            controller.searchBar.delegate = self
-//        })()
-//
-//        self.searchController.isActive = true
-//        self.searchController.delegate = self
-        
     }
 
     override func didReceiveMemoryWarning() {

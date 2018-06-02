@@ -10,16 +10,64 @@ import Foundation
 import SQLite3
 
 class DBManager{
-    private let sqlFilePath = Bundle.main.path(forResource: "etrip", ofType: "db")!
+    private let sqlFilePath = Bundle.main.url(forResource: "etrip", withExtension: "db")!
     static let instance = DBManager()
     private var db: OpaquePointer?
     
     private init() {
-        if sqlite3_open_v2(sqlFilePath, &db, SQLITE_OPEN_READWRITE, nil) == SQLITE_OK {
-            print("DB successfully connected \(sqlFilePath)")
-        } else {
-            print("Error opening database")
+        if let path = copyDBInDocuments(initDatabasePath: sqlFilePath)?.relativePath {
+            if sqlite3_open_v2(path, &db, SQLITE_OPEN_READWRITE, nil) == SQLITE_OK {
+                print("DB successfully connected \(path)")
+            } else {
+                print("Error opening database")
+            }
         }
+        
+    }
+    
+    // Put initial etrip.db to documents, because it's readonly in Bundle files
+    private func copyDBInDocuments(initDatabasePath: URL?) -> URL? {
+        let fileManager = FileManager.default
+        let urls = fileManager.urls(for: .documentDirectory, in: .userDomainMask)
+       
+        
+        if var documentDirectory:URL = urls.first {
+
+            documentDirectory.setTemporaryResourceValue(true, forKey: .isExcludedFromBackupKey)
+
+            // This is where the database should be in the documents directory
+            let finalDatabaseURL = documentDirectory.appendingPathComponent("etrip.db")
+            
+            var ifExist = false
+            do {
+                ifExist = try finalDatabaseURL.checkResourceIsReachable()
+            } catch _{
+                print("checkResourceIsReachable FAILED")
+            }
+
+            if ifExist {
+                return finalDatabaseURL
+            } else {
+                if let bundleURL = initDatabasePath {
+                    do {
+                        try fileManager.copyItem(at: bundleURL, to: finalDatabaseURL)
+                    } catch _ {
+                        print("Couldn't copy file to final location!")
+                        return nil
+                    }
+
+                    return finalDatabaseURL
+
+                } else {
+                    print("Couldn't find initial database in the bundle!")
+                }
+            }
+            
+        } else {
+            print("Couldn't get documents directory")
+        }
+        
+        return nil
     }
     
     deinit {
@@ -33,12 +81,11 @@ class DBManager{
 //        print(getAddressById(100))
 //        print(searchForPlaceInfos(with: "舊金山", of: 4))
 //        print(getScore(of: 334))
-        print("PlaceFavorite: ", ifPlaceIsFavorite(of: "TCA", placeid: 3))
-        print("ALTER: ", alterFavorites(of: "TCA", placeid: 3))
+//        print("PlaceFavorite: ", ifPlaceIsFavorite(of: "TCA", placeid: 3))
+//        print("ALTER: ", alterFavorites(of: "TCA", placeid: 3))
 //
 //        print("PlaceFavoriteAFTER: ", ifPlaceIsFavorite(of: "TCA", placeid: 3))
-        
-        
+
     }
     
     
