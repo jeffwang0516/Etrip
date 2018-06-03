@@ -115,6 +115,13 @@ class DBManager{
 //        for dt in detail {
 //            print(dt.day, dt.name, dt.startTime, dt.endTime)
 //        }
+//        let dt1: [DiaryDetail] = [DiaryDetail(diaryId: "11112", userid: "TCA", day: 1, content: 7, startTime: 1000, endTime: 1030, tag: 1, name: getPlaceName(of: 7))]
+//        let dt = addDiary(diaryName: "ASXD", details: dt1, preDate: 20180101, postDate: 20180103)
+//        let detail = getDiaryDetail(with: "11112", of: "TCA")
+//        for dt in detail {
+//            print(dt.day, dt.name, dt.startTime, dt.endTime)
+//        }
+//        print(deleteDiary(diaryid: "11112", userid: "TCA"))
 
     }
     
@@ -447,7 +454,7 @@ class DBManager{
     
     func getDiaryDetail(with diaryId: String, of userid: String) -> [DiaryDetail] {
         var diaryDetails: [DiaryDetail] = []
-        let queryString = "SELECT * FROM diarydetail WHERE userid='\(userid)';"
+        let queryString = "SELECT * FROM diarydetail WHERE diaryid=\(diaryId) AND userid='\(userid)';"
         
         var queryStatement: OpaquePointer? = nil
         
@@ -493,13 +500,14 @@ class DBManager{
             return false
         }
         
-        let queryString2 = "insert into diarydetail values('\(firstDatail.diaryId)','\(firstDatail.userid)', \(firstDatail.day), \(firstDatail.content), \(firstDatail.startTime), \(firstDatail.endTime), \(firstDatail.tag));"
-        
-        if sqlite3_exec(db, queryString2, nil, nil, nil) != SQLITE_OK{
-            print("addDiaryDetail query not prepared")
-            return false
+        for item in details {
+            let queryString2 = "insert into diarydetail values('\(item.diaryId)','\(item.userid)', \(item.day), \(item.content), \(item.startTime), \(item.endTime), \(item.tag));"
+            
+            if sqlite3_exec(db, queryString2, nil, nil, nil) != SQLITE_OK{
+                print("addDiaryDetail query not prepared")
+                return false
+            }
         }
-        
         return true
     }
     
