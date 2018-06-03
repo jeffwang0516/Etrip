@@ -481,6 +481,45 @@ class DBManager{
         return diaryDetails.sorted(by: <)
     }
     
+    func addDiary(diaryName: String, details: [DiaryDetail], preDate: Int32, postDate: Int32) -> Bool{
+        guard let firstDatail = details.first else {
+            return false
+        }
+        
+        let queryString = "insert into diary values('\(firstDatail.diaryId)','\(firstDatail.userid)','\(diaryName)', \(preDate), \(postDate));"
+        
+        if sqlite3_exec(db, queryString, nil, nil, nil) != SQLITE_OK{
+            print("addDiary query not prepared")
+            return false
+        }
+        
+        let queryString2 = "insert into diarydetail values('\(firstDatail.diaryId)','\(firstDatail.userid)', \(firstDatail.day), \(firstDatail.content), \(firstDatail.startTime), \(firstDatail.endTime), \(firstDatail.tag));"
+        
+        if sqlite3_exec(db, queryString2, nil, nil, nil) != SQLITE_OK{
+            print("addDiaryDetail query not prepared")
+            return false
+        }
+        
+        return true
+    }
+    
+    func deleteDiary(diaryid: String, userid: String) -> Bool{
+        let queryString = "delete from diary where diaryid='\(diaryid)' and userid='\(userid)';"
+        let queryString2 = "delete from diarydetail where diaryid='\(diaryid)' and userid='\(userid)';"
+        
+        if sqlite3_exec(db, queryString, nil, nil, nil) != SQLITE_OK{
+            print("deleteDiary query not prepared")
+            return false
+        }
+        
+        if sqlite3_exec(db, queryString2, nil, nil, nil) != SQLITE_OK{
+            print("deleteDiaryDeatails query not prepared")
+            return false
+        }
+        
+        return true
+    }
+    
     /*** Private Helper Functions Below NOT FOR CALL ***/
     private func getScore(of placeid: Int32) -> Score{
         let queryString = "SELECT * FROM score WHERE placeid = \(placeid);"
