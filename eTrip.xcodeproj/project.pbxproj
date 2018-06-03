@@ -23,6 +23,8 @@
 		8C08105120BED47D0068B44C /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C08105020BED47D0068B44C /* FavoriteViewController.swift */; };
 		8C08105320BED4AF0068B44C /* AutoPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C08105220BED4AF0068B44C /* AutoPlanViewController.swift */; };
 		8C08105520BED4D40068B44C /* DiaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C08105420BED4D40068B44C /* DiaryViewController.swift */; };
+		8C97B24520C4970200DCDDB9 /* DiaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C97B24420C4970200DCDDB9 /* DiaryTableViewCell.swift */; };
+		8C97B24720C49B1A00DCDDB9 /* DiaryInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C97B24620C49B1A00DCDDB9 /* DiaryInfo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +46,8 @@
 		8C08105020BED47D0068B44C /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
 		8C08105220BED4AF0068B44C /* AutoPlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoPlanViewController.swift; sourceTree = "<group>"; };
 		8C08105420BED4D40068B44C /* DiaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewController.swift; sourceTree = "<group>"; };
+		8C97B24420C4970200DCDDB9 /* DiaryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryTableViewCell.swift; sourceTree = "<group>"; };
+		8C97B24620C49B1A00DCDDB9 /* DiaryInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryInfo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,9 +94,11 @@
 				8C08104C20BEC4A50068B44C /* PlaceTableViewCell.swift */,
 				8C08105020BED47D0068B44C /* FavoriteViewController.swift */,
 				8C08105220BED4AF0068B44C /* AutoPlanViewController.swift */,
-				8C08105420BED4D40068B44C /* DiaryViewController.swift */,
 				1F9F6B5720BF94470036F8AB /* PlaceInfoDetailViewController.swift */,
 				1F9F6B5920BF9FAB0036F8AB /* LocationViewController.swift */,
+				8C08105420BED4D40068B44C /* DiaryViewController.swift */,
+				8C97B24420C4970200DCDDB9 /* DiaryTableViewCell.swift */,
+				8C97B24620C49B1A00DCDDB9 /* DiaryInfo.swift */,
 			);
 			path = eTrip;
 			sourceTree = "<group>";
@@ -170,6 +176,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8C08104720BEC44D0068B44C /* SearchViewController.swift in Sources */,
+				8C97B24520C4970200DCDDB9 /* DiaryTableViewCell.swift in Sources */,
 				1F9F6B5820BF94470036F8AB /* PlaceInfoDetailViewController.swift in Sources */,
 				1FD54CA620B9E3FC001AE1C1 /* ViewController.swift in Sources */,
 				8C08104D20BEC4A50068B44C /* PlaceTableViewCell.swift in Sources */,
@@ -181,6 +188,7 @@
 				1FD54CBC20BAA9E7001AE1C1 /* TicketInfo.swift in Sources */,
 				8C08105320BED4AF0068B44C /* AutoPlanViewController.swift in Sources */,
 				1FD54CBA20BA01F7001AE1C1 /* PlaceInfo.swift in Sources */,
+				8C97B24720C49B1A00DCDDB9 /* DiaryInfo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

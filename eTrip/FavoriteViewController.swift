@@ -134,7 +134,7 @@ extension FavoriteViewController: UITableViewDelegate, UITableViewDataSource{
         let placeCell = tableView.dequeueReusableCell(withIdentifier: "PlaceCellFavorite", for: indexPath) as! PlaceTableViewCell
         let placeInfo = placeInfoListToDisplay[indexPath.row]
         
-        placeCell.updateUIDisplays(name: placeInfo.name, address: placeInfo.address, rateScore: placeInfo.score, image: placeInfo.getUIImage())
+        placeCell.updateUIDisplays(name: placeInfo.name, address: placeInfo.address, rateScore: placeInfo.score, image: placeInfo.getUIImage(),ticket: placeInfo.ticket.hashValue)
         
         return placeCell
     }

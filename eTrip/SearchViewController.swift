@@ -171,7 +171,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
         let placeInfo = placeInfos[indexPath.row]
         
 //        placeCell.updateUIDisplays(name: placeInfo.name, address: placeInfo.address, rateScore: placeInfo.score, image: placeInfo.getUIImage())
-        placeCell.updateUIDisplays(name: placeInfo.name, address: placeInfo.address, rateScore: placeInfo.score, image: placeInfo.getUIImage(),ticket:(placeInfo.ticket.hashValue))
+        placeCell.updateUIDisplays(name: placeInfo.name, address: placeInfo.address, rateScore: placeInfo.score, image: placeInfo.getUIImage(),ticket: placeInfo.ticket.hashValue)
         
         
         return placeCell

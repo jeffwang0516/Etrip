@@ -11,6 +11,7 @@ import UIKit
 class DiaryViewController: UIViewController {
     
     let viewTitle = "行程日記"
+    var diaryInfos: [DiaryInfo] = []
 
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.topItem?.title = viewTitle
@@ -37,4 +38,25 @@ class DiaryViewController: UIViewController {
     }
     */
 
+}
+extension DiaryViewController: UITableViewDelegate, UITableViewDataSource{
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return diaryInfos.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let diaryCell = tableView.dequeueReusableCell(withIdentifier: "DiaryCell", for: indexPath) as! DiaryTableViewCell
+        let diaryInfo = diaryInfos[indexPath.row]
+        
+        diaryCell.updateUIDisplays(name: diaryInfo.name, preDate: String(diaryInfo.preDate), postDate: String(diaryInfo.postDate), diaryID: diaryInfo.id)
+        
+        return diaryCell
+    }
+    
+    
 }
