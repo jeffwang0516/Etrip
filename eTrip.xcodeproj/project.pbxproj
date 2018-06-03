@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		1F9F6B5820BF94470036F8AB /* PlaceInfoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F6B5720BF94470036F8AB /* PlaceInfoDetailViewController.swift */; };
 		1F9F6B5A20BF9FAB0036F8AB /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F6B5920BF9FAB0036F8AB /* LocationViewController.swift */; };
+		1FC1708720C463FD0083B065 /* DiaryInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC1708620C463FD0083B065 /* DiaryInfo.swift */; };
+		1FC1708920C46A240083B065 /* DiaryDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC1708820C46A240083B065 /* DiaryDetail.swift */; };
 		1FD54CA420B9E3FC001AE1C1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD54CA320B9E3FC001AE1C1 /* AppDelegate.swift */; };
 		1FD54CA620B9E3FC001AE1C1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD54CA520B9E3FC001AE1C1 /* ViewController.swift */; };
 		1FD54CA920B9E3FC001AE1C1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FD54CA720B9E3FC001AE1C1 /* Main.storyboard */; };
@@ -30,6 +32,8 @@
 /* Begin PBXFileReference section */
 		1F9F6B5720BF94470036F8AB /* PlaceInfoDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInfoDetailViewController.swift; sourceTree = "<group>"; };
 		1F9F6B5920BF9FAB0036F8AB /* LocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
+		1FC1708620C463FD0083B065 /* DiaryInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryInfo.swift; sourceTree = "<group>"; };
+		1FC1708820C46A240083B065 /* DiaryDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDetail.swift; sourceTree = "<group>"; };
 		1FD54CA020B9E3FC001AE1C1 /* eTrip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = eTrip.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FD54CA320B9E3FC001AE1C1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1FD54CA520B9E3FC001AE1C1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -96,9 +100,14 @@
 				8C08105220BED4AF0068B44C /* AutoPlanViewController.swift */,
 				1F9F6B5720BF94470036F8AB /* PlaceInfoDetailViewController.swift */,
 				1F9F6B5920BF9FAB0036F8AB /* LocationViewController.swift */,
+<<<<<<< HEAD
 				8C08105420BED4D40068B44C /* DiaryViewController.swift */,
 				8C97B24420C4970200DCDDB9 /* DiaryTableViewCell.swift */,
 				8C97B24620C49B1A00DCDDB9 /* DiaryInfo.swift */,
+=======
+				1FC1708620C463FD0083B065 /* DiaryInfo.swift */,
+				1FC1708820C46A240083B065 /* DiaryDetail.swift */,
+>>>>>>> e3ddd0a36f04e319bf0988a41956fb4b30810ee4
 			);
 			path = eTrip;
 			sourceTree = "<group>";
@@ -175,6 +184,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FC1708920C46A240083B065 /* DiaryDetail.swift in Sources */,
 				8C08104720BEC44D0068B44C /* SearchViewController.swift in Sources */,
 				8C97B24520C4970200DCDDB9 /* DiaryTableViewCell.swift in Sources */,
 				1F9F6B5820BF94470036F8AB /* PlaceInfoDetailViewController.swift in Sources */,
@@ -187,6 +197,7 @@
 				1FD54CA420B9E3FC001AE1C1 /* AppDelegate.swift in Sources */,
 				1FD54CBC20BAA9E7001AE1C1 /* TicketInfo.swift in Sources */,
 				8C08105320BED4AF0068B44C /* AutoPlanViewController.swift in Sources */,
+				1FC1708720C463FD0083B065 /* DiaryInfo.swift in Sources */,
 				1FD54CBA20BA01F7001AE1C1 /* PlaceInfo.swift in Sources */,
 				8C97B24720C49B1A00DCDDB9 /* DiaryInfo.swift in Sources */,
 			);
