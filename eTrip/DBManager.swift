@@ -191,7 +191,9 @@ class DBManager{
     }
     
     func getTickcetInfos(of placeId: Int) -> [TicketInfo]{
-        let queryString = "SELECT * FROM landmarkticket WHERE placeid = \(placeId);"
+//        let queryString = "SELECT * FROM landmarkticket WHERE placeid = \(placeId);"
+        let queryString = "select identity,ticket from landmarkticket,IdentityInfo where landmarkticket.identityid=IdentityInfo.identityid and placeid = \(placeId);"
+
         var queryStatement: OpaquePointer? = nil
         
         defer {
@@ -203,8 +205,8 @@ class DBManager{
         if sqlite3_prepare_v2(db, queryString, -1, &queryStatement, nil) == SQLITE_OK {
             while sqlite3_step(queryStatement) == SQLITE_ROW {
                 
-                let identity = sqlite3_column_text(queryStatement, 1)
-                let price = sqlite3_column_int(queryStatement, 2)
+                let identity = sqlite3_column_text(queryStatement, 0)
+                let price = sqlite3_column_int(queryStatement, 1)
                 
                 let ticket = TicketInfo(identity: String(cString: identity!), cost: Int(price))
                 
@@ -219,7 +221,7 @@ class DBManager{
     
     
     // Favorites
-    func ifPlaceIsFavorite(of userid: String, placeid: Int) -> Bool {
+    func ifPlaceIsFavorite(of userid: String, placeid: Int32) -> Bool {
         let queryString = "SELECT * FROM favorite WHERE userid = '\(userid)' AND placeid = \(placeid);"
         var queryStatement: OpaquePointer? = nil
         
@@ -240,7 +242,7 @@ class DBManager{
     }
     
     // NOT TESTED
-    func alterFavorites(of userid: String, placeid: Int) -> Bool {
+    func alterFavorites(of userid: String, placeid: Int32) -> Bool {
         // Either Add or Del from one's favorite list, return successful or not
         let isFavorite = ifPlaceIsFavorite(of: userid, placeid: placeid)
 //        print("alter:", isFavorite)
