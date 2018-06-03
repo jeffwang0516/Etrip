@@ -53,7 +53,7 @@ extension DiaryViewController: UITableViewDelegate, UITableViewDataSource{
         let diaryCell = tableView.dequeueReusableCell(withIdentifier: "DiaryCell", for: indexPath) as! DiaryTableViewCell
         let diaryInfo = diaryInfos[indexPath.row]
         
-        diaryCell.updateUIDisplays(name: diaryInfo.name, preDate: String(diaryInfo.preDate), postDate: String(diaryInfo.postDate), diaryID: diaryInfo.id)
+        diaryCell.updateUIDisplays(name: diaryInfo.name, preDate: String(diaryInfo.preDate), postDate: String(diaryInfo.postDate), diaryID: diaryInfo.diaryId)
         
         return diaryCell
     }
