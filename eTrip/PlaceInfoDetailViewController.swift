@@ -70,6 +70,7 @@ class PlaceInfoDetailViewController: UIViewController {
             self.phoneText.text = "查無資料。"
         }
         
+        
     }
     
     @IBAction func changeScore(_ sender: Any) {
