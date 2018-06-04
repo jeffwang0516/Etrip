@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="sQQ-oH-7jN">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="sQQ-oH-7jN">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -616,7 +616,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DiaryCell" rowHeight="256" id="9pn-GJ-vmu" customClass="DiaryTableViewCell" customModule="eTrip" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="DiaryCell" rowHeight="256" id="9pn-GJ-vmu" customClass="DiaryTableViewCell" customModule="eTrip" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="256"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="9pn-GJ-vmu" id="evb-bo-yCW">
@@ -858,7 +858,7 @@
                                             <outlet property="placeImg3" destination="LFV-PG-MJt" id="JEr-He-PgB"/>
                                             <outlet property="secondDateDay" destination="er2-36-8mo" id="Tyb-RY-92z"/>
                                             <outlet property="secondDateMonth" destination="ALj-28-HW0" id="9Ow-6v-SLm"/>
-                                            <segue destination="15e-fg-jS2" kind="show" id="UgJ-ao-IcX"/>
+                                            <segue destination="15e-fg-jS2" kind="show" identifier="OpenDiaryDetail" id="UgJ-ao-IcX"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -874,21 +874,24 @@
                         <viewLayoutGuide key="safeArea" id="NKs-EX-Vhp"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="History" id="Sc1-Bn-ai5"/>
+                    <connections>
+                        <outlet property="tableView" destination="vZn-eB-kuj" id="MjU-ri-LrB"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bvy-69-Nzv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3293.5999999999999" y="178.07881773399015"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Diary Detail View Controller-->
         <scene sceneID="2bn-7v-zFx">
             <objects>
-                <tableViewController id="15e-fg-jS2" sceneMemberID="viewController">
+                <tableViewController id="15e-fg-jS2" customClass="DiaryDetailViewController" customModule="eTrip" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="MO2-bB-tQs">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="195" id="SDf-LG-T5U">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DiaryDetailCell" rowHeight="195" id="SDf-LG-T5U">
                                 <rect key="frame" x="0.0" y="28" width="375" height="195"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="SDf-LG-T5U" id="HZj-tc-UYl">
@@ -1572,6 +1575,6 @@
         <image name="unlike" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Vxf-qD-KJT"/>
+        <segue reference="dPi-bg-4YV"/>
     </inferredMetricsTieBreakers>
 </document>

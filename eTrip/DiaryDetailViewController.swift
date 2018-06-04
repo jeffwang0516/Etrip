@@ -1,0 +1,35 @@
+//
+//  DiaryDetailViewController.swift
+//  eTrip
+//
+//  Created by JeffWang on 2018/6/4.
+//  Copyright © 2018 JeffWang. All rights reserved.
+//
+
+import Foundation
+import UIKit
+
+class DiaryDetailViewController: UITableViewController {
+    
+    var diaryDetails: [DiaryDetail] = []
+    
+    override func viewDidLoad() {
+        self.tableView.rowHeight = 210.0
+    }
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return diaryDetails.count
+    }
+    
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let diaryDetailCell = tableView.dequeueReusableCell(withIdentifier: "DiaryDetailCell", for: indexPath)
+        
+        // TODO
+        
+        return diaryDetailCell
+    }
+}
