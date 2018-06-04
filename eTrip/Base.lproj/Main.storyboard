@@ -891,7 +891,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DiaryDetailCell" rowHeight="195" id="SDf-LG-T5U">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DiaryDetailCell" rowHeight="195" id="SDf-LG-T5U" customClass="DiaryDetailViewCell" customModule="eTrip" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="195"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="SDf-LG-T5U" id="HZj-tc-UYl">
@@ -1101,6 +1101,17 @@
                                     <constraint firstItem="s3t-tE-tCN" firstAttribute="centerX" secondItem="SDf-LG-T5U" secondAttribute="centerX" id="CGu-nm-jVq"/>
                                     <constraint firstItem="s3t-tE-tCN" firstAttribute="width" secondItem="SDf-LG-T5U" secondAttribute="width" multiplier="16:17" id="xyp-Ji-xFf"/>
                                 </constraints>
+                                <connections>
+                                    <outlet property="dayLabel" destination="mSa-CT-JSj" id="c2W-zy-6Vn"/>
+                                    <outlet property="planImg1" destination="snI-Nb-p3R" id="eNz-3P-MKJ"/>
+                                    <outlet property="planImg2" destination="96q-vo-usX" id="j7h-dF-8TF"/>
+                                    <outlet property="planImg3" destination="XBQ-rJ-CzB" id="TZY-wk-ENc"/>
+                                    <outlet property="planImg4" destination="BAd-Nd-0we" id="Dze-v6-1Jm"/>
+                                    <outlet property="planLabel1" destination="hd7-9U-mcd" id="3xD-jg-Pvv"/>
+                                    <outlet property="planLabel2" destination="cOm-IZ-5e1" id="mno-ke-0u2"/>
+                                    <outlet property="planLabel3" destination="HSp-fa-6wM" id="zga-Ry-J0o"/>
+                                    <outlet property="planLabel4" destination="VZr-sN-Y4h" id="BLl-GB-PcS"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>

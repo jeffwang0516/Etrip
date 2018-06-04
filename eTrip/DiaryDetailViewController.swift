@@ -11,6 +11,7 @@ import UIKit
 
 class DiaryDetailViewController: UITableViewController {
     
+    var dayCount: Int = 1
     var diaryDetails: [DiaryDetail] = []
     
     override func viewDidLoad() {
@@ -21,13 +22,17 @@ class DiaryDetailViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return diaryDetails.count
+        return dayCount
     }
     
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let diaryDetailCell = tableView.dequeueReusableCell(withIdentifier: "DiaryDetailCell", for: indexPath)
+        let diaryDetailCell = tableView.dequeueReusableCell(withIdentifier: "DiaryDetailCell", for: indexPath) as! DiaryDetailViewCell
         
+        diaryDetailCell.dayLabel.text = "DAY \(1)"
+//        let item1 = diaryDetails[0]
+//        diaryDetailCell
+  
         // TODO
         
         return diaryDetailCell

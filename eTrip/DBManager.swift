@@ -452,6 +452,27 @@ class DBManager{
         return diaries.sorted(by: <)
     }
     
+    func getDiaryTotalDays(with diaryId: String, of userid: String) -> Int {
+        let queryString = "SELECT DISTINCT day FROM diarydetail WHERE diaryid=\(diaryId) AND userid='\(userid)';"
+        var queryStatement: OpaquePointer? = nil
+        
+        var count = 0
+        defer {
+            sqlite3_finalize(queryStatement)
+        }
+        
+        if sqlite3_prepare_v2(db, queryString, -1, &queryStatement, nil) == SQLITE_OK {
+            while sqlite3_step(queryStatement) == SQLITE_ROW {
+                count = count + 1
+            }
+            
+        } else {
+            print("getDiaryTotalDays query not prepared")
+        }
+
+        return count
+    }
+    
     func getDiaryDetail(with diaryId: String, of userid: String) -> [DiaryDetail] {
         var diaryDetails: [DiaryDetail] = []
         let queryString = "SELECT * FROM diarydetail WHERE diaryid=\(diaryId) AND userid='\(userid)';"
