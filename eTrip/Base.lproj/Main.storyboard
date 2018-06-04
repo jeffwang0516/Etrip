@@ -1102,6 +1102,10 @@
                                     <constraint firstItem="s3t-tE-tCN" firstAttribute="width" secondItem="SDf-LG-T5U" secondAttribute="width" multiplier="16:17" id="xyp-Ji-xFf"/>
                                 </constraints>
                                 <connections>
+                                    <outlet property="arrow1" destination="CuV-UH-M7B" id="5sR-cF-G1f"/>
+                                    <outlet property="arrow2" destination="7ec-sX-Umu" id="89x-1J-whI"/>
+                                    <outlet property="arrow3" destination="zFc-tu-U55" id="e21-yP-c1Y"/>
+                                    <outlet property="arrow4" destination="D1q-Jh-iYJ" id="1yg-Yc-6r5"/>
                                     <outlet property="dayLabel" destination="mSa-CT-JSj" id="c2W-zy-6Vn"/>
                                     <outlet property="planImg1" destination="snI-Nb-p3R" id="eNz-3P-MKJ"/>
                                     <outlet property="planImg2" destination="96q-vo-usX" id="j7h-dF-8TF"/>
