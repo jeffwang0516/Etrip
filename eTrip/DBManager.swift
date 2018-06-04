@@ -474,9 +474,25 @@ class DBManager{
     }
     
     func getDiaryDetail(with diaryId: String, of userid: String) -> [DiaryDetail] {
-        var diaryDetails: [DiaryDetail] = []
         let queryString = "SELECT * FROM diarydetail WHERE diaryid=\(diaryId) AND userid='\(userid)';"
         
+        return getDiaryDetail(with: queryString)
+    }
+    
+    func getDiaryDetail(with diaryId: String, of userid: String, of day: Int) -> [DiaryDetail] {
+        let queryString = "SELECT * FROM diarydetail WHERE diaryid=\(diaryId) AND userid='\(userid)' AND day=\(day);"
+        
+        return getDiaryDetail(with: queryString)
+    }
+    
+    func getDiaryDetailWithoutTrans(with diaryId: String, of userid: String, of day: Int) -> [DiaryDetail] {
+        let queryString = "SELECT * FROM diarydetail WHERE diaryid=\(diaryId) AND userid='\(userid)' AND tagid=1 AND day=\(day);"
+        
+        return getDiaryDetail(with: queryString)
+    }
+    
+    private func getDiaryDetail(with queryString: String) -> [DiaryDetail]{
+        var diaryDetails: [DiaryDetail] = []
         var queryStatement: OpaquePointer? = nil
         
         defer {
@@ -498,7 +514,7 @@ class DBManager{
                     } else {
                         name = getTransportationName(of: content)
                     }
-                    diaryDetails.append(DiaryDetail(diaryId: String(cString: diaryid), userid: String(cString: userid), day: day, content: content, startTime: startTime, endTime: endTime, tag: tag, name: name))
+                    diaryDetails.append(DiaryDetail(diaryId: String(cString: diaryid), userid: String(cString: userid), day: day, content: content, startTime: startTime, endTime: endTime, tag: tag, name: name, form: getPlaceForm(of: content)))
                     
                 }
             }
@@ -596,6 +612,28 @@ class DBManager{
         }
         
         return ""
+    }
+    
+    private func getPlaceForm(of placeid: Int32) -> PlaceForm {
+        let queryString = "SELECT formid FROM place WHERE placeid = \(placeid);"
+        var queryStatement: OpaquePointer? = nil
+        
+        defer {
+            sqlite3_finalize(queryStatement)
+        }
+        
+        if sqlite3_prepare_v2(db, queryString, -1, &queryStatement, nil) == SQLITE_OK {
+            if sqlite3_step(queryStatement) == SQLITE_ROW {
+                
+                if let form = PlaceForm.init(rawValue: sqlite3_column_int(queryStatement, 0)) {
+                    return form
+                }
+            }
+        } else {
+            print("private getPlaceForm query not exist")
+        }
+        
+        return PlaceForm.landmark
     }
     
     private func getTransportationName(of transid: Int32) -> String {

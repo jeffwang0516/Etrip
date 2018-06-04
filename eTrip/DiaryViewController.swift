@@ -65,9 +65,10 @@ class DiaryViewController: UIViewController {
         let diaryDetailViewController = segue.destination as! DiaryDetailViewController
         let senderPath = self.tableView.indexPath(for: sender)!
         let diary = diaryInfos[senderPath.row]
-        let diaryDetails = db.getDiaryDetail(with: diary.diaryId, of: testUserId)
+//        let diaryDetails = db.getDiaryDetail(with: diary.diaryId, of: testUserId)
         diaryDetailViewController.dayCount = db.getDiaryTotalDays(with: diary.diaryId, of: testUserId)
-        diaryDetailViewController.diaryDetails = diaryDetails
+        diaryDetailViewController.diaryid = diary.diaryId
+        diaryDetailViewController.userid = testUserId
     }
 
 }

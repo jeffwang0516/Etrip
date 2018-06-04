@@ -11,8 +11,10 @@ import UIKit
 
 class DiaryDetailViewController: UITableViewController {
     
+    
     var dayCount: Int = 1
-    var diaryDetails: [DiaryDetail] = []
+    var diaryid: String!
+    var userid: String!
     
     override func viewDidLoad() {
         self.tableView.rowHeight = 210.0
@@ -29,11 +31,7 @@ class DiaryDetailViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let diaryDetailCell = tableView.dequeueReusableCell(withIdentifier: "DiaryDetailCell", for: indexPath) as! DiaryDetailViewCell
         
-        diaryDetailCell.dayLabel.text = "DAY \(1)"
-//        let item1 = diaryDetails[0]
-//        diaryDetailCell
-  
-        // TODO
+        diaryDetailCell.updateUIDisplays(diaryId: diaryid, userid: userid, day: indexPath.row + 1)
         
         return diaryDetailCell
     }
