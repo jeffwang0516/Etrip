@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import Foundation
 
 class SearchViewController: UIViewController {
 
+    let viewTitle = "搜尋"
     let db = DBManager.instance
     
     @IBOutlet weak var landmarkButton: UIButton!
@@ -31,14 +33,17 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.topItem?.title = viewTitle
+        
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
         // Query only while first time loading
         if placeInfos.count == 0 {
             self.placeInfos = self.db.searchForPlaceInfos(with: "", of: Int(PlaceForm.all.rawValue))
+            self.navigationController?.navigationBar.barTintColor = UIColor(red: 249.0/255.0, green: 199.0/255.0, blue: 60.0/255.0, alpha: 1.0)
+            
         }
-        
     }
     
     override func viewDidLoad() {
@@ -47,19 +52,12 @@ class SearchViewController: UIViewController {
         searchBar.delegate = self
         activityIndicator.isHidden = true
         
-        landmarkButton.backgroundColor = colorClicked
-        restaurantButton.backgroundColor = colorClicked
-        hotelButton.backgroundColor = colorClicked
-//        searchBar.contro
-//
-//        self.searchController = ({
-//            let controller = UISearchController(searchResultsController: nil)
-//            controller.searchBar.delegate = self
-//        })()
-//
-//        self.searchController.isActive = true
-//        self.searchController.delegate = self
-        
+        landmarkButton.backgroundColor = UIColor.clear
+        restaurantButton.backgroundColor = UIColor.clear
+        hotelButton.backgroundColor = UIColor.clear
+        buttonHightlight(landmarkButton)
+        buttonHightlight(restaurantButton)
+        buttonHightlight(hotelButton)
     }
 
     override func didReceiveMemoryWarning() {
@@ -69,41 +67,41 @@ class SearchViewController: UIViewController {
     
     
     let colorClicked = UIColor(red: 92/255, green: 0, blue: 0, alpha: 1)
-    let colorUnclicked = UIColor(red: 177/255, green: 49/255, blue: 45/255, alpha: 1)
+    let colorUnclicked = UIColor(red: 177/255, green: 177/255, blue: 177/255, alpha: 1)
     @IBAction func buttonClicked(_ sender: UIButton) {
         switch sender {
             case landmarkButton:
                 if isLandMarkButtonClicked {
-                    landmarkButton.backgroundColor = colorUnclicked
+                    buttonLowlight(landmarkButton)
                     isLandMarkButtonClicked = false
                 } else {
-                    landmarkButton.backgroundColor = colorClicked
+                    buttonHightlight(landmarkButton)
                     isLandMarkButtonClicked = true
                 }
             
             //search favoriteLM and list in table view
             case restaurantButton:
                 if isRestaurantButtonClicked {
-                    restaurantButton.backgroundColor = colorUnclicked
+                    buttonLowlight(restaurantButton)
                     isRestaurantButtonClicked = false
                 } else {
-                    restaurantButton.backgroundColor = colorClicked
+                    buttonHightlight(restaurantButton)
                     isRestaurantButtonClicked = true
                 }
             //search favoriteRest and list in table view
             case hotelButton:
                 if isHotelButtonClicked {
-                    hotelButton.backgroundColor = colorUnclicked
+                    buttonLowlight(hotelButton)
                     isHotelButtonClicked = false
                 } else {
-                    hotelButton.backgroundColor = colorClicked
+                    buttonHightlight(hotelButton)
                     isHotelButtonClicked = true
                 }
             //search favoriteHotel and list in table view
             default:
-                landmarkButton.backgroundColor = colorUnclicked
-                restaurantButton.backgroundColor = colorUnclicked
-                hotelButton.backgroundColor = colorUnclicked
+                buttonHightlight(landmarkButton)
+                buttonHightlight(restaurantButton)
+                buttonHightlight(hotelButton)
                 //search favoriteLM and list in table view
         }
         
@@ -118,7 +116,15 @@ class SearchViewController: UIViewController {
         }
         self.placeFormCodeForQuery = code
     }
-   
+    
+    func buttonLowlight(_ button: UIButton){
+        button.setTitleColor(colorUnclicked, for: UIControlState.normal)
+        button.titleLabel?.font = UIFont.italicSystemFont(ofSize: 18)
+    }
+    func buttonHightlight(_ button: UIButton){
+        button.setTitleColor(colorClicked, for: UIControlState.normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+    }
     
     /*
     // MARK: - Navigation
@@ -141,15 +147,11 @@ class SearchViewController: UIViewController {
     }
     
     private func prepareOpeningDetail(for segue: UIStoryboardSegue, sender: UITableViewCell) {
-//        let airportViewController = segue.destination as! AirportViewController
-//        let senderPath = self.tableView.indexPath(for: sender)!
-//        let nation = orderedNationNames[senderPath.section]
-//        let arr = self.nations[nation]
-//        let airportId = arr![senderPath.row]
-//        let airport: Airport = self.airports[airportId]
-//        airportViewController.airport = airport
         
-        
+        let placeInfoViewController = segue.destination as! PlaceInfoDetailViewController
+        let senderPath = self.tableView.indexPath(for: sender)!
+        let placeInfo = placeInfos[senderPath.row]
+        placeInfoViewController.placeInfo = placeInfo
     }
 
 }
@@ -168,7 +170,9 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
         let placeCell = tableView.dequeueReusableCell(withIdentifier: "PlaceCell", for: indexPath) as! PlaceTableViewCell
         let placeInfo = placeInfos[indexPath.row]
         
-        placeCell.updateUIDisplays(name: placeInfo.name, address: placeInfo.address, rateScore: placeInfo.score, image: placeInfo.getUIImage())
+//        placeCell.updateUIDisplays(name: placeInfo.name, address: placeInfo.address, rateScore: placeInfo.score, image: placeInfo.getUIImage())
+        placeCell.updateUIDisplays(name: placeInfo.name, address: placeInfo.address, rateScore: placeInfo.score, image: placeInfo.getUIImage(),ticket:(placeInfo.ticket.hashValue))
+        
         
         return placeCell
     }

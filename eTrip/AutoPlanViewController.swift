@@ -10,6 +10,11 @@ import UIKit
 
 class AutoPlanViewController: UIViewController {
 
+    let viewTitle = "自動規劃"
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.topItem?.title = viewTitle
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
 
