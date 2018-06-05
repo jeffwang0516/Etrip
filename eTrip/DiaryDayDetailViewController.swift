@@ -19,7 +19,7 @@ class DiaryDayDetailViewController: UIViewController {
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
-        self.tableView.rowHeight = 60.0
+        self.tableView.rowHeight = 80.0
         
         if let day = diaryDetails.first?.day {
             dayLabel.text = "DAY \(String(Int(day)))"

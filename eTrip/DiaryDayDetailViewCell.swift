@@ -27,21 +27,27 @@ class DiaryDayDetailViewCell: UITableViewCell {
     
     
     func updateUIDisplays(detail: DiaryDetail) {
-        
+//        detail.
         if detail.tag == 1 {
             timeLineImg.image = UIImage(named: "time_line_resume")
             placeTypeImg.image = imgCollection[Int(detail.form.rawValue) - 1]
+            
             placeAbstractText.text = detail.name
+            startTime.text = String(detail.startTime)
+            endTime.text = String(detail.endTime)
             
             
         } else {
             timeLineImg.image = UIImage(named: "time_line")
-            placeTypeImg.image = nil
-            placeAbstractText.text = detail.name
+            placeTypeImg.image = UIImage(named: "transport_car")
+            placeAbstractText.text = ""
+            startTime.text = ""
+            endTime.text = ""
         }
-        startTime.text = String(detail.startTime)
-        endTime.text = String(detail.endTime)
+        
         
     }
+    
+    
     
 }

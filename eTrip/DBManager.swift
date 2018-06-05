@@ -8,6 +8,7 @@
 
 import Foundation
 import SQLite3
+import UIKit
 
 class DBManager{
     private let sqlFilePath = Bundle.main.url(forResource: "etrip", withExtension: "db")!
@@ -153,6 +154,11 @@ class DBManager{
         return queryOfPlaceInfos(with: queryString)
     }
     
+    func getPlaceInfo(for placeId: Int32) -> [PlaceInfo]{
+        let queryString = "SELECT * FROM place WHERE placeid = \(placeId)"
+        
+        return queryOfPlaceInfos(with: queryString)
+    }
     
     // PlaceInfo Related
     func getAbstract(of placeId: Int) -> String{

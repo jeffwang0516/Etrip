@@ -9,7 +9,8 @@
 import UIKit
 
 class DiaryTableViewCell: UITableViewCell {
-    
+    let db = DBManager.instance
+    let testUserId = "TCA"
     @IBOutlet weak var firstDateMonth: UILabel!
     @IBOutlet weak var firstDateDay: UILabel!
     @IBOutlet weak var secondDateMonth: UILabel!
@@ -20,7 +21,10 @@ class DiaryTableViewCell: UITableViewCell {
     @IBOutlet weak var placeImg1: UIImageView!
     @IBOutlet weak var placeImg2: UIImageView!
     @IBOutlet weak var placeImg3: UIImageView!
-    
+    var isImg1Set: Bool=false
+    var isImg2Set: Bool=false
+    var isImg3Set: Bool=false
+
     let defaultImage = UIImage(named: "empty_frog1")
     let defaultImage2 = UIImage(named: "empty_frog2")
     
@@ -65,9 +69,27 @@ class DiaryTableViewCell: UITableViewCell {
 //        if image3 != nil {
 //            self.placeImg3.image = image3
 //        }
-        self.placeImg1.image = defaultImage
-        self.placeImg2.image = defaultImage
-        self.placeImg3.image = defaultImage2
+        var diaryDetials = db.getDiaryDetailWithoutTrans(with: diaryID, of:testUserId, of: 1)
+        for diaryDetial in diaryDetials{
+            let image = db.getPlaceInfo(for: diaryDetial.content)[0].getUIImage()
+            if image != nil {
+                if !isImg1Set{
+                    self.placeImg1.image = image
+                    self.isImg1Set = true
+                }else if !isImg2Set{
+                    self.placeImg2.image = image
+                    self.isImg2Set = true
+                }else if !isImg3Set{
+                    self.placeImg3.image = image
+                    self.isImg3Set = true
+                    break
+                }
+            }
+        }
+       
+//        self.placeImg1.image = defaultImage
+//        self.placeImg2.image = defaultImage
+//        self.placeImg3.image = defaultImage2
         
         
     }
