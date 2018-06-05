@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="sQQ-oH-7jN">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="sQQ-oH-7jN">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -973,7 +973,7 @@
                         <color key="backgroundColor" red="1" green="0.99215686270000003" blue="0.90588235289999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <color key="sectionIndexBackgroundColor" red="1" green="0.99215686270000003" blue="0.90588235289999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DiaryDetailCell" rowHeight="195" id="SDf-LG-T5U" customClass="DiaryDetailViewCell" customModule="eTrip" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="DiaryDetailCell" rowHeight="195" id="SDf-LG-T5U" customClass="DiaryDetailViewCell" customModule="eTrip" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="195"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="SDf-LG-T5U" id="HZj-tc-UYl">
@@ -1197,7 +1197,7 @@
                                     <outlet property="planLabel2" destination="cOm-IZ-5e1" id="mno-ke-0u2"/>
                                     <outlet property="planLabel3" destination="HSp-fa-6wM" id="zga-Ry-J0o"/>
                                     <outlet property="planLabel4" destination="VZr-sN-Y4h" id="BLl-GB-PcS"/>
-                                    <segue destination="PpN-oG-Roi" kind="presentation" id="OdC-Ol-nOv"/>
+                                    <segue destination="PpN-oG-Roi" kind="presentation" identifier="OpenDayDetail" id="OdC-Ol-nOv"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1211,10 +1211,10 @@
             </objects>
             <point key="canvasLocation" x="4405.6000000000004" y="182.51231527093597"/>
         </scene>
-        <!--View Controller-->
+        <!--Diary Day Detail View Controller-->
         <scene sceneID="mhV-TX-Cjd">
             <objects>
-                <viewController modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" id="PpN-oG-Roi" sceneMemberID="viewController">
+                <viewController modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" id="PpN-oG-Roi" customClass="DiaryDayDetailViewController" customModule="eTrip" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="IVh-OI-kQD">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1230,7 +1230,7 @@
                                         <rect key="frame" x="19.666666666666657" y="48.333333333333343" width="280" height="376.33333333333326"/>
                                         <color key="backgroundColor" red="1" green="0.99215686270000003" blue="0.90588235289999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="83" id="Pht-lg-gu7">
+                                            <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="DayDetailCell" rowHeight="83" id="Pht-lg-gu7" customClass="DiaryDayDetailViewCell" customModule="eTrip" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="280" height="83"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Pht-lg-gu7" id="1kx-0k-xBe">
@@ -1302,6 +1302,13 @@
                                                     </constraints>
                                                 </tableViewCellContentView>
                                                 <color key="tintColor" red="1" green="0.81176470590000005" blue="0.42745098040000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <connections>
+                                                    <outlet property="endTime" destination="m20-Hi-sCG" id="sRc-RK-0TM"/>
+                                                    <outlet property="placeAbstractText" destination="VKR-BW-QDf" id="J03-re-8ML"/>
+                                                    <outlet property="placeTypeImg" destination="cEU-3O-KsL" id="t56-kq-Du5"/>
+                                                    <outlet property="startTime" destination="Yor-tn-ICR" id="vNy-Je-FmC"/>
+                                                    <outlet property="timeLineImg" destination="UQS-Rw-2cN" id="BV5-rs-1bR"/>
+                                                </connections>
                                             </tableViewCell>
                                         </prototypes>
                                     </tableView>
@@ -1320,6 +1327,9 @@
                                                     <constraint firstAttribute="width" secondItem="fsH-YR-8fV" secondAttribute="height" id="aGX-bk-jzk"/>
                                                 </constraints>
                                                 <state key="normal" title="Button" image="back"/>
+                                                <connections>
+                                                    <action selector="customBackButtonAction:" destination="PpN-oG-Roi" eventType="touchUpInside" id="mH3-OR-KHg"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" red="1" green="0.99215686270000003" blue="0.90588235289999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -1357,6 +1367,10 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="dux-k0-fnC"/>
                     </view>
+                    <connections>
+                        <outlet property="dayLabel" destination="qXv-ZC-BvC" id="aKA-4r-ySq"/>
+                        <outlet property="tableView" destination="Cio-jI-asn" id="NNq-wh-kcG"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8h2-sK-5fA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
