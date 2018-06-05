@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		1F708CF820C56EBF0004FEF8 /* DiaryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F708CF720C56EBF0004FEF8 /* DiaryDetailViewController.swift */; };
 		1F708CFA20C57AAE0004FEF8 /* DiaryDetailViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F708CF920C57AAE0004FEF8 /* DiaryDetailViewCell.swift */; };
+		1F708CFC20C66E050004FEF8 /* DiaryDayDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F708CFB20C66E050004FEF8 /* DiaryDayDetailViewController.swift */; };
+		1F708CFE20C670FA0004FEF8 /* DiaryDayDetailViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F708CFD20C670FA0004FEF8 /* DiaryDayDetailViewCell.swift */; };
 		1F9F6B5820BF94470036F8AB /* PlaceInfoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F6B5720BF94470036F8AB /* PlaceInfoDetailViewController.swift */; };
 		1F9F6B5A20BF9FAB0036F8AB /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F6B5920BF9FAB0036F8AB /* LocationViewController.swift */; };
 		1FD54CA420B9E3FC001AE1C1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD54CA320B9E3FC001AE1C1 /* AppDelegate.swift */; };
@@ -33,6 +35,8 @@
 /* Begin PBXFileReference section */
 		1F708CF720C56EBF0004FEF8 /* DiaryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDetailViewController.swift; sourceTree = "<group>"; };
 		1F708CF920C57AAE0004FEF8 /* DiaryDetailViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDetailViewCell.swift; sourceTree = "<group>"; };
+		1F708CFB20C66E050004FEF8 /* DiaryDayDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDayDetailViewController.swift; sourceTree = "<group>"; };
+		1F708CFD20C670FA0004FEF8 /* DiaryDayDetailViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDayDetailViewCell.swift; sourceTree = "<group>"; };
 		1F9F6B5720BF94470036F8AB /* PlaceInfoDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInfoDetailViewController.swift; sourceTree = "<group>"; };
 		1F9F6B5920BF9FAB0036F8AB /* LocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
 		1FD54CA020B9E3FC001AE1C1 /* eTrip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = eTrip.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -108,6 +112,8 @@
 				8C97B24620C49B1A00DCDDB9 /* DiaryInfo.swift */,
 				1F708CF720C56EBF0004FEF8 /* DiaryDetailViewController.swift */,
 				1F708CF920C57AAE0004FEF8 /* DiaryDetailViewCell.swift */,
+				1F708CFB20C66E050004FEF8 /* DiaryDayDetailViewController.swift */,
+				1F708CFD20C670FA0004FEF8 /* DiaryDayDetailViewCell.swift */,
 			);
 			path = eTrip;
 			sourceTree = "<group>";
@@ -194,6 +200,8 @@
 				8C87250420C4AA57000D28DA /* DiaryDetail.swift in Sources */,
 				8C08105520BED4D40068B44C /* DiaryViewController.swift in Sources */,
 				1FD54CB820B9E60A001AE1C1 /* DBManager.swift in Sources */,
+				1F708CFE20C670FA0004FEF8 /* DiaryDayDetailViewCell.swift in Sources */,
+				1F708CFC20C66E050004FEF8 /* DiaryDayDetailViewController.swift in Sources */,
 				8C08105120BED47D0068B44C /* FavoriteViewController.swift in Sources */,
 				1F9F6B5A20BF9FAB0036F8AB /* LocationViewController.swift in Sources */,
 				1FD54CA420B9E3FC001AE1C1 /* AppDelegate.swift in Sources */,

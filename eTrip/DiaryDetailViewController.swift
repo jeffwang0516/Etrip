@@ -11,6 +11,7 @@ import UIKit
 
 class DiaryDetailViewController: UITableViewController {
     
+    let db = DBManager.instance
     
     var dayCount: Int = 1
     var diaryid: String!
@@ -34,5 +35,27 @@ class DiaryDetailViewController: UITableViewController {
         diaryDetailCell.updateUIDisplays(diaryId: diaryid, userid: userid, day: indexPath.row + 1)
         
         return diaryDetailCell
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "OpenDayDetail" {
+            guard let cell = sender as? DiaryDetailViewCell else {
+                fatalError("Mis-configured storyboard! The sender should be a cell.")
+            }
+            self.prepareOpeningDetail(for: segue, sender: cell)
+        } else {
+            super.prepare(for: segue, sender: sender)
+        }
+    }
+    
+    private func prepareOpeningDetail(for segue: UIStoryboardSegue, sender: DiaryDetailViewCell) {
+        
+        let diaryDayDetailViewController = segue.destination as! DiaryDayDetailViewController
+        let senderPath = self.tableView.indexPath(for: sender)!
+        let day = senderPath.row + 1
+        
+        diaryDayDetailViewController.diaryDetails = db.getDiaryDetail(with: diaryid, of: userid, of: day)// sender.diaryDetailOfDay
+//        print(sender.diaryDetailOfDay)
+        
     }
 }
