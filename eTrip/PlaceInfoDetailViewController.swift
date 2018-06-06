@@ -35,7 +35,9 @@ class PlaceInfoDetailViewController: UIViewController {
     let defaultImage = UIImage(named: "icon")
     
     override func viewWillAppear(_ animated: Bool) {
-        navBarItem.title = "景點介紹"
+        if navBarItem != nil {
+            navBarItem.title = "景點介紹"
+        }
         self.placeName.text = placeInfo?.name
         self.addressText.setTitle(placeInfo?.address, for: UIControlState.normal)
         loadScore()
@@ -75,6 +77,10 @@ class PlaceInfoDetailViewController: UIViewController {
         
     }
     
+    @IBAction func customBackButtonAction(_ sender: UIButton) {
+        self.dismiss(animated: true)
+    }
+    
     @IBAction func changeScore(_ sender: Any) {
         //改評分
     }
@@ -82,6 +88,12 @@ class PlaceInfoDetailViewController: UIViewController {
     @IBAction func changeLike(_ sender: Any) {
         let isChangeLikeSuccess = db.alterFavorites(of: testUserId,placeid: (placeInfo?.id)!)
         setLikeImg()
+        
+        // Refresh view in favorite view
+        let allControllers = navigationController?.viewControllers[0].childViewControllers
+        if let favoriteTab = allControllers?[2] as? FavoriteViewController {
+            favoriteTab.refreshDataAndTable()
+        }
     }
     
     //IBAction likeChange
@@ -105,7 +117,10 @@ class PlaceInfoDetailViewController: UIViewController {
         let avgScore = NSString(format:"%.1f", (placeInfo?.score.average)!)
         let ratePeopleCount = Int(Double((placeInfo?.score.total)!) / (placeInfo?.score.average)!)
         self.scoreText.text = "\(avgScore) 分,\n共\(ratePeopleCount)人評分"
-        self.scoreStar.rating = (placeInfo?.score.average)!
+        if self.scoreStar != nil {
+            self.scoreStar.rating = (placeInfo?.score.average)!
+        }
+        
     }
     
     
