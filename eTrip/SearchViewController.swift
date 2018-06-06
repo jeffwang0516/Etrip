@@ -186,15 +186,24 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
 extension SearchViewController: UISearchBarDelegate {
    
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = true
         searchActive = true;
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        
+        searchBar.showsCancelButton = false
         searchActive = false;
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        DispatchQueue.global().async {
+            self.placeInfos = self.db.searchForPlaceInfos(with: "", of: self.placeFormCodeForQuery)
+            DispatchQueue.main.async {
+                searchBar.text = ""
+                self.tableView.reloadData()
+                searchBar.showsCancelButton = false
+            }
+        }
         searchActive = false;
     }
     
@@ -215,6 +224,8 @@ extension SearchViewController: UISearchBarDelegate {
                 self.activityIndicator.stopAnimating()
                 self.activityIndicator.isHidden = true
                 self.tableView.isUserInteractionEnabled = true
+//                searchBar.showsCancelButton = true
+                
             }          
         }
     

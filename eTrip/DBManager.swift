@@ -381,6 +381,25 @@ class DBManager{
         return nil
     }
     
+    func setRating(of placeid: Int, by userid: String, score: Int) -> Bool {
+        let ifRateBefore = getRatings(of: placeid, by: userid)
+        if ifRateBefore != nil {
+            let queryString = "DELETE FROM score WHERE userid = '\(userid)' and placeid=\(placeid);"
+            if sqlite3_exec(db, queryString, nil, nil, nil) != SQLITE_OK{
+                print("Delete Rating query not prepared")
+                return false
+            }
+        }
+        
+        let queryString = "INSERT INTO score values('\(userid)', \(placeid), \(score));"
+        if sqlite3_exec(db, queryString, nil, nil, nil) != SQLITE_OK{
+            print("Insert Rating query not prepared")
+            return false
+        }
+        
+        return true
+    }
+    
     
     // AutoPlanning Related:
     // Nearby queries & Time constrained queries

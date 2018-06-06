@@ -385,7 +385,7 @@
                                                                         </state>
                                                                         <connections>
                                                                             <action selector="changeScore:" destination="OCE-hP-vcN" eventType="touchUpInside" id="7UM-3w-NtP"/>
-                                                                            <segue destination="F3i-7h-5VJ" kind="presentation" id="C0J-pb-nv2"/>
+                                                                            <segue destination="F3i-7h-5VJ" kind="presentation" identifier="OpenScoreChangeView" id="C0J-pb-nv2"/>
                                                                         </connections>
                                                                     </button>
                                                                 </subviews>
@@ -1523,7 +1523,7 @@
                                                                         <connections>
                                                                             <action selector="changeScore:" destination="Dvh-t2-aX7" eventType="touchUpInside" id="nQR-iU-4Pr"/>
                                                                             <action selector="changeScore:" destination="OCE-hP-vcN" eventType="touchUpInside" id="oon-ra-IWZ"/>
-                                                                            <segue destination="F3i-7h-5VJ" kind="presentation" id="UgR-4T-lSa"/>
+                                                                            <segue destination="F3i-7h-5VJ" kind="presentation" identifier="OpenScoreChangeView" id="UgR-4T-lSa"/>
                                                                         </connections>
                                                                     </button>
                                                                 </subviews>
@@ -2004,7 +2004,7 @@
                                         <color key="backgroundColor" red="0.066666666669999999" green="0.1647058824" blue="0.76078431369999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     </view>
                                     <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="prT-Wv-6PS" customClass="CosmosView" customModule="eTrip">
-                                        <rect key="frame" x="28.333333333333314" y="75.333333333333371" width="243" height="40"/>
+                                        <rect key="frame" x="28.333333333333314" y="75" width="243" height="40"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="color" keyPath="filledColor">
                                                 <color key="value" red="1" green="0.96407240670000005" blue="0.15691118609999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>

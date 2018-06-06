@@ -125,4 +125,26 @@ class PlaceInfoDetailViewController: UIViewController {
     
     
     //只有繼承UIControl的View才能設Action
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "OpenScoreChangeView" {
+            guard let button = sender as? UIButton else {
+                fatalError("Mis-configured storyboard! The sender should be a cell.")
+            }
+            self.prepareOpeningDetail(for: segue, sender: button)
+        } else {
+            super.prepare(for: segue, sender: sender)
+        }
+    }
+    
+    private func prepareOpeningDetail(for segue: UIStoryboardSegue, sender: UIButton) {
+        
+        
+        let scoreChangeViewController = segue.destination as! ScoreChangeViewController
+        
+        
+        
+        scoreChangeViewController.placeid = placeInfo?.id
+        
+    }
 }
