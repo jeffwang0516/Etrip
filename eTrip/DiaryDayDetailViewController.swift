@@ -11,6 +11,7 @@ import UIKit
 
 class DiaryDayDetailViewController: UIViewController {
     
+    let db = DBManager.instance
     @IBOutlet weak var dayLabel: UILabel!
     var diaryDetails: [DiaryDetail] = []
     @IBOutlet weak var tableView: UITableView!
@@ -30,6 +31,28 @@ class DiaryDayDetailViewController: UIViewController {
     @IBAction func customBackButtonAction(_ sender: UIButton) {
         self.dismiss(animated: true)
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "OpenPlaceDetailModally" {
+            guard let cell = sender as? DiaryDayDetailViewCell else {
+                fatalError("Mis-configured storyboard! The sender should be a cell.")
+            }
+            self.prepareOpeningDetail(for: segue, sender: cell)
+        } else {
+            super.prepare(for: segue, sender: sender)
+        }
+    }
+    
+    private func prepareOpeningDetail(for segue: UIStoryboardSegue, sender: DiaryDayDetailViewCell) {
+        
+        
+        let placeInfoDetailViewController = segue.destination as! PlaceInfoDetailViewController
+        let senderPath = self.tableView.indexPath(for: sender)!
+        
+        let diaryDetail = diaryDetails[senderPath.row]
+        placeInfoDetailViewController.placeInfo = db.getPlaceInfo(for: diaryDetail.content).first
+        
+    }
 }
 
 extension DiaryDayDetailViewController: UITableViewDelegate, UITableViewDataSource{
@@ -44,6 +67,9 @@ extension DiaryDayDetailViewController: UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let dayDetailCell = tableView.dequeueReusableCell(withIdentifier: "DayDetailCell", for: indexPath) as! DiaryDayDetailViewCell
         let dayDetailItem = diaryDetails[indexPath.row]
+        if dayDetailItem.tag == 2 {
+            dayDetailCell.isUserInteractionEnabled = false;
+        }
 
         dayDetailCell.updateUIDisplays(detail: dayDetailItem)
 

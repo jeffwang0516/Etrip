@@ -10,13 +10,18 @@ import UIKit
 
 class ScoreChangeViewController: UIViewController {
     @IBOutlet weak var scoreStar: CosmosView!
+    var placeid: Int32!
     let testUserId = "TCA"
     let db = DBManager.instance
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        scoreStar.rating =
-//        scoreStar.text = 
+        if let userScore = db.getRatings(of: Int(placeid), by: testUserId) {
+            scoreStar.rating = Double(userScore)
+            scoreStar.text = String(userScore)
+//            print(userScore)
+        }
+
         // Do any additional setup after loading the view.
     }
 
@@ -32,6 +37,12 @@ class ScoreChangeViewController: UIViewController {
     @IBAction func saveNewScore(_ sender: Any) {
         //input placeid+userid+score
         
+//        print(scoreStar.rating)
+        if placeid != nil {
+           db.setRating(of: Int(placeid), by: testUserId, score: Int(scoreStar.rating))
+        }
+        
+        self.dismiss(animated: true)
     }
     
     

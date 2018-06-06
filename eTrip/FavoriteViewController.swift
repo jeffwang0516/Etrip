@@ -44,13 +44,30 @@ class FavoriteViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func refreshDataAndTable() {
+        if isViewLoaded == false { return }
+        
+        self.favoriteLandmark = db.getFavoritePlaces(of: testUserId, with: Int(PlaceForm.landmark.rawValue))
+        self.favoriteRestaurant = db.getFavoritePlaces(of: testUserId, with: Int(PlaceForm.restaurant.rawValue))
+        self.favoriteHotel = db.getFavoritePlaces(of: testUserId, with: Int(PlaceForm.hotel.rawValue))
+        landmarkButton.backgroundColor = colorClicked
+        restaurantButton.backgroundColor = colorUnclicked
+        hotelButton.backgroundColor = colorUnclicked
+        
+        self.placeInfoListToDisplay = self.favoriteLandmark
+        if self.tableView != nil {
+            self.tableView.reloadData()
+        }
+        
     }
     
     @IBAction func searchFavorite(_ sender: UIButton) {
