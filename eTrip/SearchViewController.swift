@@ -137,7 +137,7 @@ class SearchViewController: UIViewController {
     */
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "OpenPlaceDetailFromSearch" {
-            guard let cell = sender as? UITableViewCell else {
+            guard let cell = sender as? PlaceTableViewCell else {
                 fatalError("Mis-configured storyboard! The sender should be a cell.")
             }
             self.prepareOpeningDetail(for: segue, sender: cell)
@@ -146,12 +146,13 @@ class SearchViewController: UIViewController {
         }
     }
     
-    private func prepareOpeningDetail(for segue: UIStoryboardSegue, sender: UITableViewCell) {
+    private func prepareOpeningDetail(for segue: UIStoryboardSegue, sender: PlaceTableViewCell) {
         
         let placeInfoViewController = segue.destination as! PlaceInfoDetailViewController
         let senderPath = self.tableView.indexPath(for: sender)!
         let placeInfo = placeInfos[senderPath.row]
         placeInfoViewController.placeInfo = placeInfo
+        placeInfoViewController.cellThatTriggered = sender
     }
 
 }

@@ -13,6 +13,7 @@ class ScoreChangeViewController: UIViewController {
     var placeid: Int32!
     let testUserId = "TCA"
     let db = DBManager.instance
+    var prevViewController: UIViewController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,9 +30,14 @@ class ScoreChangeViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+    func refreshPreviousView() {
+        if let prevCtrl = prevViewController as? PlaceInfoDetailViewController {
+            prevCtrl.refresh()
+        }
+    }
     @IBAction func backToPrePage(_ sender: Any) {
         self.dismiss(animated: true)
+        refreshPreviousView()
     }
     
     @IBAction func saveNewScore(_ sender: Any) {
@@ -43,6 +49,7 @@ class ScoreChangeViewController: UIViewController {
         }
         
         self.dismiss(animated: true)
+        refreshPreviousView()
     }
     
     
