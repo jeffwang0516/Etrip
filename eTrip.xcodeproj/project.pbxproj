@@ -27,7 +27,9 @@
 		8C08105120BED47D0068B44C /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C08105020BED47D0068B44C /* FavoriteViewController.swift */; };
 		8C08105320BED4AF0068B44C /* AutoPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C08105220BED4AF0068B44C /* AutoPlanViewController.swift */; };
 		8C08105520BED4D40068B44C /* DiaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C08105420BED4D40068B44C /* DiaryViewController.swift */; };
+		8C121FF620C79C0700744F9E /* CosmosDistrib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C121FF520C79C0700744F9E /* CosmosDistrib.swift */; };
 		8C13894D20C68CFA00046C25 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C13894C20C68CFA00046C25 /* MapViewController.swift */; };
+		8C42925420C7D3FD00ABAD97 /* ScoreChangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C42925320C7D3FD00ABAD97 /* ScoreChangeViewController.swift */; };
 		8C87250420C4AA57000D28DA /* DiaryDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C87250320C4AA57000D28DA /* DiaryDetail.swift */; };
 		8C97B24520C4970200DCDDB9 /* DiaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C97B24420C4970200DCDDB9 /* DiaryTableViewCell.swift */; };
 		8C97B24720C49B1A00DCDDB9 /* DiaryInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C97B24620C49B1A00DCDDB9 /* DiaryInfo.swift */; };
@@ -56,7 +58,9 @@
 		8C08105020BED47D0068B44C /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
 		8C08105220BED4AF0068B44C /* AutoPlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoPlanViewController.swift; sourceTree = "<group>"; };
 		8C08105420BED4D40068B44C /* DiaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewController.swift; sourceTree = "<group>"; };
+		8C121FF520C79C0700744F9E /* CosmosDistrib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CosmosDistrib.swift; sourceTree = "<group>"; };
 		8C13894C20C68CFA00046C25 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		8C42925320C7D3FD00ABAD97 /* ScoreChangeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreChangeViewController.swift; sourceTree = "<group>"; };
 		8C87250320C4AA57000D28DA /* DiaryDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiaryDetail.swift; sourceTree = "<group>"; };
 		8C97B24420C4970200DCDDB9 /* DiaryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryTableViewCell.swift; sourceTree = "<group>"; };
 		8C97B24620C49B1A00DCDDB9 /* DiaryInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryInfo.swift; sourceTree = "<group>"; };
@@ -92,6 +96,7 @@
 		1FD54CA220B9E3FC001AE1C1 /* eTrip */ = {
 			isa = PBXGroup;
 			children = (
+				8C121FF520C79C0700744F9E /* CosmosDistrib.swift */,
 				8C87250320C4AA57000D28DA /* DiaryDetail.swift */,
 				1FD54CBD20BADE57001AE1C1 /* etrip.db */,
 				1FD54CA320B9E3FC001AE1C1 /* AppDelegate.swift */,
@@ -117,6 +122,7 @@
 				1F708CFB20C66E050004FEF8 /* DiaryDayDetailViewController.swift */,
 				1F708CFD20C670FA0004FEF8 /* DiaryDayDetailViewCell.swift */,
 				8C13894C20C68CFA00046C25 /* MapViewController.swift */,
+				8C42925320C7D3FD00ABAD97 /* ScoreChangeViewController.swift */,
 			);
 			path = eTrip;
 			sourceTree = "<group>";
@@ -198,12 +204,14 @@
 				1F9F6B5820BF94470036F8AB /* PlaceInfoDetailViewController.swift in Sources */,
 				8C13894D20C68CFA00046C25 /* MapViewController.swift in Sources */,
 				1FD54CA620B9E3FC001AE1C1 /* ViewController.swift in Sources */,
+				8C42925420C7D3FD00ABAD97 /* ScoreChangeViewController.swift in Sources */,
 				8C08104D20BEC4A50068B44C /* PlaceTableViewCell.swift in Sources */,
 				1F708CFA20C57AAE0004FEF8 /* DiaryDetailViewCell.swift in Sources */,
 				1F708CF820C56EBF0004FEF8 /* DiaryDetailViewController.swift in Sources */,
 				8C87250420C4AA57000D28DA /* DiaryDetail.swift in Sources */,
 				8C08105520BED4D40068B44C /* DiaryViewController.swift in Sources */,
 				1FD54CB820B9E60A001AE1C1 /* DBManager.swift in Sources */,
+				8C121FF620C79C0700744F9E /* CosmosDistrib.swift in Sources */,
 				1F708CFE20C670FA0004FEF8 /* DiaryDayDetailViewCell.swift in Sources */,
 				1F708CFC20C66E050004FEF8 /* DiaryDayDetailViewController.swift in Sources */,
 				8C08105120BED47D0068B44C /* FavoriteViewController.swift in Sources */,

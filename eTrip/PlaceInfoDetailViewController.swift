@@ -19,6 +19,7 @@ class PlaceInfoDetailViewController: UIViewController {
 //    @IBOutlet weak var likeImg: UIImageView!
     @IBOutlet weak var likeImg: UIButton!
     @IBOutlet weak var scoreText: UILabel!
+    @IBOutlet weak var scoreStar: CosmosView!
     
 //    @IBOutlet weak var addressText: UILabel!
 //    @IBOutlet weak var phoneText: UILabel!
@@ -37,9 +38,7 @@ class PlaceInfoDetailViewController: UIViewController {
         navBarItem.title = "景點介紹"
         self.placeName.text = placeInfo?.name
         self.addressText.setTitle(placeInfo?.address, for: UIControlState.normal)
-        let avgScore = NSString(format:"%.1f", (placeInfo?.score.average)!)
-        let ratePeopleCount = Int(Double((placeInfo?.score.total)!) / (placeInfo?.score.average)!)
-        self.scoreText.text = "\(avgScore) 分,\n共\(ratePeopleCount)人評分"
+        loadScore()
         if placeInfo?.getUIImage() != nil {
             self.placeImg.image = placeInfo?.getUIImage()
         } else {
@@ -100,6 +99,13 @@ class PlaceInfoDetailViewController: UIViewController {
     
     //IBAction phoneCall
     @IBAction func phoneCall(_ sender: Any) {
+    }
+    
+    func loadScore(){
+        let avgScore = NSString(format:"%.1f", (placeInfo?.score.average)!)
+        let ratePeopleCount = Int(Double((placeInfo?.score.total)!) / (placeInfo?.score.average)!)
+        self.scoreText.text = "\(avgScore) 分,\n共\(ratePeopleCount)人評分"
+        self.scoreStar.rating = (placeInfo?.score.average)!
     }
     
     
