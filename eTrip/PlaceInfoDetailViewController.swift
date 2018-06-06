@@ -13,6 +13,7 @@ class PlaceInfoDetailViewController: UIViewController {
     var placeInfo: PlaceInfo?
     let testUserId = "TCA"
     let db = DBManager.instance
+    var cellThatTriggered: PlaceTableViewCell?
     
     @IBOutlet weak var placeImg: UIImageView!
     @IBOutlet weak var placeName: UILabel!
@@ -35,6 +36,7 @@ class PlaceInfoDetailViewController: UIViewController {
     let defaultImage = UIImage(named: "icon")
     
     override func viewWillAppear(_ animated: Bool) {
+
         if navBarItem != nil {
             navBarItem.title = "景點介紹"
         }
@@ -75,6 +77,12 @@ class PlaceInfoDetailViewController: UIViewController {
         }
         
         
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        if let placeInfo = placeInfo {
+            self.cellThatTriggered?.updateUIDisplays(name: placeInfo.name, address: placeInfo.address, rateScore: placeInfo.score, image: placeInfo.getUIImage(),ticket: placeInfo.ticket.hashValue)
+        }
     }
     
     @IBAction func customBackButtonAction(_ sender: UIButton) {
@@ -123,7 +131,11 @@ class PlaceInfoDetailViewController: UIViewController {
         
     }
     
-    
+    func refresh() {
+        self.placeInfo = db.getPlaceInfo(for: placeInfo!.id).first
+        viewWillAppear(true)
+        
+    }
     //只有繼承UIControl的View才能設Action
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -132,6 +144,7 @@ class PlaceInfoDetailViewController: UIViewController {
                 fatalError("Mis-configured storyboard! The sender should be a cell.")
             }
             self.prepareOpeningDetail(for: segue, sender: button)
+            
         } else {
             super.prepare(for: segue, sender: sender)
         }
@@ -145,6 +158,6 @@ class PlaceInfoDetailViewController: UIViewController {
         
         
         scoreChangeViewController.placeid = placeInfo?.id
-        
+        scoreChangeViewController.prevViewController = self
     }
 }
