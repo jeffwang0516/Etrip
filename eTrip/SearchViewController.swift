@@ -201,7 +201,7 @@ extension SearchViewController: UISearchBarDelegate {
             self.placeInfos = self.db.searchForPlaceInfos(with: "", of: self.placeFormCodeForQuery)
             DispatchQueue.main.async {
                 searchBar.text = ""
-                self.tableView.reloadData()
+                self.refreshTable()
                 searchBar.showsCancelButton = false
             }
         }
@@ -221,7 +221,7 @@ extension SearchViewController: UISearchBarDelegate {
 //            print(self.placeFormCodeForQuery)
             self.placeInfos = self.db.searchForPlaceInfos(with: searchString, of: self.placeFormCodeForQuery)
             DispatchQueue.main.async {
-                self.tableView.reloadData()
+                self.refreshTable()
                 self.activityIndicator.stopAnimating()
                 self.activityIndicator.isHidden = true
                 self.tableView.isUserInteractionEnabled = true
@@ -232,5 +232,11 @@ extension SearchViewController: UISearchBarDelegate {
     
         self.searchBar.endEditing(true)
         searchActive = false;
+    }
+    
+    func refreshTable() {
+        self.tableView.reloadData()
+        let indexPath = IndexPath(row: 0, section: 0)
+        self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
     }
 }
