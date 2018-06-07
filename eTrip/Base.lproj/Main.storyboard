@@ -443,7 +443,7 @@
                                                         </state>
                                                         <connections>
                                                             <action selector="openMap:" destination="OCE-hP-vcN" eventType="touchUpInside" id="EYt-bq-W5g"/>
-                                                            <segue destination="8Ue-Z7-Y3q" kind="presentation" id="fSj-VV-uyo"/>
+                                                            <segue destination="8Ue-Z7-Y3q" kind="presentation" identifier="OpenMap" id="fSj-VV-uyo"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -649,7 +649,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ve1-SP-oNg">
-                                <rect key="frame" x="37" y="186.66666666666663" width="300" height="300"/>
+                                <rect key="frame" x="37" y="187.33333333333337" width="300" height="300"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="臺北市北投區幽雅路18號1-6樓" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EaF-eB-pSL">
                                         <rect key="frame" x="0.0" y="0.0" width="300" height="45"/>
@@ -687,6 +687,10 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="4cT-en-Rb8"/>
                     </view>
+                    <connections>
+                        <outlet property="addressLabel" destination="EaF-eB-pSL" id="bTi-xh-MkY"/>
+                        <outlet property="mapView" destination="0I7-aG-kyC" id="Yvo-6p-Zjm"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k2V-zC-FVV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1582,6 +1586,7 @@
                                                         <connections>
                                                             <action selector="openMap:" destination="OCE-hP-vcN" eventType="touchUpInside" id="D8A-Cd-kG2"/>
                                                             <action selector="openMap:" destination="Dvh-t2-aX7" eventType="touchUpInside" id="buS-3A-VEC"/>
+                                                            <segue destination="8Ue-Z7-Y3q" kind="presentation" identifier="OpenMap" id="Rcg-LV-ExD"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -2004,7 +2009,7 @@
                                         <color key="backgroundColor" red="0.066666666669999999" green="0.1647058824" blue="0.76078431369999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     </view>
                                     <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="prT-Wv-6PS" customClass="CosmosView" customModule="eTrip">
-                                        <rect key="frame" x="28.333333333333314" y="69" width="243" height="40"/>
+                                        <rect key="frame" x="28.333333333333314" y="69.333333333333314" width="243" height="40"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="color" keyPath="filledColor">
                                                 <color key="value" red="1" green="0.96407240670000005" blue="0.15691118609999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -2371,6 +2376,7 @@
                     <connections>
                         <outlet property="cityDropdown" destination="Let-oc-9uB" id="WDv-kd-OBi"/>
                         <outlet property="districtDropDown" destination="4nO-Sg-ah4" id="5N9-PN-7Dp"/>
+                        <outlet property="showAllView" destination="Dlq-fs-ta3" id="KIG-bF-HhW"/>
                         <outlet property="tableView" destination="k1U-JK-K5p" id="YkR-wL-VHA"/>
                     </connections>
                 </viewController>
@@ -2397,6 +2403,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="C0J-pb-nv2"/>
+        <segue reference="fSj-VV-uyo"/>
         <segue reference="dPi-bg-4YV"/>
     </inferredMetricsTieBreakers>
 </document>
