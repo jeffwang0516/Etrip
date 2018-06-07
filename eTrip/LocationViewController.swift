@@ -14,6 +14,7 @@ class LocationViewController: UIViewController {
     
     let db = DBManager.instance
     
+    @IBOutlet weak var showAllView: UIView!
     @IBOutlet weak var cityDropdown: ZHDropDownMenu!
     @IBOutlet weak var districtDropDown: ZHDropDownMenu!
     
@@ -26,11 +27,17 @@ class LocationViewController: UIViewController {
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
+        
+        self.showAllView.layer.borderColor = UIColor.lightGray.cgColor
+        self.showAllView.layer.borderWidth = 0.5
+        self.showAllView.layer.masksToBounds = true
+        self.showAllView.layer.cornerRadius = 2.5
+        
         self.cityDropdown.options = db.getAllCityNames()
         let firstCity = self.cityDropdown.options.first
         self.cityDropdown.defaultValue = firstCity
         
-        self.cityDropdown.showBorder = false
+//        self.cityDropdown.showBorder = false
         self.cityDropdown.menuId = 1
         self.cityDropdown.delegate = self
         

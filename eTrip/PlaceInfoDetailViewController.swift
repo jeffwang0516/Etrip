@@ -119,6 +119,16 @@ class PlaceInfoDetailViewController: UIViewController {
     
     //IBAction phoneCall
     @IBAction func phoneCall(_ sender: Any) {
+        if !(placeInfo?.phone.isEmpty)! {
+            if let url = URL(string: "tel://\(placeInfo!.phone)"), UIApplication.shared.canOpenURL(url) {
+                if #available(iOS 10, *) {
+                    UIApplication.shared.open(url)
+                } else {
+                    UIApplication.shared.openURL(url)
+                }
+            }
+        }
+        
     }
     
     func loadScore(){
@@ -145,6 +155,11 @@ class PlaceInfoDetailViewController: UIViewController {
             }
             self.prepareOpeningDetail(for: segue, sender: button)
             
+        } else if segue.identifier == "OpenMap" {
+            guard let button = sender as? UIButton else {
+                fatalError("Mis-configured storyboard! The sender should be a cell.")
+            }
+            self.prepareOpenMap(for: segue, sender: button)
         } else {
             super.prepare(for: segue, sender: sender)
         }
@@ -159,5 +174,12 @@ class PlaceInfoDetailViewController: UIViewController {
         
         scoreChangeViewController.placeid = placeInfo?.id
         scoreChangeViewController.prevViewController = self
+    }
+    
+    private func prepareOpenMap(for segue: UIStoryboardSegue, sender: UIButton) {
+        
+        
+        let mapViewController = segue.destination as! MapViewController
+        mapViewController.placeInfo = self.placeInfo
     }
 }

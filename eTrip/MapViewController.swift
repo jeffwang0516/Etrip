@@ -7,13 +7,40 @@
 //
 
 import UIKit
+import MapKit
 
-class MapViewController: UIViewController {
+class MapViewController: UIViewController, MKMapViewDelegate {
 
+    let db = DBManager.instance
+    
+    var placeInfo: PlaceInfo?
+    
+    @IBOutlet weak var addressLabel: UILabel!
+    @IBOutlet weak var mapView: MKMapView!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        mapView.delegate = self
+        if let placeInfo = placeInfo {
+            addressLabel.text = placeInfo.address
+            
+            let location = CLLocationCoordinate2D(latitude: placeInfo.lat, longitude: placeInfo.lng)
+            mapView.setCenter(location, animated: true)
+            let annotate = MKPointAnnotation()
+            annotate.coordinate = location
+            
+            mapView.addAnnotation(annotate)
+            let span = MKCoordinateSpanMake(0.075, 0.075)
+            let region = MKCoordinateRegionMakeWithDistance(
+                location, 20000, 20000)
+            
+            
+            mapView.setRegion(region, animated: true)
+            
+        }
+        
         // Do any additional setup after loading the view.
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -25,14 +52,7 @@ class MapViewController: UIViewController {
         self.dismiss(animated: true)
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+//    func mapViewWillStartLoadingMap(_ mapView: MKMapView) {
+//        
+//    }
 }
