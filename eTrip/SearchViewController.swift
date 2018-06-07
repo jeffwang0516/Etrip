@@ -236,7 +236,9 @@ extension SearchViewController: UISearchBarDelegate {
     
     func refreshTable() {
         self.tableView.reloadData()
-        let indexPath = IndexPath(row: 0, section: 0)
-        self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+        if self.placeInfos.count > 0 {
+            let indexPath = IndexPath(row: 0, section: 0)
+            self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+        }
     }
 }
