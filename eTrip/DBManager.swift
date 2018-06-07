@@ -257,6 +257,29 @@ class DBManager{
         return address
     }
     
+    func getAddressIdByAddressNames(city: String, district: String) -> Int32? {
+        let queryString = "SELECT addressid FROM address WHERE city='\(city)' AND district='\(district)';"
+        var queryStatement: OpaquePointer? = nil
+        
+        defer {
+            sqlite3_finalize(queryStatement)
+        }
+        
+        
+        
+        if sqlite3_prepare_v2(db, queryString, -1, &queryStatement, nil) == SQLITE_OK {
+            if sqlite3_step(queryStatement) == SQLITE_ROW {
+                
+                let addrId = sqlite3_column_int(queryStatement, 0)
+                return addrId
+            }
+            
+        } else {
+            print("getAddressIdByAddressNames() query not prepared")
+        }
+        return nil
+    }
+    
     
     // Tickets
     func getNormalTicketId(of placeId: Int32) -> Int32{

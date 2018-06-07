@@ -14,6 +14,9 @@ class LocationViewController: UIViewController {
     
     let db = DBManager.instance
     
+    @IBOutlet weak var cityDropdown: ZHDropDownMenu!
+    @IBOutlet weak var districtDropDown: ZHDropDownMenu!
+    
     @IBOutlet weak var tableView: UITableView!
     var placeInfos: [PlaceInfo] = []
     
@@ -22,8 +25,41 @@ class LocationViewController: UIViewController {
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        
+        self.cityDropdown.options = db.getAllCityNames()
+        let firstCity = self.cityDropdown.options.first
+        self.cityDropdown.defaultValue = firstCity
+        
+        self.cityDropdown.showBorder = false
+        self.cityDropdown.menuId = 1
+        self.cityDropdown.delegate = self
+        
+        if firstCity != nil{
+            self.districtDropDown.options = db.getCityDistrict(city: firstCity!)
+        }
+        self.districtDropDown.menuId = 2
+        self.districtDropDown.delegate = self
     }
     
+    override func viewDidLoad() {
+        DispatchQueue.main.async {
+            self.placeInfos = self.db.searchForPlaceInfos(with: "", of: Int(PlaceForm.all.rawValue))
+            self.tableView.reloadData()
+        }
+    }
+    
+    @IBAction func buttonAllAction(_ sender: UIButton) {
+        DispatchQueue.main.async {
+            self.placeInfos = self.db.searchForPlaceInfos(with: "", of: Int(PlaceForm.all.rawValue))
+            self.refreshTable()
+        }
+    }
+    
+    func refreshTable() {
+        self.tableView.reloadData()
+        let indexPath = IndexPath(row: 0, section: 0)
+        self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+    }
     /*
      // MARK: - Navigation
      
@@ -73,4 +109,35 @@ extension LocationViewController: UITableViewDelegate, UITableViewDataSource{
         return placeCell
     }
     
+}
+
+extension LocationViewController: ZHDropDownMenuDelegate {
+    func dropDownMenu(_ menu: ZHDropDownMenu, didEdit text: String) {
+        
+        
+    }
+    
+    func dropDownMenu(_ menu: ZHDropDownMenu, didSelect index: Int) {
+        // City Selected
+        if menu.menuId == 1 {
+            let cityName = self.cityDropdown.options[index]
+            
+            self.districtDropDown.options = db.getCityDistrict(city: cityName)
+            self.districtDropDown.defaultValue = "請選擇"
+            
+        } else {
+            // District selected
+            let districtName = self.districtDropDown.options[index]
+            if let cityName = self.cityDropdown.contentTextField.text {
+                if let id = db.getAddressIdByAddressNames(city: cityName, district: districtName) {
+                    DispatchQueue.main.async {
+                        self.placeInfos = self.db.searchForPlaceInfos(by: Int(id), of: Int(PlaceForm.all.rawValue))
+                    
+                        self.refreshTable()
+                    }
+                }
+            }
+            
+        }
+    }
 }
