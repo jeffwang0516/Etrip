@@ -10,6 +10,7 @@ import UIKit
 
 class DatePickerDialogViewController: UIViewController {
 
+    var parentView: AutoPlanViewController!
     @IBOutlet weak var datePicker: UIDatePicker!
     
     override func viewDidLoad() {
@@ -28,6 +29,11 @@ class DatePickerDialogViewController: UIViewController {
         self.dismiss(animated: true)
     }
     
+    @IBAction func confirmDateSelection(_ sender: UIButton) {
+        self.parentView.updateDate(selectedDate: self.datePicker.date)
+        
+        self.dismiss(animated: true)
+    }
     
     
     /*
