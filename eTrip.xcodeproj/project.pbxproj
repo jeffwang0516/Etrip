@@ -1,0 +1,439 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1F708CF820C56EBF0004FEF8 /* DiaryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F708CF720C56EBF0004FEF8 /* DiaryDetailViewController.swift */; };
+		1F708CFA20C57AAE0004FEF8 /* DiaryDetailViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F708CF920C57AAE0004FEF8 /* DiaryDetailViewCell.swift */; };
+		1F708CFC20C66E050004FEF8 /* DiaryDayDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F708CFB20C66E050004FEF8 /* DiaryDayDetailViewController.swift */; };
+		1F708CFE20C670FA0004FEF8 /* DiaryDayDetailViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F708CFD20C670FA0004FEF8 /* DiaryDayDetailViewCell.swift */; };
+		1F708D0020C8FBE90004FEF8 /* ZHDropDownMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F708CFF20C8FBE90004FEF8 /* ZHDropDownMenu.swift */; };
+		1F9F6B5820BF94470036F8AB /* PlaceInfoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F6B5720BF94470036F8AB /* PlaceInfoDetailViewController.swift */; };
+		1F9F6B5A20BF9FAB0036F8AB /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F6B5920BF9FAB0036F8AB /* LocationViewController.swift */; };
+		1FD54CA420B9E3FC001AE1C1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD54CA320B9E3FC001AE1C1 /* AppDelegate.swift */; };
+		1FD54CA620B9E3FC001AE1C1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD54CA520B9E3FC001AE1C1 /* ViewController.swift */; };
+		1FD54CA920B9E3FC001AE1C1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FD54CA720B9E3FC001AE1C1 /* Main.storyboard */; };
+		1FD54CAB20B9E400001AE1C1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FD54CAA20B9E400001AE1C1 /* Assets.xcassets */; };
+		1FD54CAE20B9E400001AE1C1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FD54CAC20B9E400001AE1C1 /* LaunchScreen.storyboard */; };
+		1FD54CB820B9E60A001AE1C1 /* DBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD54CB720B9E60A001AE1C1 /* DBManager.swift */; };
+		1FD54CBA20BA01F7001AE1C1 /* PlaceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD54CB920BA01F7001AE1C1 /* PlaceInfo.swift */; };
+		1FD54CBC20BAA9E7001AE1C1 /* TicketInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD54CBB20BAA9E7001AE1C1 /* TicketInfo.swift */; };
+		1FD54CBE20BADE57001AE1C1 /* etrip.db in Resources */ = {isa = PBXBuildFile; fileRef = 1FD54CBD20BADE57001AE1C1 /* etrip.db */; };
+		8C08104720BEC44D0068B44C /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C08104620BEC44D0068B44C /* SearchViewController.swift */; };
+		8C08104D20BEC4A50068B44C /* PlaceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C08104C20BEC4A50068B44C /* PlaceTableViewCell.swift */; };
+		8C08105120BED47D0068B44C /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C08105020BED47D0068B44C /* FavoriteViewController.swift */; };
+		8C08105320BED4AF0068B44C /* AutoPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C08105220BED4AF0068B44C /* AutoPlanViewController.swift */; };
+		8C08105520BED4D40068B44C /* DiaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C08105420BED4D40068B44C /* DiaryViewController.swift */; };
+		8C121FF620C79C0700744F9E /* CosmosDistrib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C121FF520C79C0700744F9E /* CosmosDistrib.swift */; };
+		8C13894D20C68CFA00046C25 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C13894C20C68CFA00046C25 /* MapViewController.swift */; };
+		8C42925420C7D3FD00ABAD97 /* ScoreChangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C42925320C7D3FD00ABAD97 /* ScoreChangeViewController.swift */; };
+		8C7C384F20CED4870027F4EB /* AutoPlanDialogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7C384E20CED4870027F4EB /* AutoPlanDialogViewController.swift */; };
+		8C7C385120CEE2970027F4EB /* DiaryNameDialogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7C385020CEE2970027F4EB /* DiaryNameDialogViewController.swift */; };
+		8C7C385320CEE7F30027F4EB /* DatePickerDialogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7C385220CEE7F30027F4EB /* DatePickerDialogViewController.swift */; };
+		8C87250420C4AA57000D28DA /* DiaryDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C87250320C4AA57000D28DA /* DiaryDetail.swift */; };
+		8C97B24520C4970200DCDDB9 /* DiaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C97B24420C4970200DCDDB9 /* DiaryTableViewCell.swift */; };
+		8C97B24720C49B1A00DCDDB9 /* DiaryInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C97B24620C49B1A00DCDDB9 /* DiaryInfo.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		1F708CF720C56EBF0004FEF8 /* DiaryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDetailViewController.swift; sourceTree = "<group>"; };
+		1F708CF920C57AAE0004FEF8 /* DiaryDetailViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDetailViewCell.swift; sourceTree = "<group>"; };
+		1F708CFB20C66E050004FEF8 /* DiaryDayDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDayDetailViewController.swift; sourceTree = "<group>"; };
+		1F708CFD20C670FA0004FEF8 /* DiaryDayDetailViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDayDetailViewCell.swift; sourceTree = "<group>"; };
+		1F708CFF20C8FBE90004FEF8 /* ZHDropDownMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZHDropDownMenu.swift; sourceTree = "<group>"; };
+		1F9F6B5720BF94470036F8AB /* PlaceInfoDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInfoDetailViewController.swift; sourceTree = "<group>"; };
+		1F9F6B5920BF9FAB0036F8AB /* LocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
+		1FD54CA020B9E3FC001AE1C1 /* eTrip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = eTrip.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1FD54CA320B9E3FC001AE1C1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		1FD54CA520B9E3FC001AE1C1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		1FD54CA820B9E3FC001AE1C1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		1FD54CAA20B9E400001AE1C1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1FD54CAD20B9E400001AE1C1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		1FD54CAF20B9E400001AE1C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1FD54CB720B9E60A001AE1C1 /* DBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBManager.swift; sourceTree = "<group>"; };
+		1FD54CB920BA01F7001AE1C1 /* PlaceInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInfo.swift; sourceTree = "<group>"; };
+		1FD54CBB20BAA9E7001AE1C1 /* TicketInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketInfo.swift; sourceTree = "<group>"; };
+		1FD54CBD20BADE57001AE1C1 /* etrip.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = etrip.db; sourceTree = "<group>"; };
+		8C08104620BEC44D0068B44C /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		8C08104C20BEC4A50068B44C /* PlaceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceTableViewCell.swift; sourceTree = "<group>"; };
+		8C08105020BED47D0068B44C /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
+		8C08105220BED4AF0068B44C /* AutoPlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoPlanViewController.swift; sourceTree = "<group>"; };
+		8C08105420BED4D40068B44C /* DiaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewController.swift; sourceTree = "<group>"; };
+		8C121FF520C79C0700744F9E /* CosmosDistrib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CosmosDistrib.swift; sourceTree = "<group>"; };
+		8C13894C20C68CFA00046C25 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		8C42925320C7D3FD00ABAD97 /* ScoreChangeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreChangeViewController.swift; sourceTree = "<group>"; };
+		8C7C384E20CED4870027F4EB /* AutoPlanDialogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoPlanDialogViewController.swift; sourceTree = "<group>"; };
+		8C7C385020CEE2970027F4EB /* DiaryNameDialogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryNameDialogViewController.swift; sourceTree = "<group>"; };
+		8C7C385220CEE7F30027F4EB /* DatePickerDialogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerDialogViewController.swift; sourceTree = "<group>"; };
+		8C87250320C4AA57000D28DA /* DiaryDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiaryDetail.swift; sourceTree = "<group>"; };
+		8C97B24420C4970200DCDDB9 /* DiaryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryTableViewCell.swift; sourceTree = "<group>"; };
+		8C97B24620C49B1A00DCDDB9 /* DiaryInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryInfo.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1FD54C9D20B9E3FC001AE1C1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1FD54C9720B9E3FC001AE1C1 = {
+			isa = PBXGroup;
+			children = (
+				1FD54CA220B9E3FC001AE1C1 /* eTrip */,
+				1FD54CA120B9E3FC001AE1C1 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		1FD54CA120B9E3FC001AE1C1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1FD54CA020B9E3FC001AE1C1 /* eTrip.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1FD54CA220B9E3FC001AE1C1 /* eTrip */ = {
+			isa = PBXGroup;
+			children = (
+				8C121FF520C79C0700744F9E /* CosmosDistrib.swift */,
+				8C87250320C4AA57000D28DA /* DiaryDetail.swift */,
+				1FD54CBD20BADE57001AE1C1 /* etrip.db */,
+				1FD54CA320B9E3FC001AE1C1 /* AppDelegate.swift */,
+				1FD54CA520B9E3FC001AE1C1 /* ViewController.swift */,
+				1FD54CA720B9E3FC001AE1C1 /* Main.storyboard */,
+				1FD54CAA20B9E400001AE1C1 /* Assets.xcassets */,
+				1FD54CAC20B9E400001AE1C1 /* LaunchScreen.storyboard */,
+				1FD54CAF20B9E400001AE1C1 /* Info.plist */,
+				1FD54CB720B9E60A001AE1C1 /* DBManager.swift */,
+				1FD54CB920BA01F7001AE1C1 /* PlaceInfo.swift */,
+				1FD54CBB20BAA9E7001AE1C1 /* TicketInfo.swift */,
+				8C08104620BEC44D0068B44C /* SearchViewController.swift */,
+				8C08104C20BEC4A50068B44C /* PlaceTableViewCell.swift */,
+				8C08105020BED47D0068B44C /* FavoriteViewController.swift */,
+				8C08105220BED4AF0068B44C /* AutoPlanViewController.swift */,
+				1F9F6B5720BF94470036F8AB /* PlaceInfoDetailViewController.swift */,
+				1F9F6B5920BF9FAB0036F8AB /* LocationViewController.swift */,
+				8C08105420BED4D40068B44C /* DiaryViewController.swift */,
+				8C97B24420C4970200DCDDB9 /* DiaryTableViewCell.swift */,
+				8C97B24620C49B1A00DCDDB9 /* DiaryInfo.swift */,
+				1F708CF720C56EBF0004FEF8 /* DiaryDetailViewController.swift */,
+				1F708CF920C57AAE0004FEF8 /* DiaryDetailViewCell.swift */,
+				1F708CFB20C66E050004FEF8 /* DiaryDayDetailViewController.swift */,
+				1F708CFD20C670FA0004FEF8 /* DiaryDayDetailViewCell.swift */,
+				8C13894C20C68CFA00046C25 /* MapViewController.swift */,
+				8C42925320C7D3FD00ABAD97 /* ScoreChangeViewController.swift */,
+				1F708CFF20C8FBE90004FEF8 /* ZHDropDownMenu.swift */,
+				8C7C384E20CED4870027F4EB /* AutoPlanDialogViewController.swift */,
+				8C7C385020CEE2970027F4EB /* DiaryNameDialogViewController.swift */,
+				8C7C385220CEE7F30027F4EB /* DatePickerDialogViewController.swift */,
+			);
+			path = eTrip;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1FD54C9F20B9E3FC001AE1C1 /* eTrip */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1FD54CB220B9E400001AE1C1 /* Build configuration list for PBXNativeTarget "eTrip" */;
+			buildPhases = (
+				1FD54C9C20B9E3FC001AE1C1 /* Sources */,
+				1FD54C9D20B9E3FC001AE1C1 /* Frameworks */,
+				1FD54C9E20B9E3FC001AE1C1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = eTrip;
+			productName = eTrip;
+			productReference = 1FD54CA020B9E3FC001AE1C1 /* eTrip.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1FD54C9820B9E3FC001AE1C1 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0930;
+				LastUpgradeCheck = 0930;
+				ORGANIZATIONNAME = JeffWang;
+				TargetAttributes = {
+					1FD54C9F20B9E3FC001AE1C1 = {
+						CreatedOnToolsVersion = 9.3.1;
+					};
+				};
+			};
+			buildConfigurationList = 1FD54C9B20B9E3FC001AE1C1 /* Build configuration list for PBXProject "eTrip" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 1FD54C9720B9E3FC001AE1C1;
+			productRefGroup = 1FD54CA120B9E3FC001AE1C1 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1FD54C9F20B9E3FC001AE1C1 /* eTrip */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1FD54C9E20B9E3FC001AE1C1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1FD54CAE20B9E400001AE1C1 /* LaunchScreen.storyboard in Resources */,
+				1FD54CAB20B9E400001AE1C1 /* Assets.xcassets in Resources */,
+				1FD54CBE20BADE57001AE1C1 /* etrip.db in Resources */,
+				1FD54CA920B9E3FC001AE1C1 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1FD54C9C20B9E3FC001AE1C1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8C7C384F20CED4870027F4EB /* AutoPlanDialogViewController.swift in Sources */,
+				8C08104720BEC44D0068B44C /* SearchViewController.swift in Sources */,
+				8C97B24520C4970200DCDDB9 /* DiaryTableViewCell.swift in Sources */,
+				1F9F6B5820BF94470036F8AB /* PlaceInfoDetailViewController.swift in Sources */,
+				8C7C385320CEE7F30027F4EB /* DatePickerDialogViewController.swift in Sources */,
+				8C13894D20C68CFA00046C25 /* MapViewController.swift in Sources */,
+				1FD54CA620B9E3FC001AE1C1 /* ViewController.swift in Sources */,
+				8C42925420C7D3FD00ABAD97 /* ScoreChangeViewController.swift in Sources */,
+				8C08104D20BEC4A50068B44C /* PlaceTableViewCell.swift in Sources */,
+				1F708CFA20C57AAE0004FEF8 /* DiaryDetailViewCell.swift in Sources */,
+				1F708CF820C56EBF0004FEF8 /* DiaryDetailViewController.swift in Sources */,
+				8C87250420C4AA57000D28DA /* DiaryDetail.swift in Sources */,
+				8C08105520BED4D40068B44C /* DiaryViewController.swift in Sources */,
+				1FD54CB820B9E60A001AE1C1 /* DBManager.swift in Sources */,
+				8C121FF620C79C0700744F9E /* CosmosDistrib.swift in Sources */,
+				1F708CFE20C670FA0004FEF8 /* DiaryDayDetailViewCell.swift in Sources */,
+				1F708CFC20C66E050004FEF8 /* DiaryDayDetailViewController.swift in Sources */,
+				8C08105120BED47D0068B44C /* FavoriteViewController.swift in Sources */,
+				1F9F6B5A20BF9FAB0036F8AB /* LocationViewController.swift in Sources */,
+				1F708D0020C8FBE90004FEF8 /* ZHDropDownMenu.swift in Sources */,
+				1FD54CA420B9E3FC001AE1C1 /* AppDelegate.swift in Sources */,
+				1FD54CBC20BAA9E7001AE1C1 /* TicketInfo.swift in Sources */,
+				8C08105320BED4AF0068B44C /* AutoPlanViewController.swift in Sources */,
+				1FD54CBA20BA01F7001AE1C1 /* PlaceInfo.swift in Sources */,
+				8C7C385120CEE2970027F4EB /* DiaryNameDialogViewController.swift in Sources */,
+				8C97B24720C49B1A00DCDDB9 /* DiaryInfo.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		1FD54CA720B9E3FC001AE1C1 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1FD54CA820B9E3FC001AE1C1 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		1FD54CAC20B9E400001AE1C1 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1FD54CAD20B9E400001AE1C1 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1FD54CB020B9E400001AE1C1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		1FD54CB120B9E400001AE1C1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		1FD54CB320B9E400001AE1C1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = U6W24XHK7B;
+				INFOPLIST_FILE = eTrip/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = jeff.eTrip;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		1FD54CB420B9E400001AE1C1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = U6W24XHK7B;
+				INFOPLIST_FILE = eTrip/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = jeff.eTrip;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1FD54C9B20B9E3FC001AE1C1 /* Build configuration list for PBXProject "eTrip" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1FD54CB020B9E400001AE1C1 /* Debug */,
+				1FD54CB120B9E400001AE1C1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1FD54CB220B9E400001AE1C1 /* Build configuration list for PBXNativeTarget "eTrip" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1FD54CB320B9E400001AE1C1 /* Debug */,
+				1FD54CB420B9E400001AE1C1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1FD54C9820B9E3FC001AE1C1 /* Project object */;
+}
