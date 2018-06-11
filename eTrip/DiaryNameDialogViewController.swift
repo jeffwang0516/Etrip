@@ -10,6 +10,9 @@ import UIKit
 
 class DiaryNameDialogViewController: UIViewController {
 
+    var parentView: AutoPlanDialogViewController?
+    
+    @IBOutlet weak var textBox: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -25,6 +28,15 @@ class DiaryNameDialogViewController: UIViewController {
         self.dismiss(animated: true)
     }
     
+    
+    @IBAction func confirmAction(_ sender: UIButton) {
+        if let parentView = parentView {
+            if let text = textBox.text {
+                self.dismiss(animated: true)
+                parentView.confirmSave(title: text)
+            }
+        }
+    }
     /*
     // MARK: - Navigation
 

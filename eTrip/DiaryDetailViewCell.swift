@@ -40,6 +40,10 @@ class DiaryDetailViewCell: UITableViewCell {
     
     var diaryDetailOfDay: [DiaryDetail] = []
     
+    func updateUIDisplaysForAutoPlan(planDetails: [DiaryDetail]) {
+        
+    }
+    
     func updateUIDisplays(diaryId: String, userid: String, day: Int) {
         
         self.dayLabel.text = "DAY \(day)"

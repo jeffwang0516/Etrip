@@ -1531,7 +1531,7 @@
                                                     <outlet property="planLabel2" destination="kea-0P-wLs" id="g4h-XT-4GH"/>
                                                     <outlet property="planLabel3" destination="saE-8Y-ugO" id="Rg1-OK-Lch"/>
                                                     <outlet property="planLabel4" destination="5HL-NQ-w7D" id="Ate-UZ-HCX"/>
-                                                    <segue destination="PpN-oG-Roi" kind="presentation" id="3bb-Wj-twh"/>
+                                                    <segue destination="PpN-oG-Roi" kind="presentation" identifier="OpenDayDetailFromAutoPlan" id="3bb-Wj-twh"/>
                                                 </connections>
                                             </tableViewCell>
                                         </prototypes>
@@ -1565,7 +1565,7 @@
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
                                                         <connections>
-                                                            <segue destination="zXz-ej-geZ" kind="presentation" id="8Ya-tO-N6P"/>
+                                                            <segue destination="zXz-ej-geZ" kind="presentation" identifier="OpenSaveConfirm" id="8Ya-tO-N6P"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -1605,6 +1605,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="hGh-bN-m9b"/>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="Mej-15-80O" id="PRF-U8-bBs"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RLz-pj-dGi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1646,6 +1649,9 @@
                                         <color key="backgroundColor" red="1" green="0.8862745098" blue="0.42745098040000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <state key="normal" title="確定"/>
+                                        <connections>
+                                            <action selector="confirmAction:" destination="zXz-ej-geZ" eventType="touchUpInside" id="S1n-qe-D2p"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bfv-ND-On3">
                                         <rect key="frame" x="175" y="121" width="50" height="43"/>
@@ -1690,6 +1696,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="csq-gP-WhA"/>
                     </view>
+                    <connections>
+                        <outlet property="textBox" destination="dmc-sM-0mD" id="uWL-D5-qfX"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wNf-Pl-fap" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -2723,7 +2732,7 @@
                                         <rect key="frame" x="-0.33333333333334281" y="437" width="356.33333333333337" height="46"/>
                                         <subviews>
                                             <button opaque="NO" alpha="0.89999997615814209" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mAk-Ca-7bj">
-                                                <rect key="frame" x="143" y="8" width="70" height="30"/>
+                                                <rect key="frame" x="143" y="8.6666666666667425" width="70" height="30"/>
                                                 <color key="backgroundColor" red="0.36078431370000003" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <state key="normal" title=" 更多遊記 ">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -3016,14 +3025,14 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y0F-8x-izz">
-                                <rect key="frame" x="37" y="347" width="300" height="172.66666666666663"/>
+                                <rect key="frame" x="37" y="347.66666666666669" width="300" height="172.66666666666669"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O8x-qv-Xg6">
-                                        <rect key="frame" x="0.0" y="45.666666666666693" width="300" height="86.666666666666686"/>
+                                        <rect key="frame" x="0.0" y="46.333333333333321" width="300" height="86.666666666666686"/>
                                         <color key="backgroundColor" red="0.066666666669999999" green="0.1647058824" blue="0.76078431369999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     </view>
                                     <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="prT-Wv-6PS" customClass="CosmosView" customModule="eTrip">
-                                        <rect key="frame" x="28.333333333333314" y="69.333333333333314" width="243" height="40"/>
+                                        <rect key="frame" x="28.333333333333314" y="69.666666666666629" width="243" height="40"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="color" keyPath="filledColor">
                                                 <color key="value" red="1" green="0.96407240670000005" blue="0.15691118609999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -3065,7 +3074,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tof-hb-RPE">
-                                        <rect key="frame" x="0.0" y="135.33333333333331" width="300" height="37.333333333333343"/>
+                                        <rect key="frame" x="0.0" y="136" width="300" height="36.666666666666657"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="20"/>
                                         <state key="normal" title="送出">
@@ -3095,7 +3104,7 @@
                                 <state key="normal" title="Button"/>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="評分" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xdL-vU-OKs">
-                                <rect key="frame" x="37" y="347" width="300" height="42.666666666666686"/>
+                                <rect key="frame" x="37" y="347.66666666666669" width="300" height="43.333333333333314"/>
                                 <color key="backgroundColor" red="0.066666666669999999" green="0.1647058824" blue="0.76078431369999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                 <color key="textColor" red="1" green="0.99215686270000003" blue="0.90588235289999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>

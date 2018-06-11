@@ -219,19 +219,24 @@ class AutoPlanViewController: UIViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "OpenDatePicker" {
-            guard let button = sender as? UIButton else {
-                fatalError("Mis-configured storyboard! The sender should be a cell.")
-            }
+            
             let datePickerView = segue.destination as! DatePickerDialogViewController
             datePickerView.parentView = self
             
         } else if segue.identifier == "OpenStartPlan" {
-            guard let button = sender as? UIButton else {
-                fatalError("Mis-configured storyboard! The sender should be a cell.")
-            }
+            let autoPlanDialogView = segue.destination as! AutoPlanDialogViewController
+            autoPlanDialogView.planningDetails = self.startAutoPlanning()
+            autoPlanDialogView.userid = testUserId
+            autoPlanDialogView.dayCount = selectedDay
         } else {
             super.prepare(for: segue, sender: sender)
         }
+    }
+    
+    private func startAutoPlanning() -> [DiaryDetail] {
+        var detail: [DiaryDetail] = []
+        
+        return detail
     }
 }
 
