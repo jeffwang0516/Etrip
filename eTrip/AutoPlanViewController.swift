@@ -7,12 +7,18 @@
 //
 
 import UIKit
+import CoreLocation
+import MapKit
 
 class AutoPlanViewController: UIViewController {
 
     let viewTitle = "自動規劃"
     let db = DBManager.instance
     let testUserId = "TCA"
+    
+    var locationManager: CLLocationManager!
+    var currentLat: Double = 0.0
+    var currentLng: Double = 0.0
     
     @IBOutlet weak var cityDropdown: ZHDropDownMenu!
     @IBOutlet weak var districtDropDown: ZHDropDownMenu!
@@ -132,6 +138,8 @@ class AutoPlanViewController: UIViewController {
         
         self.favoritePlacesTableView.delegate = self
         self.favoritePlacesTableView.dataSource = self
+        
+        self.setupDetermineLocation()
     }
 
     override func didReceiveMemoryWarning() {
@@ -195,7 +203,9 @@ class AutoPlanViewController: UIViewController {
     }
     
     @IBAction func detectAddress(_ sender: Any) {
-        
+        print("Detecting")
+        self.startAddress.text = "定位中..."
+        startDetectingLocation()
     }
     
     func refreshTable() {
@@ -228,6 +238,9 @@ class AutoPlanViewController: UIViewController {
             autoPlanDialogView.planningDetailsByDays = self.startAutoPlanning()
             autoPlanDialogView.userid = testUserId
             autoPlanDialogView.dayCount = selectedDay
+            autoPlanDialogView.startDate = selectedDate
+            autoPlanDialogView.endDate = selectedDate + TimeInterval((selectedDay-1)*24*60*60)
+            
         } else {
             super.prepare(for: segue, sender: sender)
         }
@@ -307,6 +320,73 @@ extension AutoPlanViewController: ZHDropDownMenuDelegate {
                 }
             }
             
+        }
+    }
+}
+
+extension AutoPlanViewController: CLLocationManagerDelegate {
+    
+    func setupDetermineLocation() {
+        locationManager = CLLocationManager()
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
+    }
+    
+    func startDetectingLocation() {
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.startUpdatingLocation()
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let userLocation:CLLocation = locations[0] as CLLocation
+        
+        // Call stopUpdatingLocation() to stop listening for location updates,
+        // other wise this function will be called every time when user location changes.
+        
+        manager.stopUpdatingLocation()
+        
+        self.currentLat = userLocation.coordinate.latitude
+        self.currentLng = userLocation.coordinate.longitude
+        print("user latitude = \(userLocation.coordinate.latitude)")
+        print("user longitude = \(userLocation.coordinate.longitude)")
+//        print(locationManager.location)
+        lookUpCurrentLocation { location in
+//            print(location?.country, location?.locality, location?.name)
+            self.startAddress.text = location?.name
+        }
+        
+        
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error)
+    {
+        print("Error \(error)")
+    }
+    
+    func lookUpCurrentLocation(completionHandler: @escaping (CLPlacemark?)
+        -> Void ) {
+        // Use the last reported location.
+        if let lastLocation = self.locationManager.location {
+            let geocoder = CLGeocoder()
+            
+            // Look up the location and pass it to the completion handler
+            geocoder.reverseGeocodeLocation(lastLocation,
+                completionHandler: { (placemarks, error) in
+                    if error == nil {
+                        let firstLocation = placemarks?[0]
+                        completionHandler(firstLocation)
+                    }
+                    else {
+                        // An error occurred during geocoding.
+                        completionHandler(nil)
+                    }
+            })
+        }
+        else {
+            // No location was available.
+            completionHandler(nil)
         }
     }
 }

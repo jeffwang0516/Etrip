@@ -12,6 +12,8 @@ class AutoPlanDialogViewController: UIViewController {
     
     let db = DBManager.instance
     
+    var startDate: Date?
+    var endDate: Date?
     var dayCount: Int = 1
     var userid: String!
     var planningDetailsByDays: [[DiaryDetail]]?
@@ -62,28 +64,44 @@ class AutoPlanDialogViewController: UIViewController {
         //TODO
         if let title = title, title.count > 0 {
             print("Implement Saved: \(title)")
+            saveToDB(title: title)
         } else {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateStyle = .medium
-            dateFormatter.timeStyle = .none
-            dateFormatter.dateFormat = "yyyyMMdd"
 
-            let dateString = dateFormatter.string(from: Date())
+            let dateString = dateFormatterFunc(Date())
             print("Implement Saved: \(dateString)")
+            saveToDB(title: dateString)
         }
         
         self.dismiss(animated: true)
     }
-//    private func prepareOpeningDetail(for segue: UIStoryboardSegue, sender: DiaryDetailViewCell) {
-//        
-//        let diaryDayDetailViewController = segue.destination as! DiaryDayDetailViewController
-//        let senderPath = self.tableView.indexPath(for: sender)!
-//        let day = senderPath.row + 1
-//        
-//        diaryDayDetailViewController.diaryDetails = db.getDiaryDetail(with: diaryid, of: userid, of: day)// sender.diaryDetailOfDay
-//        //        print(sender.diaryDetailOfDay)
-//        
-//    }
+    
+    private func saveToDB(title: String) {
+        var allPlans: [DiaryDetail] = []
+        if let allDayPlans = planningDetailsByDays {
+            for dayPlan in allDayPlans {
+                for plan in dayPlan {
+                    allPlans.append(plan)
+                }
+            }
+        }
+        
+        DispatchQueue.global().async {
+            if let startDate = Int32(self.dateFormatterFunc(self.startDate!)), let endDate = Int32(self.dateFormatterFunc(self.endDate!)) {
+                
+//                self.db.addDiary(diaryName: title, details: allPlans, preDate: dateFormatterFunc(startDate), postDate: dateFormatterFunc(endDate))
+                print(startDate, endDate)
+            }
+        }
+    }
+    
+    private func dateFormatterFunc(_ date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .none
+        dateFormatter.dateFormat = "yyyyMMdd"
+        
+        return dateFormatter.string(from: date)
+    }
 }
 
 
@@ -104,8 +122,6 @@ extension AutoPlanDialogViewController: UITableViewDelegate, UITableViewDataSour
         if let dayDetail = planningDetailsByDays?[indexPath.row] {
             diaryDetailCell.updateUIDisplaysForAutoPlan(planDetails: dayDetail, day: indexPath.row + 1)
         }
-        
-//        diaryDetailCell.updateUIDisplays(diaryId: diaryid, userid: userid, day: indexPath.row + 1)
         
         return diaryDetailCell
     }

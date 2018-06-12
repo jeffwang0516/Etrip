@@ -13,6 +13,7 @@
 		1F708CFE20C670FA0004FEF8 /* DiaryDayDetailViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F708CFD20C670FA0004FEF8 /* DiaryDayDetailViewCell.swift */; };
 		1F708D0020C8FBE90004FEF8 /* ZHDropDownMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F708CFF20C8FBE90004FEF8 /* ZHDropDownMenu.swift */; };
 		1F8E740720CF0A6200440FA9 /* AutoPlanCheckBoxCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8E740620CF0A6200440FA9 /* AutoPlanCheckBoxCell.swift */; };
+		1F8E740A20CF982600440FA9 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F8E740920CF982600440FA9 /* CoreLocation.framework */; };
 		1F9F6B5820BF94470036F8AB /* PlaceInfoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F6B5720BF94470036F8AB /* PlaceInfoDetailViewController.swift */; };
 		1F9F6B5A20BF9FAB0036F8AB /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F6B5920BF9FAB0036F8AB /* LocationViewController.swift */; };
 		1FD54CA420B9E3FC001AE1C1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD54CA320B9E3FC001AE1C1 /* AppDelegate.swift */; };
@@ -47,6 +48,7 @@
 		1F708CFD20C670FA0004FEF8 /* DiaryDayDetailViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDayDetailViewCell.swift; sourceTree = "<group>"; };
 		1F708CFF20C8FBE90004FEF8 /* ZHDropDownMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZHDropDownMenu.swift; sourceTree = "<group>"; };
 		1F8E740620CF0A6200440FA9 /* AutoPlanCheckBoxCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoPlanCheckBoxCell.swift; sourceTree = "<group>"; };
+		1F8E740920CF982600440FA9 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		1F9F6B5720BF94470036F8AB /* PlaceInfoDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInfoDetailViewController.swift; sourceTree = "<group>"; };
 		1F9F6B5920BF9FAB0036F8AB /* LocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
 		1FD54CA020B9E3FC001AE1C1 /* eTrip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = eTrip.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -81,17 +83,27 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F8E740A20CF982600440FA9 /* CoreLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1F8E740820CF982500440FA9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1F8E740920CF982600440FA9 /* CoreLocation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		1FD54C9720B9E3FC001AE1C1 = {
 			isa = PBXGroup;
 			children = (
 				1FD54CA220B9E3FC001AE1C1 /* eTrip */,
 				1FD54CA120B9E3FC001AE1C1 /* Products */,
+				1F8E740820CF982500440FA9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
