@@ -896,9 +896,9 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="52t-6Q-51P" customClass="ZHDropDownMenu" customModule="eTrip" customModuleProvider="target">
-                                        <rect key="frame" x="108.66666666666666" y="296.33333333333331" width="102.66666666666666" height="41"/>
+                                        <rect key="frame" x="108.66666666666669" y="296.33333333333331" width="123" height="41"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" secondItem="52t-6Q-51P" secondAttribute="height" multiplier="100:40" id="2yv-r0-wR6"/>
+                                            <constraint firstAttribute="width" secondItem="52t-6Q-51P" secondAttribute="height" multiplier="3:1" id="2yv-r0-wR6"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="image" keyPath="buttonImage" value="default_down"/>
@@ -910,7 +910,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vZE-mc-ojN" customClass="ZHDropDownMenu" customModule="eTrip" customModuleProvider="target">
-                                        <rect key="frame" x="217.00000000000003" y="296.33333333333331" width="102.33333333333334" height="41"/>
+                                        <rect key="frame" x="216.99999999999997" y="296.33333333333331" width="122.66666666666666" height="41"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="image" keyPath="buttonImage" value="default_down"/>
                                             <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="地區"/>
