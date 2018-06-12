@@ -402,6 +402,14 @@ class DBManager{
 
     }
     
+    func getFavoritePlaces(of userid: String, with form: Int, in addressid: Int) -> [PlaceInfo] {
+        
+        var queryString = "SELECT place.* FROM place, favorite WHERE userid = '\(userid)' AND place.placeid = favorite.placeid AND place.addressid=\(addressid)"
+        queryString = addFormRule(to: queryString, with: form)
+        return queryOfPlaceInfos(with: queryString)
+        
+    }
+    
 
     // Ratings
     func getRatings(of placeid: Int, by userid: String) -> Int? {
@@ -506,6 +514,28 @@ class DBManager{
         return trans
     }
     
+    func getNearbyAddressIds(of addressid: Int) -> [Int] {
+        var addrIds: [Int] = []
+        let queryString = "SELECT addressid2 FROM nearby WHERE addressid1=\(addressid);"
+        
+        var queryStatement: OpaquePointer? = nil
+        
+        defer {
+            sqlite3_finalize(queryStatement)
+        }
+        
+        if sqlite3_prepare_v2(db, queryString, -1, &queryStatement, nil) == SQLITE_OK {
+            while sqlite3_step(queryStatement) == SQLITE_ROW {
+                let id = sqlite3_column_int(queryStatement, 0)
+                addrIds.append(Int(id))
+                
+            }
+            
+        } else {
+            print("getNearbyAddressIds query not prepared")
+        }
+        return addrIds
+    }
     
     // Diary
     

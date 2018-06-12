@@ -40,8 +40,15 @@ class DiaryViewController: UIViewController {
     }
     
     func refreshDataAndTable() {
-        diaryInfos = db.getDiary(of: testUserId)
+        print("Refresh Diary")
+        if !self.isViewLoaded { return }
+        self.diaryInfos = db.getDiary(of: testUserId)
         self.tableView.reloadData()
+        
+        if self.diaryInfos.count > 0 {
+            let indexPath = IndexPath(row: 0, section: 0)
+            self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+        }
     }
     /*
     // MARK: - Navigation

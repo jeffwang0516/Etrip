@@ -11,7 +11,7 @@ import UIKit
 class AutoPlanDialogViewController: UIViewController {
     
     let db = DBManager.instance
-    
+    var parentView: AutoPlanViewController?
     var startDate: Date?
     var endDate: Date?
     var dayCount: Int = 1
@@ -94,10 +94,17 @@ class AutoPlanDialogViewController: UIViewController {
                 self.db.addDiary(diaryName: title, details: allPlans, preDate: startDate, postDate: endDate)
 
                 // Refresh view in diary view
-                let allControllers = self.navigationController?.viewControllers[0].childViewControllers
-                if let diaryView = allControllers?[4] as? DiaryViewController {
-                    diaryView.refreshDataAndTable()
+                DispatchQueue.main.async {
+                    if let parentView = self.parentView {
+                        let allControllers = parentView.navigationController?.viewControllers[0].childViewControllers
+//                        print(allControllers)
+                        if let diaryView = allControllers?[4] as? DiaryViewController {
+                            diaryView.refreshDataAndTable()
+                        }
+                    }
+                    
                 }
+                
             }
         }
     }

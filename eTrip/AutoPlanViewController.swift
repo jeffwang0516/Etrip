@@ -12,6 +12,10 @@ import MapKit
 
 class AutoPlanViewController: UIViewController {
 
+    var googleAPIKey = "AIzaSyCyD8-Y9BQMszppbpw_xu34X3okXgKS8CI"
+    let backupKey = ["AIzaSyD8wDCzUntISMHr3CNFvMVVWCHUhJSHM78", "AIzaSyCq0tqZWsWzTiRxFC3ve0wU2ufQSreZwt8"]
+    var currentBackupIndex = 0
+    
     let viewTitle = "自動規劃"
     let db = DBManager.instance
     let testUserId = "TCA"
@@ -124,16 +128,18 @@ class AutoPlanViewController: UIViewController {
         self.districtDropDown.delegate = self
         
         if let firstCity = firstCity, let firstDistrict = firstDistrict {
-            if let id = db.getAddressIdByAddressNames(city: firstCity, district: firstDistrict) {
+            if let addrid = db.getAddressIdByAddressNames(city: firstCity, district: firstDistrict) {
+                self.activityIndicator.startAnimating()
                 DispatchQueue.main.async {
-                    self.placeSuggestions = self.db.searchForPlaceInfos(by: Int(id), of: Int(PlaceForm.landmark.rawValue))
-                    
+                    self.placeSuggestions = self.db.searchForPlaceInfos(by: Int(addrid), of: Int(PlaceForm.landmark.rawValue))
+                    self.favoritePlaces = self.db.getFavoritePlaces(of: self.testUserId, with: Int(PlaceForm.landmark.rawValue), in: Int(addrid))
                     self.refreshTable()
+                    self.activityIndicator.stopAnimating()
                 }
             }
         }
         
-        self.favoritePlaces = db.getFavoritePlaces(of: testUserId, with: Int(PlaceForm.landmark.rawValue))
+        
     }
     var timeRetrieved: Int = 0
     override func viewDidLoad() {
@@ -162,14 +168,7 @@ class AutoPlanViewController: UIViewController {
     }
     
     @IBAction func dayMinus(_ sender: Any) {
-//        let i = day.text?.components(separatedBy: NSCharacterSet.decimalDigits.inverted)
-//        let newString = NSArray(array: i!).componentsJoined(by: "")
-//        let newInt = Int(newString)!-1
-//        if newInt < 1 {
-//            day.text = "1日"
-//        }else{
-//            day.text = "\(newInt)日"
-//        }
+
         let newInt = selectedDay - 1
         if newInt < 1 {
             selectedDay = 1
@@ -178,14 +177,7 @@ class AutoPlanViewController: UIViewController {
         }
     }
     @IBAction func dayPlus(_ sender: Any) {
-//        let i = day.text?.components(separatedBy: NSCharacterSet.decimalDigits.inverted)
-//        let newString = NSArray(array: i!).componentsJoined(by: "")
-//        let newInt = Int(newString)!+1
-//        if newInt > 5 {
-//            day.text = "5日"
-//        }else{
-//            day.text = "\(newInt)日"
-//        }
+
         let newInt = selectedDay + 1
         if newInt > 5 {
             selectedDay = 5
@@ -224,6 +216,12 @@ class AutoPlanViewController: UIViewController {
             let indexPath = IndexPath(row: 0, section: 0)
             self.suggestionsTableView.scrollToRow(at: indexPath, at: .top, animated: true)
         }
+        
+        self.favoritePlacesTableView.reloadData()
+        if self.favoritePlaces.count > 0 {
+            let indexPath = IndexPath(row: 0, section: 0)
+            self.favoritePlacesTableView.scrollToRow(at: indexPath, at: .top, animated: true)
+        }
     }
     
     
@@ -246,6 +244,7 @@ class AutoPlanViewController: UIViewController {
         } else if segue.identifier == "OpenStartPlan" {
             
             let autoPlanDialogView = segue.destination as! AutoPlanDialogViewController
+            autoPlanDialogView.parentView = self
             autoPlanDialogView.planningDetailsByDays = self.planningDetailsByDays
             autoPlanDialogView.userid = testUserId
             autoPlanDialogView.dayCount = selectedDay
@@ -296,6 +295,9 @@ class AutoPlanViewController: UIViewController {
 //            print(place.name)
 //        }
         let diaryId = self.getAutoDiaryIdByCurTime()
+        
+        print(diaryId)
+        
         var diaryDetail: [[DiaryDetail]] = []
         var prevDayHotel: PlaceInfo? = nil
         var isLastDay = false
@@ -336,18 +338,33 @@ class AutoPlanViewController: UIViewController {
             let city = self.cityDropdown.contentTextField.text
             let district = self.districtDropDown.contentTextField.text
             let destAddressId = Int(db.getAddressIdByAddressNames(city: city!, district: district!)!)
+            let destNearbyAddrIds = db.getNearbyAddressIds(of: destAddressId)
             
             while planTime < 2400 {
                 
                 if 1100 < planTime && planTime < 1300 && isLunchPlanned == false {
                     print("Plantime Lunch: \(planTime)")
                     isLunchPlanned = true
+                    
+                    
                     // Search for lunch place
 //                    nextPlaceLand = self.findNextPlace(from: startPlace!, possiblePlaces: db.searchForDiningPlaces(near: Int(startPlace!.id), considerOf: planTime), planTime: planTime, isDriving: self.transportIsCar)
                     nextPlaceLand = self.findNextPlace(from: startPlace!, possiblePlaces: db.searchForPlaceInfos(by: destAddressId, of: Int(PlaceForm.restaurant.rawValue)), planTime: planTime, isDriving: self.transportIsCar)
                     if nextPlaceLand == nil {
                         print("nil lunch")
-                        nextPlaceLand = self.findNextPlace(from: startPlace!, possiblePlaces: db.searchForPlaceInfos(with: "", of: Int(PlaceForm.restaurant.rawValue)), planTime: planTime, isDriving: self.transportIsCar)
+                        for addrId in destNearbyAddrIds {
+                            nextPlaceLand = self.findNextPlace(from: startPlace!, possiblePlaces: db.searchForPlaceInfos(by: addrId, of: Int(PlaceForm.restaurant.rawValue)), planTime: planTime, isDriving: self.transportIsCar)
+                            if nextPlaceLand != nil {
+                                print("found lunch in nearby")
+                                break
+                                
+                            }
+                        }
+                        
+                        if nextPlaceLand == nil {
+                            print("found lunch in ALL")
+                            nextPlaceLand = self.findNextPlace(from: startPlace!, possiblePlaces: db.searchForPlaceInfos(with: "", of: Int(PlaceForm.restaurant.rawValue)), planTime: planTime, isDriving: self.transportIsCar)
+                        }
                     }
                     
                     
@@ -360,10 +377,22 @@ class AutoPlanViewController: UIViewController {
                     // Search for dinner place
 //                    nextPlaceLand = self.findNextPlace(from: startPlace!, possiblePlaces: db.searchForDiningPlaces(near: Int(startPlace!.id), considerOf: planTime), planTime: planTime, isDriving: self.transportIsCar)
                     nextPlaceLand = self.findNextPlace(from: startPlace!, possiblePlaces: db.searchForPlaceInfos(by: destAddressId, of: Int(PlaceForm.restaurant.rawValue)), planTime: planTime, isDriving: self.transportIsCar)
+                    if nextPlaceLand == nil {
+                        print("nil dinner")
+                        for addrId in destNearbyAddrIds {
+                            nextPlaceLand = self.findNextPlace(from: startPlace!, possiblePlaces: db.searchForPlaceInfos(by: addrId, of: Int(PlaceForm.restaurant.rawValue)), planTime: planTime, isDriving: self.transportIsCar)
+                            if nextPlaceLand != nil {
+                                print("found dinner in nearby")
+                                break
+                                
+                            }
+                        }
+                        
                         if nextPlaceLand == nil {
-                            print("nil dinner")
+                            print("found dinner in ALL")
                             nextPlaceLand = self.findNextPlace(from: startPlace!, possiblePlaces: db.searchForPlaceInfos(with: "", of: Int(PlaceForm.restaurant.rawValue)), planTime: planTime, isDriving: self.transportIsCar)
                         }
+                    }
                     
                     staytime = Int(nextPlaceLand!.staytime)
                     
@@ -373,6 +402,22 @@ class AutoPlanViewController: UIViewController {
                     isHotelPlanned = true
                     // Search for hotel
                     nextPlaceLand = self.findNextPlace(from: startPlace!, possiblePlaces: db.searchForHotels(in: destAddressId), planTime: planTime, isDriving: self.transportIsCar)
+                    if nextPlaceLand == nil {
+                        print("nil hotel")
+                        for addrId in destNearbyAddrIds {
+                            nextPlaceLand = self.findNextPlace(from: startPlace!, possiblePlaces: db.searchForHotels(in: addrId), planTime: planTime, isDriving: self.transportIsCar)
+                            if nextPlaceLand != nil {
+                                print("found hotel in nearby")
+                                break
+                                
+                            }
+                        }
+                        
+                        if nextPlaceLand == nil {
+                            print("found hotel in ALL")
+                            nextPlaceLand = self.findNextPlace(from: startPlace!, possiblePlaces: db.searchForPlaceInfos(with: "", of: Int(PlaceForm.hotel.rawValue)), planTime: planTime, isDriving: self.transportIsCar)
+                        }
+                    }
                     
                     staytime = 100
                     
@@ -413,22 +458,66 @@ class AutoPlanViewController: UIViewController {
                     if (indoorIsChecked && outdoorIsChecked) || (!indoorIsChecked && !outdoorIsChecked) {
                         // Both checked or both not
                         print("Plantime LandMark: \(planTime)")
-                        nextPlaceLand = self.findNextPlace(from: startPlace!, possiblePlaces: db.searchForPlaceInfos(by: destAddressId, of: Int(PlaceForm.landmark.rawValue)), planTime: planTime, isDriving: self.transportIsCar)
+                        nextPlaceLand = self.findNextPlace(from: startPlace!, possiblePlaces: db.searchForLandmarks(with: LandmarkWay.all, in: destAddressId, considerOf: planTime), planTime: planTime, isDriving: self.transportIsCar)
                         
                         
+                        if nextPlaceLand == nil {
+                            print("nil Landmark inout")
+                            for addrId in destNearbyAddrIds {
+                                nextPlaceLand = self.findNextPlace(from: startPlace!, possiblePlaces: db.searchForLandmarks(with: LandmarkWay.all, in: addrId, considerOf: planTime), planTime: planTime, isDriving: self.transportIsCar)
+                                if nextPlaceLand != nil {
+                                    print("found Landmark inout in nearby")
+                                    break
+                                    
+                                }
+                            }
+                            
+                            if nextPlaceLand == nil {
+                                print("found Landmark inout in ALL")
+                                nextPlaceLand = self.findNextPlace(from: startPlace!, possiblePlaces: db.searchForPlaceInfos(by: destAddressId, of: Int(PlaceForm.landmark.rawValue)), planTime: planTime, isDriving: self.transportIsCar)
+//                                nextPlaceLand = self.findNextPlace(from: startPlace!, possiblePlaces: db.searchForPlaceInfos(with: "", of: Int(PlaceForm.landmark.rawValue)), planTime: planTime, isDriving: self.transportIsCar)
+                            }
+                        }
                         
                     } else if indoorIsChecked {
                         nextPlaceLand = self.findNextPlace(from: startPlace!, possiblePlaces: db.searchForLandmarks(with: LandmarkWay.indoor, in: destAddressId, considerOf: planTime), planTime: planTime, isDriving: self.transportIsCar)
                         if nextPlaceLand == nil {
-                            print("nil indoor")
-                            nextPlaceLand = self.findNextPlace(from: startPlace!, possiblePlaces: db.searchForPlaceInfos(by: destAddressId, of: Int(PlaceForm.landmark.rawValue)), planTime: planTime, isDriving: self.transportIsCar)
+                            print("nil Landmark in")
+                            for addrId in destNearbyAddrIds {
+                                nextPlaceLand = self.findNextPlace(from: startPlace!, possiblePlaces: db.searchForLandmarks(with: LandmarkWay.indoor, in: addrId, considerOf: planTime), planTime: planTime, isDriving: self.transportIsCar)
+                                if nextPlaceLand != nil {
+                                    print("found Landmark in in nearby")
+                                    break
+                                    
+                                }
+                            }
+                            
+                            if nextPlaceLand == nil {
+                                print("found Landmark in in ALL")
+                                nextPlaceLand = self.findNextPlace(from: startPlace!, possiblePlaces: db.searchForPlaceInfos(by: destAddressId, of: Int(PlaceForm.landmark.rawValue)), planTime: planTime, isDriving: self.transportIsCar)
+                                //                                nextPlaceLand = self.findNextPlace(from: startPlace!, possiblePlaces: db.searchForPlaceInfos(with: "", of: Int(PlaceForm.landmark.rawValue)), planTime: planTime, isDriving: self.transportIsCar)
+                            }
                         }
+                        
                         
                     } else if outdoorIsChecked {
                         nextPlaceLand = self.findNextPlace(from: startPlace!, possiblePlaces: db.searchForLandmarks(with: LandmarkWay.outdoor, in: destAddressId, considerOf: planTime), planTime: planTime, isDriving: self.transportIsCar)
                         if nextPlaceLand == nil {
-                            print("nil outdoor")
-                            nextPlaceLand = self.findNextPlace(from: startPlace!, possiblePlaces: db.searchForPlaceInfos(by: destAddressId, of: Int(PlaceForm.landmark.rawValue)), planTime: planTime, isDriving: self.transportIsCar)
+                            print("nil Landmark out")
+                            for addrId in destNearbyAddrIds {
+                                nextPlaceLand = self.findNextPlace(from: startPlace!, possiblePlaces: db.searchForLandmarks(with: LandmarkWay.outdoor, in: addrId, considerOf: planTime), planTime: planTime, isDriving: self.transportIsCar)
+                                if nextPlaceLand != nil {
+                                    print("found Landmark out in nearby")
+                                    break
+                                    
+                                }
+                            }
+                            
+                            if nextPlaceLand == nil {
+                                print("found Landmark out in ALL")
+                                nextPlaceLand = self.findNextPlace(from: startPlace!, possiblePlaces: db.searchForPlaceInfos(by: destAddressId, of: Int(PlaceForm.landmark.rawValue)), planTime: planTime, isDriving: self.transportIsCar)
+                                //                                nextPlaceLand = self.findNextPlace(from: startPlace!, possiblePlaces: db.searchForPlaceInfos(with: "", of: Int(PlaceForm.landmark.rawValue)), planTime: planTime, isDriving: self.transportIsCar)
+                            }
                         }
                     }
                     
@@ -531,27 +620,28 @@ class AutoPlanViewController: UIViewController {
         var mode = "driving"
         if isDriving == false { mode = "transit" }
         
-        let urlString = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=\(startCoord)&destinations=\(endCoord)&mode=\(mode)&key=AIzaSyCoMkKJzQ5DWW3nkIp-k3vaJUvjbtjgU_4"
+        let urlString = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=\(startCoord)&destinations=\(endCoord)&mode=\(mode)&key=\(googleAPIKey)"
         guard let url = URL(string: urlString) else { return 0}
-        
-//        URLSession.shared.dataTask(with: url) { (data, response, error) in
-//            if error != nil {
-//                print(error!.localizedDescription)
-//            }
-//
-//            guard let data = data else { return }
+ 
             //Implement JSON decoding and parsing
             do {
-                //Decode retrived data with JSONDecoder and assing type of Article object
-//                let articlesData = try JSONDecoder().decode([Article].self, from: data)
-//                print(data)
-//                print("-----")
-//                if let result = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
-//                    print(result["rows"]!)
-//                    print(result)
-//                }
+    
                 let data =  try Data(contentsOf: url)
                 let json =  try JSONSerialization.jsonObject(with: data, options: []) as! NSDictionary
+                
+                // Check if exceeds LIMIT
+                if json["status"] as! String == "OVER_QUERY_LIMIT" {
+                    print("GOOGLE OVER_QUERY_LIMIT error")
+                    if currentBackupIndex >= backupKey.count {
+                        print("All google API key OVER LIMIT")
+                    } else {
+                        print("Using backup GoogleAPI key: \(currentBackupIndex)")
+                    }
+                    self.googleAPIKey = backupKey[currentBackupIndex]
+                    currentBackupIndex = currentBackupIndex + 1
+                    return retrieveTimeFromGoogleAPI(startCoord, endCoord, isDriving: isDriving)
+                }
+                
                 let json1 = json["rows"] as! NSArray
                 let json2 = json1[0] as! NSDictionary
                 let json3 = json2["elements"] as! NSArray
@@ -605,7 +695,7 @@ class AutoPlanViewController: UIViewController {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .none
-        dateFormatter.dateFormat = "yyyyMMdd"
+        dateFormatter.dateFormat = "yyMMddhhmmss"
         //        print(selectedDate)
         return dateFormatter.string(from: Date())
     }
@@ -737,11 +827,13 @@ extension AutoPlanViewController: ZHDropDownMenuDelegate {
             // District selected
             let districtName = self.districtDropDown.options[index]
             if let cityName = self.cityDropdown.contentTextField.text {
-                if let id = db.getAddressIdByAddressNames(city: cityName, district: districtName) {
+                if let addrid = db.getAddressIdByAddressNames(city: cityName, district: districtName) {
+                    self.activityIndicator.startAnimating()
                     DispatchQueue.main.async {
-                        self.placeSuggestions = self.db.searchForPlaceInfos(by: Int(id), of: Int(PlaceForm.landmark.rawValue))
-                        
+                        self.placeSuggestions = self.db.searchForPlaceInfos(by: Int(addrid), of: Int(PlaceForm.landmark.rawValue))
+                        self.favoritePlaces = self.db.getFavoritePlaces(of: self.testUserId, with: Int(PlaceForm.landmark.rawValue), in: Int(addrid))
                         self.refreshTable()
+                        self.activityIndicator.stopAnimating()
                     }
                 }
             }
