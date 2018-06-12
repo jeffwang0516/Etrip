@@ -19,6 +19,7 @@ class AutoPlanViewController: UIViewController {
     var locationManager: CLLocationManager!
     var currentLat: Double = 0.0
     var currentLng: Double = 0.0
+    var currentAddress: String = ""
     
     @IBOutlet weak var cityDropdown: ZHDropDownMenu!
     @IBOutlet weak var districtDropDown: ZHDropDownMenu!
@@ -28,6 +29,10 @@ class AutoPlanViewController: UIViewController {
     
     var favoritePlaces: [PlaceInfo] = []
     @IBOutlet weak var favoritePlacesTableView: UITableView!
+    
+    var chosenPlaces: [PlaceInfo] = []
+    var chosenLandmarks: [PlaceInfo] = []
+    var chosenFavorites: [PlaceInfo] = []
     
     @IBOutlet weak var date: UIButton!
     var selectedDate: Date!{
@@ -246,10 +251,110 @@ class AutoPlanViewController: UIViewController {
         }
     }
     
+    // AutoPlanning func
+    
     private func startAutoPlanning() -> [[DiaryDetail]] {
-        var detail: [DiaryDetail] = []
         
-        return [detail]
+        self.chosenPlaces = combineChosenLists()
+//        for place in chosenPlaces {
+//            print(place.name)
+//        }
+        let diaryId = self.getAutoDiaryIdByCurTime()
+        var diaryDetail: [[DiaryDetail]] = []
+        var prevDayHotel: PlaceInfo? = nil
+        var isLastDay = false
+        
+        for day in 0..<selectedDay {
+
+            if day == selectedDay - 1 { isLastDay = true }
+            
+            // Record plans of single day
+            var diaryDetailForDay: [DiaryDetail] = []
+            
+            
+            if prevDayHotel != nil {
+                diaryDetailForDay.append(DiaryDetail(diaryId: diaryId, userid: testUserId, day: Int32(day + 1), content: prevDayHotel!.id, startTime: 0, endTime: 900, tag: 1, name: prevDayHotel!.name, form: prevDayHotel!.form))
+            } else {
+                diaryDetailForDay.append(DiaryDetail(diaryId: diaryId, userid: testUserId, day: Int32(day + 1), content: 0, startTime: 0, endTime: 900, tag: 1, name: "home", form: PlaceForm.home))
+            }
+            
+            var planTime: Int = 900
+            var placeLand: PlaceInfo? = nil
+            var nextPlaceLand: PlaceInfo? = nil
+            
+            if prevDayHotel != nil { placeLand = prevDayHotel }
+            else {
+                placeLand = PlaceInfo(id: 0, name: "home", address: currentAddress, form: PlaceForm.home, image: NSData(base64Encoded: "")!, ticket: 0, staytime: 0, hightime: 0, phone: "", abstract: "", lat: currentLat, lng: currentLng, score: Score(average: 0, total: 0))
+                
+            }
+            
+            // Prevent to plan multiple of the following in one day
+            var isLunchPlanned = false
+            var isDinnerPlanned = false
+            var isHotelPlanned = false
+            
+            while planTime < 2000 {
+                
+                if 1100 < planTime && planTime < 1300 && isLunchPlanned == false {
+                    isLunchPlanned = true
+                    // Search for lunch place
+                    
+                    
+                } else if 1700 < planTime && planTime < 1900 && isDinnerPlanned == false {
+                    isDinnerPlanned = true
+                    // Search for dinner place
+                } else if 1600 <= planTime && planTime <= 1900 && isHotelPlanned == false && isLastDay == false {
+                    isHotelPlanned = true
+                    // Search for hotel
+                } else if 1800 <= planTime && planTime <= 2400 && isLastDay == true {
+                    // Plan for End Of Trip
+                    
+                    
+                } else {
+                    if (indoorIsChecked && outdoorIsChecked) || (!indoorIsChecked && !outdoorIsChecked) {
+                        // Both checked or both not
+                        
+                    } else if indoorIsChecked {
+                        
+                    } else if outdoorIsChecked {
+                        
+                    }
+                }
+                
+            }
+        }
+   
+        return diaryDetail
+    }
+    
+    private func combineChosenLists() -> [PlaceInfo]{
+        
+        var chosen = self.chosenLandmarks
+        for place in chosenFavorites {
+            if checkIfPlaceChosen(chosenList: chosen, placeid: place.id) == false {
+                chosen.append(place)
+            }
+        }
+        
+        return chosen
+    }
+    
+    private func checkIfPlaceChosen(chosenList: [PlaceInfo], placeid: Int32) -> Bool {
+        for place in chosenList {
+            if place.id == placeid {
+                return true
+            }
+        }
+        return false
+    }
+    
+    private func getAutoDiaryIdByCurTime() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .none
+        dateFormatter.dateFormat = "yyyyMMdd"
+        //        print(selectedDate)
+        return dateFormatter.string(from: Date())
     }
 }
 
@@ -274,15 +379,14 @@ extension AutoPlanViewController: UITableViewDelegate, UITableViewDataSource{
             let suggestCell = tableView.dequeueReusableCell(withIdentifier: "SuggestionSelectCell", for: indexPath) as! AutoPlanCheckBoxCell
             let placeInfo = placeSuggestions[indexPath.row]
             suggestCell.title = placeInfo.name
-            suggestCell.isChecked = false
+            suggestCell.isChecked = checkIfLandmarkChosen(placeid: placeInfo.id)
             
             return suggestCell
         } else {
             let favorCell = tableView.dequeueReusableCell(withIdentifier: "FavoriteSelectCell", for: indexPath) as! AutoPlanCheckBoxCell
             let placeInfo = favoritePlaces[indexPath.row]
             favorCell.title = placeInfo.name
-            favorCell.isChecked = false
-            //        suggestCell.setChecked()
+            favorCell.isChecked = checkIfFavoriteChosen(placeid: placeInfo.id)
             
             return favorCell
         }
@@ -290,6 +394,75 @@ extension AutoPlanViewController: UITableViewDelegate, UITableViewDataSource{
         
         
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        print("SELECT")
+        if tableView == suggestionsTableView {
+
+            let placeInfo = placeSuggestions[indexPath.row]
+            
+            if !checkIfLandmarkChosen(placeid: placeInfo.id) {
+                chosenLandmarks.append(placeInfo)
+            } else {
+                var indexToRemove = -1
+                for (index, place) in chosenLandmarks.enumerated() {
+                    if place.id == placeInfo.id {
+                        indexToRemove = index
+                        break
+                    }
+                }
+    
+                if indexToRemove >= 0 {
+                    chosenLandmarks.remove(at: indexToRemove)
+                }
+            }
+            
+            tableView.reloadData()
+
+        } else {
+            
+            let placeInfo = favoritePlaces[indexPath.row]
+            
+            if !checkIfFavoriteChosen(placeid: placeInfo.id) {
+                chosenFavorites.append(placeInfo)
+            } else {
+                var indexToRemove = -1
+                for (index, place) in chosenFavorites.enumerated() {
+                    if place.id == placeInfo.id {
+                        indexToRemove = index
+                        break
+                    }
+                }
+                
+                if indexToRemove >= 0 {
+                    chosenFavorites.remove(at: indexToRemove)
+                }
+            }
+            
+            tableView.reloadData()
+        }
+    }
+    
+    private func checkIfLandmarkChosen(placeid: Int32) -> Bool {
+        for place in chosenLandmarks {
+            if place.id == placeid {
+                return true
+            }
+        }
+        return false
+    }
+    
+    private func checkIfFavoriteChosen(placeid: Int32) -> Bool {
+        for place in chosenFavorites {
+            if place.id == placeid {
+                return true
+            }
+        }
+        return false
+    }
+    
+    
     
 }
 
@@ -354,10 +527,11 @@ extension AutoPlanViewController: CLLocationManagerDelegate {
 //        print(locationManager.location)
         lookUpCurrentLocation { location in
 //            print(location?.country, location?.locality, location?.name)
-            self.startAddress.text = location?.name
+            if let addr = location?.name {
+                self.startAddress.text = addr
+                self.currentAddress = addr
+            }
         }
-        
-        
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error)

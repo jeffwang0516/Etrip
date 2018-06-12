@@ -33,7 +33,8 @@ class DiaryDetailViewCell: UITableViewCell {
     let imgCollection = [
         UIImage(named: "landscape_green_square"),
         UIImage(named: "restaurant_red_square"),
-        UIImage(named: "house_blue_square")
+        UIImage(named: "house_blue_square"),
+        UIImage(named: "home")
     ]
     
    

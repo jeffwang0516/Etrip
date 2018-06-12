@@ -681,7 +681,7 @@ class DBManager{
             print("private getPlaceForm query not exist")
         }
         
-        return PlaceForm.landmark
+        return PlaceForm.home
     }
     
     private func getTransportationName(of transid: Int32) -> String {
