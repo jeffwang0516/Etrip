@@ -225,7 +225,7 @@ class AutoPlanViewController: UIViewController {
             
         } else if segue.identifier == "OpenStartPlan" {
             let autoPlanDialogView = segue.destination as! AutoPlanDialogViewController
-            autoPlanDialogView.planningDetails = self.startAutoPlanning()
+            autoPlanDialogView.planningDetailsByDays = self.startAutoPlanning()
             autoPlanDialogView.userid = testUserId
             autoPlanDialogView.dayCount = selectedDay
         } else {
@@ -233,10 +233,10 @@ class AutoPlanViewController: UIViewController {
         }
     }
     
-    private func startAutoPlanning() -> [DiaryDetail] {
+    private func startAutoPlanning() -> [[DiaryDetail]] {
         var detail: [DiaryDetail] = []
         
-        return detail
+        return [detail]
     }
 }
 

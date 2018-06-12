@@ -14,7 +14,7 @@ class AutoPlanDialogViewController: UIViewController {
     
     var dayCount: Int = 1
     var userid: String!
-    var planningDetails: [DiaryDetail]?
+    var planningDetailsByDays: [[DiaryDetail]]?
     
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
@@ -33,13 +33,28 @@ class AutoPlanDialogViewController: UIViewController {
             let diaryNameDialog = segue.destination as! DiaryNameDialogViewController
             diaryNameDialog.parentView = self
         } else if segue.identifier == "OpenDayDetailFromAutoPlan" {
-            let diaryDayDetailController = segue.destination as! DiaryDayDetailViewController
+        
+            guard let cell = sender as? DiaryDetailViewCell else {
+                fatalError("Mis-configured storyboard! The sender should be a cell.")
+            }
+            self.prepareOpeningDetail(for: segue, sender: cell)
             
             // Load it with single day planningDetails, not ALL
 //            diaryDayDetailController.diaryDetails = planningDetails!
         } else {
             super.prepare(for: segue, sender: sender)
         }
+    }
+    
+    private func prepareOpeningDetail(for segue: UIStoryboardSegue, sender: DiaryDetailViewCell) {
+        
+        let diaryDayDetailViewController = segue.destination as! DiaryDayDetailViewController
+        let senderPath = self.tableView.indexPath(for: sender)!
+        let day = senderPath.row
+        if let dayDetail = planningDetailsByDays?[day] {
+            diaryDayDetailViewController.diaryDetails = dayDetail
+        }
+        
     }
     
     func confirmSave(title: String?) {
@@ -85,6 +100,10 @@ extension AutoPlanDialogViewController: UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let diaryDetailCell = tableView.dequeueReusableCell(withIdentifier: "DiaryDetailCell", for: indexPath) as! DiaryDetailViewCell
+        
+        if let dayDetail = planningDetailsByDays?[indexPath.row] {
+            diaryDetailCell.updateUIDisplaysForAutoPlan(planDetails: dayDetail, day: indexPath.row + 1)
+        }
         
 //        diaryDetailCell.updateUIDisplays(diaryId: diaryid, userid: userid, day: indexPath.row + 1)
         
