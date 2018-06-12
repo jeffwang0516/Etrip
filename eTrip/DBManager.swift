@@ -280,6 +280,26 @@ class DBManager{
         return nil
     }
     
+    func getAddressId(of placeId: Int32) -> Int {
+        let queryString = "SELECT addressid FROM place WHERE placeid=\(placeId);"
+        var queryStatement: OpaquePointer? = nil
+        
+        defer {
+            sqlite3_finalize(queryStatement)
+        }
+
+        if sqlite3_prepare_v2(db, queryString, -1, &queryStatement, nil) == SQLITE_OK {
+            if sqlite3_step(queryStatement) == SQLITE_ROW {
+                
+                let addrId = sqlite3_column_int(queryStatement, 0)
+                return Int(addrId)
+            }
+            
+        } else {
+            print("getAddressId() query not prepared")
+        }
+        return 0
+    }
     
     // Tickets
     func getNormalTicketId(of placeId: Int32) -> Int32{
@@ -431,8 +451,24 @@ class DBManager{
         return queryOfPlaceInfos(with: queryString)
     }
     
+    func searchForDiningPlaces(near placeid: Int) -> [PlaceInfo] {
+        let queryString = "SELECT place.* FROM place WHERE placeid IN ( SELECT placeid_rest FROM landrest WHERE placeid_land=\(placeid));"
+        return queryOfPlaceInfos(with: queryString)
+    }
+    
     func searchForLandmarks(with way: LandmarkWay, in addressid: Int, considerOf timeFactor: Int) -> [PlaceInfo]  {
         var queryString = "SELECT place.* FROM place, landmarkway WHERE place.placeid=landmarkway.placeid AND formid = 1 AND ((hightime/10000)-(hightime%10000/10000)) <= \(timeFactor) AND hightime%10000 >= \(timeFactor) AND addressid = \(addressid)"
+        if way != LandmarkWay.all {
+            queryString.append(" AND wayid = \(way.rawValue);")
+        } else {
+            queryString.append(";")
+        }
+        
+        return queryOfPlaceInfos(with: queryString)
+    }
+    
+    func searchForLandmarks(with way: LandmarkWay, considerOf timeFactor: Int) -> [PlaceInfo]  {
+        var queryString = "SELECT place.* FROM place, landmarkway WHERE place.placeid=landmarkway.placeid AND formid = 1 AND ((hightime/10000)-(hightime%10000/10000)) <= \(timeFactor) AND hightime%10000 >= \(timeFactor)"
         if way != LandmarkWay.all {
             queryString.append(" AND wayid = \(way.rawValue);")
         } else {
@@ -639,7 +675,7 @@ class DBManager{
         return Score(average: avg, total: Int(total))
     }
     
-    private func getPlaceName(of placeid: Int32) -> String {
+    func getPlaceName(of placeid: Int32) -> String {
         let queryString = "SELECT name FROM place WHERE placeid = \(placeid);"
         var queryStatement: OpaquePointer? = nil
         
@@ -662,7 +698,7 @@ class DBManager{
         return ""
     }
     
-    private func getPlaceForm(of placeid: Int32) -> PlaceForm {
+    func getPlaceForm(of placeid: Int32) -> PlaceForm {
         let queryString = "SELECT formid FROM place WHERE placeid = \(placeid);"
         var queryStatement: OpaquePointer? = nil
         
@@ -684,7 +720,7 @@ class DBManager{
         return PlaceForm.home
     }
     
-    private func getTransportationName(of transid: Int32) -> String {
+    func getTransportationName(of transid: Int32) -> String {
         let queryString = "SELECT trans FROM transinfo WHERE transid = \(transid);"
         var queryStatement: OpaquePointer? = nil
         

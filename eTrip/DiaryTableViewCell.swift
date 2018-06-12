@@ -71,18 +71,21 @@ class DiaryTableViewCell: UITableViewCell {
 //        }
         var diaryDetials = db.getDiaryDetailWithoutTrans(with: diaryID, of:testUserId, of: 1)
         for diaryDetial in diaryDetials{
-            let image = db.getPlaceInfo(for: diaryDetial.content)[0].getUIImage()
-            if image != nil {
-                if !isImg1Set{
-                    self.placeImg1.image = image
-                    self.isImg1Set = true
-                }else if !isImg2Set{
-                    self.placeImg2.image = image
-                    self.isImg2Set = true
-                }else if !isImg3Set{
-                    self.placeImg3.image = image
-                    self.isImg3Set = true
-                    break
+            let places = db.getPlaceInfo(for: diaryDetial.content)
+            if places.count > 0 {
+                let image = places[0].getUIImage()
+                if image != nil {
+                    if !isImg1Set{
+                        self.placeImg1.image = image
+                        self.isImg1Set = true
+                    }else if !isImg2Set{
+                        self.placeImg2.image = image
+                        self.isImg2Set = true
+                    }else if !isImg3Set{
+                        self.placeImg3.image = image
+                        self.isImg3Set = true
+                        break
+                    }
                 }
             }
         }

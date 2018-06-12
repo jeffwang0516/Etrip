@@ -40,7 +40,11 @@ class DiaryDayDetailViewCell: UITableViewCell {
             
         } else {
             timeLineImg.image = UIImage(named: "time_line")
-            placeTypeImg.image = UIImage(named: "transport_car")
+            if detail.content == 3 {
+                placeTypeImg.image = UIImage(named: "transport_car")
+            } else {
+                placeTypeImg.image = UIImage(named: "transport_bus")
+            }
             placeAbstractText.text = ""
             startTime.text = ""
             endTime.text = ""

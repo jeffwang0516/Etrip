@@ -22,6 +22,9 @@ class AutoPlanDialogViewController: UIViewController {
     override func viewDidLoad() {
         self.tableView.rowHeight = 210.0
         print("TEST:DIALOG\(dayCount)")
+        
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
     }
     
     @IBAction func backToPrePage(_ sender: Any) {
@@ -88,8 +91,13 @@ class AutoPlanDialogViewController: UIViewController {
         DispatchQueue.global().async {
             if let startDate = Int32(self.dateFormatterFunc(self.startDate!)), let endDate = Int32(self.dateFormatterFunc(self.endDate!)) {
                 
-//                self.db.addDiary(diaryName: title, details: allPlans, preDate: dateFormatterFunc(startDate), postDate: dateFormatterFunc(endDate))
-                print(startDate, endDate)
+                self.db.addDiary(diaryName: title, details: allPlans, preDate: startDate, postDate: endDate)
+
+                // Refresh view in diary view
+                let allControllers = self.navigationController?.viewControllers[0].childViewControllers
+                if let diaryView = allControllers?[4] as? DiaryViewController {
+                    diaryView.refreshDataAndTable()
+                }
             }
         }
     }

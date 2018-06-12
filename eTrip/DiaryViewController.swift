@@ -27,6 +27,7 @@ class DiaryViewController: UIViewController {
         
         diaryInfos = db.getDiary(of: testUserId)
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.rowHeight = 268.0
@@ -38,7 +39,10 @@ class DiaryViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
+    func refreshDataAndTable() {
+        diaryInfos = db.getDiary(of: testUserId)
+        self.tableView.reloadData()
+    }
     /*
     // MARK: - Navigation
 

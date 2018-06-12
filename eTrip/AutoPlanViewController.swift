@@ -16,9 +16,11 @@ class AutoPlanViewController: UIViewController {
     let db = DBManager.instance
     let testUserId = "TCA"
     
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     var locationManager: CLLocationManager!
-    var currentLat: Double = 0.0
-    var currentLng: Double = 0.0
+    var currentLat: Double = 25.2218608856201
+    var currentLng: Double = 121.645889282227
     var currentAddress: String = ""
     
     @IBOutlet weak var cityDropdown: ZHDropDownMenu!
@@ -33,6 +35,8 @@ class AutoPlanViewController: UIViewController {
     var chosenPlaces: [PlaceInfo] = []
     var chosenLandmarks: [PlaceInfo] = []
     var chosenFavorites: [PlaceInfo] = []
+    
+    var placeAlreadyPlanned: [PlaceInfo] = []
     
     @IBOutlet weak var date: UIButton!
     var selectedDate: Date!{
@@ -131,7 +135,7 @@ class AutoPlanViewController: UIViewController {
         
         self.favoritePlaces = db.getFavoritePlaces(of: testUserId, with: Int(PlaceForm.landmark.rawValue))
     }
-    
+    var timeRetrieved: Int = 0
     override func viewDidLoad() {
         super.viewDidLoad()
         transportIsCar = true
@@ -145,6 +149,7 @@ class AutoPlanViewController: UIViewController {
         self.favoritePlacesTableView.dataSource = self
         
         self.setupDetermineLocation()
+        self.startAddress.text = "請定位..."
     }
 
     override func didReceiveMemoryWarning() {
@@ -239,12 +244,14 @@ class AutoPlanViewController: UIViewController {
             datePickerView.parentView = self
             
         } else if segue.identifier == "OpenStartPlan" {
+            
             let autoPlanDialogView = segue.destination as! AutoPlanDialogViewController
-            autoPlanDialogView.planningDetailsByDays = self.startAutoPlanning()
+            autoPlanDialogView.planningDetailsByDays = self.planningDetailsByDays
             autoPlanDialogView.userid = testUserId
             autoPlanDialogView.dayCount = selectedDay
             autoPlanDialogView.startDate = selectedDate
             autoPlanDialogView.endDate = selectedDate + TimeInterval((selectedDay-1)*24*60*60)
+            
             
         } else {
             super.prepare(for: segue, sender: sender)
@@ -252,8 +259,37 @@ class AutoPlanViewController: UIViewController {
     }
     
     // AutoPlanning func
+    var planningDetailsByDays: [[DiaryDetail]] = []
     
-    private func startAutoPlanning() -> [[DiaryDetail]] {
+    @IBAction func startPlanning(_ sender: UIButton) {
+        self.activityIndicator.startAnimating()
+        self.view.isUserInteractionEnabled = false
+        DispatchQueue.global().async {
+            self.planningDetailsByDays = self.runAutoPlanning()
+            
+            // Manual perform segue
+            DispatchQueue.main.async{
+                self.view.isUserInteractionEnabled = true
+                self.performSegue(withIdentifier: "OpenStartPlan", sender: sender)
+                self.activityIndicator.stopAnimating()
+            }
+            
+        }
+    }
+    
+    private func runAutoPlanning() -> [[DiaryDetail]] {
+        // TEST API
+//        DispatchQueue.global().async {
+//        self.timeRetrieved = self.retrieveTimeFromGoogleAPI("40.6655101,-73.89188969999998", "40.6905615,-73.9976592", isDriving: transportIsCar)
+//        print("TESTAPI:" , self.timeRetrieved)
+////        }
+//
+//        for a in db.searchForDiningPlaces(near: 3152, considerOf: 1200) {
+//            print(a.name)
+//        }
+//        return []
+        
+        let transport: Int = transportIsCar ? 3 : 1
         
         self.chosenPlaces = combineChosenLists()
 //        for place in chosenPlaces {
@@ -264,8 +300,11 @@ class AutoPlanViewController: UIViewController {
         var prevDayHotel: PlaceInfo? = nil
         var isLastDay = false
         
+        placeAlreadyPlanned = []
+        
         for day in 0..<selectedDay {
 
+            print("Processing day \(day+1)")
             if day == selectedDay - 1 { isLastDay = true }
             
             // Record plans of single day
@@ -279,12 +318,13 @@ class AutoPlanViewController: UIViewController {
             }
             
             var planTime: Int = 900
-            var placeLand: PlaceInfo? = nil
+            var startPlace: PlaceInfo? = nil
             var nextPlaceLand: PlaceInfo? = nil
+            var staytime = 0
             
-            if prevDayHotel != nil { placeLand = prevDayHotel }
+            if prevDayHotel != nil { startPlace = prevDayHotel }
             else {
-                placeLand = PlaceInfo(id: 0, name: "home", address: currentAddress, form: PlaceForm.home, image: NSData(base64Encoded: "")!, ticket: 0, staytime: 0, hightime: 0, phone: "", abstract: "", lat: currentLat, lng: currentLng, score: Score(average: 0, total: 0))
+                startPlace = PlaceInfo(id: 0, name: "home", address: currentAddress, form: PlaceForm.home, image: NSData(base64Encoded: "")!, ticket: 0, staytime: 0, hightime: 0, phone: "", abstract: "", lat: currentLat, lng: currentLng, score: Score(average: 0, total: 0))
                 
             }
             
@@ -293,38 +333,251 @@ class AutoPlanViewController: UIViewController {
             var isDinnerPlanned = false
             var isHotelPlanned = false
             
-            while planTime < 2000 {
+            let city = self.cityDropdown.contentTextField.text
+            let district = self.districtDropDown.contentTextField.text
+            let destAddressId = Int(db.getAddressIdByAddressNames(city: city!, district: district!)!)
+            
+            while planTime < 2400 {
                 
                 if 1100 < planTime && planTime < 1300 && isLunchPlanned == false {
+                    print("Plantime Lunch: \(planTime)")
                     isLunchPlanned = true
                     // Search for lunch place
+//                    nextPlaceLand = self.findNextPlace(from: startPlace!, possiblePlaces: db.searchForDiningPlaces(near: Int(startPlace!.id), considerOf: planTime), planTime: planTime, isDriving: self.transportIsCar)
+                    nextPlaceLand = self.findNextPlace(from: startPlace!, possiblePlaces: db.searchForPlaceInfos(by: destAddressId, of: Int(PlaceForm.restaurant.rawValue)), planTime: planTime, isDriving: self.transportIsCar)
+                    if nextPlaceLand == nil {
+                        print("nil lunch")
+                        nextPlaceLand = self.findNextPlace(from: startPlace!, possiblePlaces: db.searchForPlaceInfos(with: "", of: Int(PlaceForm.restaurant.rawValue)), planTime: planTime, isDriving: self.transportIsCar)
+                    }
                     
                     
-                } else if 1700 < planTime && planTime < 1900 && isDinnerPlanned == false {
+                    staytime = Int(nextPlaceLand!.staytime)
+                    
+   
+                } else if 1630 < planTime && planTime < 1900 && isDinnerPlanned == false {
+                    print("Plantime dinner: \(planTime)")
                     isDinnerPlanned = true
                     // Search for dinner place
-                } else if 1600 <= planTime && planTime <= 1900 && isHotelPlanned == false && isLastDay == false {
+//                    nextPlaceLand = self.findNextPlace(from: startPlace!, possiblePlaces: db.searchForDiningPlaces(near: Int(startPlace!.id), considerOf: planTime), planTime: planTime, isDriving: self.transportIsCar)
+                    nextPlaceLand = self.findNextPlace(from: startPlace!, possiblePlaces: db.searchForPlaceInfos(by: destAddressId, of: Int(PlaceForm.restaurant.rawValue)), planTime: planTime, isDriving: self.transportIsCar)
+                        if nextPlaceLand == nil {
+                            print("nil dinner")
+                            nextPlaceLand = self.findNextPlace(from: startPlace!, possiblePlaces: db.searchForPlaceInfos(with: "", of: Int(PlaceForm.restaurant.rawValue)), planTime: planTime, isDriving: self.transportIsCar)
+                        }
+                    
+                    staytime = Int(nextPlaceLand!.staytime)
+                    
+                    
+                } else if 1530 <= planTime && planTime <= 2200 && isHotelPlanned == false && isLastDay == false {
+                    print("Plantime Hotel: \(planTime)")
                     isHotelPlanned = true
                     // Search for hotel
-                } else if 1800 <= planTime && planTime <= 2400 && isLastDay == true {
-                    // Plan for End Of Trip
+                    nextPlaceLand = self.findNextPlace(from: startPlace!, possiblePlaces: db.searchForHotels(in: destAddressId), planTime: planTime, isDriving: self.transportIsCar)
                     
+                    staytime = 100
+                    
+                    prevDayHotel = nextPlaceLand
+                    
+                    // Add transport
+                    diaryDetailForDay.append(DiaryDetail(diaryId: diaryId, userid: testUserId, day: Int32(day + 1), content: Int32(transport), startTime: Int32(planTime), endTime: Int32(addTime(planTime, timeRetrieved)), tag: 2, name: db.getTransportationName(of: Int32(transport)), form: db.getPlaceForm(of: Int32(transport))))
+                    
+                    // Add place
+                    if let nextPlaceLand = nextPlaceLand {
+                        diaryDetailForDay.append(DiaryDetail(diaryId: diaryId, userid: testUserId, day: Int32(day + 1), content: nextPlaceLand.id, startTime: Int32(addTime(planTime, timeRetrieved)), endTime: 2400, tag: 1, name: db.getPlaceName(of: Int32(nextPlaceLand.id)), form: db.getPlaceForm(of: Int32(nextPlaceLand.id))))
+                        
+                        planTime = addTime(addTime(planTime, timeRetrieved), staytime)
+                    }
+                    break
+                } else if 1800 <= planTime && planTime <= 2400 && isLastDay == true {
+                    print("Plantime EndOfTrip: \(planTime)")
+                    // Plan for End Of Trip
+                    let startLatLng = "\(startPlace!.lat),\(startPlace!.lng)"
+                    let destLatLng = "\(self.currentLat),\(self.currentLng)"
+
+                    let transTimeSec = self.retrieveTimeFromGoogleAPI(startLatLng, destLatLng, isDriving: self.transportIsCar)
+                    
+                    staytime = 100
+                    let transTime = (transTimeSec/3600)*100 + (transTimeSec%3600/60)
+                    
+                    // Add transport
+                    diaryDetailForDay.append(DiaryDetail(diaryId: diaryId, userid: testUserId, day: Int32(day + 1), content: Int32(transport), startTime: Int32(planTime), endTime: Int32(addTime(planTime, transTime)), tag: 2, name: db.getTransportationName(of: Int32(transport)), form: db.getPlaceForm(of: Int32(transport))))
+                    
+                    // Add HOME
+                    
+                    diaryDetailForDay.append(DiaryDetail(diaryId: diaryId, userid: testUserId, day: Int32(day + 1), content: 0, startTime: Int32(addTime(planTime, transTime)), endTime: 2400, tag: 1, name: "", form: PlaceForm.home))
+                    
+                    // END Planning HERE!
+                    break
                     
                 } else {
                     if (indoorIsChecked && outdoorIsChecked) || (!indoorIsChecked && !outdoorIsChecked) {
                         // Both checked or both not
+                        print("Plantime LandMark: \(planTime)")
+                        nextPlaceLand = self.findNextPlace(from: startPlace!, possiblePlaces: db.searchForPlaceInfos(by: destAddressId, of: Int(PlaceForm.landmark.rawValue)), planTime: planTime, isDriving: self.transportIsCar)
+                        
+                        
                         
                     } else if indoorIsChecked {
+                        nextPlaceLand = self.findNextPlace(from: startPlace!, possiblePlaces: db.searchForLandmarks(with: LandmarkWay.indoor, in: destAddressId, considerOf: planTime), planTime: planTime, isDriving: self.transportIsCar)
+                        if nextPlaceLand == nil {
+                            print("nil indoor")
+                            nextPlaceLand = self.findNextPlace(from: startPlace!, possiblePlaces: db.searchForPlaceInfos(by: destAddressId, of: Int(PlaceForm.landmark.rawValue)), planTime: planTime, isDriving: self.transportIsCar)
+                        }
                         
                     } else if outdoorIsChecked {
-                        
+                        nextPlaceLand = self.findNextPlace(from: startPlace!, possiblePlaces: db.searchForLandmarks(with: LandmarkWay.outdoor, in: destAddressId, considerOf: planTime), planTime: planTime, isDriving: self.transportIsCar)
+                        if nextPlaceLand == nil {
+                            print("nil outdoor")
+                            nextPlaceLand = self.findNextPlace(from: startPlace!, possiblePlaces: db.searchForPlaceInfos(by: destAddressId, of: Int(PlaceForm.landmark.rawValue)), planTime: planTime, isDriving: self.transportIsCar)
+                        }
                     }
+                    
+                    staytime = Int(nextPlaceLand!.staytime)
+//                    planTime = addTime(addTime(planTime, timeRetrieved), Int(nextPlaceLand!.staytime))
                 }
                 
+                // Add transport
+                diaryDetailForDay.append(DiaryDetail(diaryId: diaryId, userid: testUserId, day: Int32(day + 1), content: Int32(transport), startTime: Int32(planTime), endTime: Int32(addTime(planTime, timeRetrieved)), tag: 2, name: db.getTransportationName(of: Int32(transport)), form: db.getPlaceForm(of: Int32(transport))))
+                
+                // Add place
+                if let nextPlaceLand = nextPlaceLand {
+                    diaryDetailForDay.append(DiaryDetail(diaryId: diaryId, userid: testUserId, day: Int32(day + 1), content: nextPlaceLand.id, startTime: Int32(addTime(planTime, timeRetrieved)), endTime: Int32(addTime(addTime(planTime, timeRetrieved), staytime)), tag: 1, name: db.getPlaceName(of: Int32(nextPlaceLand.id)), form: db.getPlaceForm(of: Int32(nextPlaceLand.id))))
+                    
+                    planTime = addTime(addTime(planTime, timeRetrieved), staytime)
+                }
+                
+                // Find following plans
+                startPlace = nextPlaceLand
+                
             }
+            diaryDetail.append(diaryDetailForDay)
         }
    
         return diaryDetail
+    }
+    
+    private func findNextPlace(from startPlace: PlaceInfo, possiblePlaces: [PlaceInfo], planTime: Int, isDriving: Bool) -> PlaceInfo? {
+//        print(possiblePlaces)
+        var waitForArrange: [PlaceInfo] = []
+        
+        for possible in possiblePlaces {
+            for chosen in self.chosenPlaces {
+                if possible.id == chosen.id {
+                    if !self.checkIfPlaceChosen(chosenList: self.placeAlreadyPlanned, placeid: chosen.id) {
+                        waitForArrange.append(chosen)
+                    }
+                }
+            }
+        }
+        
+        if waitForArrange.count == 0 { waitForArrange = possiblePlaces }
+        
+        var finalPlanPlace: PlaceInfo? = nil
+
+        for place in waitForArrange {
+            if !self.checkIfPlaceChosen(chosenList: self.placeAlreadyPlanned, placeid: place.id) {
+                
+                
+                let startLatLng = "\(startPlace.lat),\(startPlace.lng)"
+                let destLatLng = "\(place.lat),\(place.lng)"
+                
+                // TEST API
+                
+                let transTimeSec = self.retrieveTimeFromGoogleAPI(startLatLng, destLatLng, isDriving: isDriving)
+                
+                
+                let transTime = (transTimeSec/3600)*100 + (transTimeSec%3600/60)
+                
+//                var planTimePredict = addTime(addTime(planTime, transTime), Int(place.staytime))
+//                let checkIfItHasRelatedPlace = db.searchForDiningPlaces(near: Int(place.id))
+//                if checkIfItHasRelatedPlace.count <= 0 {
+//                    print("\(place.id) \(place.name) no! time: \(planTimePredict)")
+//                    continue
+//                }
+                
+                if place.form != PlaceForm.hotel {
+                    if place.hightime/10000 < addTime(planTime, transTime) && addTime(planTime, transTime) < place.hightime%10000 {
+                        self.timeRetrieved = transTime
+                        print("TESTAPI:" , timeRetrieved)
+                        finalPlanPlace = place
+                        break
+                        
+                    }
+                } else {
+                    finalPlanPlace = place
+                    break
+                }
+                
+            }
+            
+        }
+//        print(finalPlanPlace)
+        if finalPlanPlace != nil {
+            placeAlreadyPlanned.append(finalPlanPlace!)
+//            print("Append \(finalPlanPlace!.id) \(finalPlanPlace!.name)")
+        }
+        
+        return finalPlanPlace
+    }
+    
+    private func addTime(_ a: Int, _ b: Int) -> Int{
+        if (a+b)%100 < 60 {
+            return a + b
+        } else {
+            return (a/100 + b/100)*100 + (a%100 + b%100)/60*100 + (a%100 + b%100)%60
+        }
+    }
+    private func retrieveTimeFromGoogleAPI(_ startCoord: String, _ endCoord: String, isDriving: Bool) -> Int{
+        var mode = "driving"
+        if isDriving == false { mode = "transit" }
+        
+        let urlString = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=\(startCoord)&destinations=\(endCoord)&mode=\(mode)&key=AIzaSyCoMkKJzQ5DWW3nkIp-k3vaJUvjbtjgU_4"
+        guard let url = URL(string: urlString) else { return 0}
+        
+//        URLSession.shared.dataTask(with: url) { (data, response, error) in
+//            if error != nil {
+//                print(error!.localizedDescription)
+//            }
+//
+//            guard let data = data else { return }
+            //Implement JSON decoding and parsing
+            do {
+                //Decode retrived data with JSONDecoder and assing type of Article object
+//                let articlesData = try JSONDecoder().decode([Article].self, from: data)
+//                print(data)
+//                print("-----")
+//                if let result = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
+//                    print(result["rows"]!)
+//                    print(result)
+//                }
+                let data =  try Data(contentsOf: url)
+                let json =  try JSONSerialization.jsonObject(with: data, options: []) as! NSDictionary
+                let json1 = json["rows"] as! NSArray
+                let json2 = json1[0] as! NSDictionary
+                let json3 = json2["elements"] as! NSArray
+                let dic = json3[0] as! NSDictionary
+                if dic["status"] as! String == "ZERO_RESULTS" {
+                    return 1800
+                }
+                let dis = dic["distance"] as! NSDictionary, dur  = dic["duration"] as! NSDictionary
+                
+              
+                if let timeVal = dur["value"]
+                {
+               
+                    //Get back to the main queue
+                    return timeVal as! Int
+
+                }
+                
+                
+            } catch let jsonError {
+                print(jsonError)
+            }
+//
+//
+//            }.resume()
+        return 0
     }
     
     private func combineChosenLists() -> [PlaceInfo]{

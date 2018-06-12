@@ -1058,7 +1058,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
-                                            <segue destination="QaG-NQ-xPn" kind="presentation" identifier="OpenStartPlan" id="pGP-1m-MEv"/>
+                                            <action selector="startPlanning:" destination="IJC-Hh-6ox" eventType="touchUpInside" id="Fnk-en-Uq4"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -1191,6 +1191,13 @@
                                     <constraint firstItem="4XS-mk-GFW" firstAttribute="leading" secondItem="By0-DC-ApT" secondAttribute="trailing" constant="2" id="z21-fe-r0G"/>
                                 </constraints>
                             </view>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="lAc-u0-O51">
+                                <rect key="frame" x="137.66666666666666" y="356.66666666666669" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="3rP-bm-Elv"/>
+                                    <constraint firstAttribute="width" constant="100" id="R3r-cS-DAz"/>
+                                </constraints>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.8862745098" blue="0.42745098040000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
@@ -1199,14 +1206,17 @@
                             <constraint firstItem="g65-cw-PmU" firstAttribute="width" secondItem="Bvc-hW-2NJ" secondAttribute="width" id="E2f-vg-jzu"/>
                             <constraint firstItem="Yoe-eH-Zl5" firstAttribute="width" secondItem="bAl-3y-qzs" secondAttribute="width" multiplier="95:100" id="ElF-YI-MJU"/>
                             <constraint firstItem="Yoe-eH-Zl5" firstAttribute="centerX" secondItem="Bvc-hW-2NJ" secondAttribute="centerX" id="L02-Et-5UR"/>
+                            <constraint firstItem="lAc-u0-O51" firstAttribute="centerX" secondItem="bAl-3y-qzs" secondAttribute="centerX" id="YcZ-Pg-hkL"/>
                             <constraint firstItem="g65-cw-PmU" firstAttribute="height" secondItem="Bvc-hW-2NJ" secondAttribute="height" id="hWT-pa-iV6"/>
                             <constraint firstItem="Yoe-eH-Zl5" firstAttribute="height" secondItem="Bvc-hW-2NJ" secondAttribute="height" multiplier="97:100" id="kHK-uQ-K3y"/>
                             <constraint firstItem="Bvc-hW-2NJ" firstAttribute="centerY" secondItem="g65-cw-PmU" secondAttribute="centerY" id="lw1-9K-k7W"/>
+                            <constraint firstItem="lAc-u0-O51" firstAttribute="centerY" secondItem="bAl-3y-qzs" secondAttribute="centerY" id="rNw-dc-t9P"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Bvc-hW-2NJ"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Auto" id="c37-5f-VmM"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="lAc-u0-O51" id="d3t-pc-Ahy"/>
                         <outlet property="busImg" destination="5Tm-xI-hqy" id="StK-6U-x3W"/>
                         <outlet property="carImg" destination="UB3-xI-kkx" id="X7a-qf-LRv"/>
                         <outlet property="cityDropdown" destination="52t-6Q-51P" id="Gtw-MH-zSQ"/>
@@ -1218,6 +1228,7 @@
                         <outlet property="outdoorCheckImg" destination="7Fs-DP-Fy7" id="m99-9I-dNQ"/>
                         <outlet property="startAddress" destination="By0-DC-ApT" id="rva-Kc-MHN"/>
                         <outlet property="suggestionsTableView" destination="8XW-fv-RcP" id="piH-0M-oqN"/>
+                        <segue destination="QaG-NQ-xPn" kind="presentation" identifier="OpenStartPlan" id="dXo-WF-3I4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n45-OH-Lhw" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3435,6 +3446,6 @@
         <segue reference="UgR-4T-lSa"/>
         <segue reference="3bb-Wj-twh"/>
         <segue reference="Rcg-LV-ExD"/>
-        <segue reference="MPi-zP-lrI"/>
+        <segue reference="Vxf-qD-KJT"/>
     </inferredMetricsTieBreakers>
 </document>
