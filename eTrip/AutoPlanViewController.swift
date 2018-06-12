@@ -125,6 +125,7 @@ class AutoPlanViewController: UIViewController {
         }
         
         self.districtDropDown.menuId = 2
+        self.districtDropDown.menuHeight = 160.0
         self.districtDropDown.delegate = self
         
         if let firstCity = firstCity, let firstDistrict = firstDistrict {
