@@ -17,8 +17,9 @@ class DiaryDetail {
     let endTime: Int32
     let tag: Int32
     let name: String
+    let form: PlaceForm
     
-    init(diaryId: String, userid: String, day: Int32, content: Int32, startTime: Int32, endTime: Int32, tag: Int32, name: String) {
+    init(diaryId: String, userid: String, day: Int32, content: Int32, startTime: Int32, endTime: Int32, tag: Int32, name: String, form: PlaceForm) {
         self.diaryId = diaryId
         self.userid = userid
         self.day = day
@@ -27,6 +28,7 @@ class DiaryDetail {
         self.endTime = endTime
         self.tag = tag
         self.name = name
+        self.form = form
     }
 }
 

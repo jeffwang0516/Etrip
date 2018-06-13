@@ -137,7 +137,7 @@ class SearchViewController: UIViewController {
     */
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "OpenPlaceDetailFromSearch" {
-            guard let cell = sender as? UITableViewCell else {
+            guard let cell = sender as? PlaceTableViewCell else {
                 fatalError("Mis-configured storyboard! The sender should be a cell.")
             }
             self.prepareOpeningDetail(for: segue, sender: cell)
@@ -146,12 +146,13 @@ class SearchViewController: UIViewController {
         }
     }
     
-    private func prepareOpeningDetail(for segue: UIStoryboardSegue, sender: UITableViewCell) {
+    private func prepareOpeningDetail(for segue: UIStoryboardSegue, sender: PlaceTableViewCell) {
         
         let placeInfoViewController = segue.destination as! PlaceInfoDetailViewController
         let senderPath = self.tableView.indexPath(for: sender)!
         let placeInfo = placeInfos[senderPath.row]
         placeInfoViewController.placeInfo = placeInfo
+        placeInfoViewController.cellThatTriggered = sender
     }
 
 }
@@ -171,7 +172,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
         let placeInfo = placeInfos[indexPath.row]
         
 //        placeCell.updateUIDisplays(name: placeInfo.name, address: placeInfo.address, rateScore: placeInfo.score, image: placeInfo.getUIImage())
-        placeCell.updateUIDisplays(name: placeInfo.name, address: placeInfo.address, rateScore: placeInfo.score, image: placeInfo.getUIImage(),ticket:(placeInfo.ticket.hashValue))
+        placeCell.updateUIDisplays(name: placeInfo.name, address: placeInfo.address, rateScore: placeInfo.score, image: placeInfo.getUIImage(),ticket: placeInfo.ticket.hashValue)
         
         
         return placeCell
@@ -186,15 +187,24 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
 extension SearchViewController: UISearchBarDelegate {
    
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = true
         searchActive = true;
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        
+        searchBar.showsCancelButton = false
         searchActive = false;
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        DispatchQueue.global().async {
+            self.placeInfos = self.db.searchForPlaceInfos(with: "", of: self.placeFormCodeForQuery)
+            DispatchQueue.main.async {
+                searchBar.text = ""
+                self.refreshTable()
+                searchBar.showsCancelButton = false
+            }
+        }
         searchActive = false;
     }
     
@@ -211,14 +221,24 @@ extension SearchViewController: UISearchBarDelegate {
 //            print(self.placeFormCodeForQuery)
             self.placeInfos = self.db.searchForPlaceInfos(with: searchString, of: self.placeFormCodeForQuery)
             DispatchQueue.main.async {
-                self.tableView.reloadData()
+                self.refreshTable()
                 self.activityIndicator.stopAnimating()
                 self.activityIndicator.isHidden = true
                 self.tableView.isUserInteractionEnabled = true
+//                searchBar.showsCancelButton = true
+                
             }          
         }
     
         self.searchBar.endEditing(true)
         searchActive = false;
+    }
+    
+    func refreshTable() {
+        self.tableView.reloadData()
+        if self.placeInfos.count > 0 {
+            let indexPath = IndexPath(row: 0, section: 0)
+            self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+        }
     }
 }
