@@ -33,12 +33,59 @@ class DiaryDetailViewCell: UITableViewCell {
     let imgCollection = [
         UIImage(named: "landscape_green_square"),
         UIImage(named: "restaurant_red_square"),
-        UIImage(named: "house_blue_square")
+        UIImage(named: "house_blue_square"),
+        UIImage(named: "home")
     ]
     
    
     
     var diaryDetailOfDay: [DiaryDetail] = []
+    
+    func updateUIDisplaysForAutoPlan(planDetails: [DiaryDetail], day: Int) {
+        var planWithoutTransport: [DiaryDetail] = []
+        for plan in planDetails {
+            if plan.tag == 1 {
+                planWithoutTransport.append(plan)
+            }
+        }
+        
+        self.dayLabel.text = "DAY \(day)"
+        self.diaryDetailOfDay = planWithoutTransport
+        
+        guard diaryDetailOfDay.count >= 1 else {
+            hideFirst()
+            return
+        }
+        let item1 = diaryDetailOfDay[0]
+        self.planLabel1.text = item1.name
+        self.planImg1.image = imgCollection[Int(item1.form.rawValue) - 1]
+        
+        guard diaryDetailOfDay.count >= 2 else {
+            hideSec()
+            return
+        }
+        let item2 = diaryDetailOfDay[1]
+        self.planLabel2.text = item2.name
+        self.planImg2.image = imgCollection[Int(item2.form.rawValue) - 1]
+        
+        
+        guard diaryDetailOfDay.count >= 3 else {
+            hideThird()
+            return
+        }
+        let item3 = diaryDetailOfDay[2]
+        self.planLabel3.text = item3.name
+        self.planImg3.image = imgCollection[Int(item3.form.rawValue) - 1]
+        
+        guard diaryDetailOfDay.count >= 4 else {
+            hideForth()
+            return
+        }
+        let item4 = diaryDetailOfDay[3]
+        self.planLabel4.text = item4.name
+        self.planImg4.image = imgCollection[Int(item4.form.rawValue) - 1]
+        
+    }
     
     func updateUIDisplays(diaryId: String, userid: String, day: Int) {
         

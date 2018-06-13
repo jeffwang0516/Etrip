@@ -18,6 +18,7 @@ class DiaryDetail {
     let tag: Int32
     let name: String
     let form: PlaceForm
+    public let defaultName = "Home"
     
     init(diaryId: String, userid: String, day: Int32, content: Int32, startTime: Int32, endTime: Int32, tag: Int32, name: String, form: PlaceForm) {
         self.diaryId = diaryId
@@ -27,8 +28,14 @@ class DiaryDetail {
         self.startTime = startTime
         self.endTime = endTime
         self.tag = tag
-        self.name = name
+        
         self.form = form
+        
+        if name.count == 0 {
+            self.name = defaultName
+        } else {
+            self.name = name
+        }
     }
 }
 
