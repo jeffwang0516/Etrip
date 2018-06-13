@@ -67,7 +67,7 @@ extension DiaryDayDetailViewController: UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let dayDetailCell = tableView.dequeueReusableCell(withIdentifier: "DayDetailCell", for: indexPath) as! DiaryDayDetailViewCell
         let dayDetailItem = diaryDetails[indexPath.row]
-        if dayDetailItem.tag == 2 {
+        if dayDetailItem.tag == 2 || dayDetailItem.name == "Home"{
             dayDetailCell.isUserInteractionEnabled = false;
         }
 

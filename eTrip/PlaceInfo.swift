@@ -14,6 +14,7 @@ enum PlaceForm: Int32 {
     case restaurant = 2
     case hotel = 3
     case all = 123
+    case home = 4
 }
 
 // Information for whether a landmark is indoor/outdoor preferred

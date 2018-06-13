@@ -49,7 +49,7 @@ public protocol ZHDropDownMenuDelegate: NSObjectProtocol {
     public var rowHeight: CGFloat { //菜单项的每一行行高，默认和本控件一样高，如果为0则和本空间初始高度一样
         get{
             if _rowHeight == 0 {
-                return frame.size.height
+                return frame.size.height * 3 / 4
             }
             return _rowHeight
         }
