@@ -317,7 +317,7 @@ class AutoPlanViewController: UIViewController {
             if prevDayHotel != nil {
                 diaryDetailForDay.append(DiaryDetail(diaryId: diaryId, userid: testUserId, day: Int32(day + 1), content: prevDayHotel!.id, startTime: 0, endTime: 900, tag: 1, name: prevDayHotel!.name, form: prevDayHotel!.form))
             } else {
-                diaryDetailForDay.append(DiaryDetail(diaryId: diaryId, userid: testUserId, day: Int32(day + 1), content: 0, startTime: 0, endTime: 900, tag: 1, name: "home", form: PlaceForm.home))
+                diaryDetailForDay.append(DiaryDetail(diaryId: diaryId, userid: testUserId, day: Int32(day + 1), content: 0, startTime: 0, endTime: 900, tag: 1, name: "Home", form: PlaceForm.home))
             }
             
             var planTime: Int = 900
@@ -327,7 +327,7 @@ class AutoPlanViewController: UIViewController {
             
             if prevDayHotel != nil { startPlace = prevDayHotel }
             else {
-                startPlace = PlaceInfo(id: 0, name: "home", address: currentAddress, form: PlaceForm.home, image: NSData(base64Encoded: "")!, ticket: 0, staytime: 0, hightime: 0, phone: "", abstract: "", lat: currentLat, lng: currentLng, score: Score(average: 0, total: 0))
+                startPlace = PlaceInfo(id: 0, name: "Home", address: currentAddress, form: PlaceForm.home, image: NSData(base64Encoded: "")!, ticket: 0, staytime: 0, hightime: 0, phone: "", abstract: "", lat: currentLat, lng: currentLng, score: Score(average: 0, total: 0))
                 
             }
             
