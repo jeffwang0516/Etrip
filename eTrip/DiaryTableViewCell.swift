@@ -21,11 +21,9 @@ class DiaryTableViewCell: UITableViewCell {
     @IBOutlet weak var placeImg1: UIImageView!
     @IBOutlet weak var placeImg2: UIImageView!
     @IBOutlet weak var placeImg3: UIImageView!
-    var isImg1Set: Bool=false
-    var isImg2Set: Bool=false
-    var isImg3Set: Bool=false
-
-    let defaultImage = UIImage(named: "empty_frog1")
+    
+    let defaultImage = UIImage(named: "icon")
+    let defaultImage1 = UIImage(named: "empty_frog1")
     let defaultImage2 = UIImage(named: "empty_frog2")
     
     override func awakeFromNib() {
@@ -40,6 +38,13 @@ class DiaryTableViewCell: UITableViewCell {
     }
     
     func updateUIDisplays(name: String, preDate: String, postDate: String, diaryID: String) {
+        var isImg1Set: Bool=false
+        var isImg2Set: Bool=false
+        var isImg3Set: Bool=false
+        self.placeImg1.image = defaultImage
+        self.placeImg2.image = defaultImage1
+        self.placeImg3.image = defaultImage2
+        
         self.diaryName.text = name
         
         let start = preDate.index(preDate.startIndex, offsetBy: 4)
@@ -77,22 +82,20 @@ class DiaryTableViewCell: UITableViewCell {
                 if image != nil {
                     if !isImg1Set{
                         self.placeImg1.image = image
-                        self.isImg1Set = true
+                        isImg1Set = true
                     }else if !isImg2Set{
                         self.placeImg2.image = image
-                        self.isImg2Set = true
+                        isImg2Set = true
                     }else if !isImg3Set{
                         self.placeImg3.image = image
-                        self.isImg3Set = true
+                        isImg3Set = true
                         break
                     }
                 }
             }
         }
        
-//        self.placeImg1.image = defaultImage
-//        self.placeImg2.image = defaultImage
-//        self.placeImg3.image = defaultImage2
+
         
         
     }
