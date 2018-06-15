@@ -3,6 +3,18 @@
 ## Introduction
 An IOS App that help users plan for their trip
 
+People nowadays generally think that the work is too busy and leads to insufficient time. After returning home with a tired body, there is no time for a good tourism plan.So how do we solve it?
+For this issue, we have developed a travel app with automatic planning function named ETrip.
+
+We integrated government's open data and used program to crawl folk materials for application.
+After collecting the data, we designed an innovative automatic planning function based on weather and scenic information combined with Google API.
+
+scenic information: According to all users' ratings and "My Favorites" recommended spots.
+Weather information: used to plan indoor or outdoor trips.
+Google API: Design the smoothest itinerary based on the location of the attraction.
+
+Finally save the trip as a "Travel Diary" for viewing.
+
 ## Prerequisite
 - Swift 4+
 - Google Distance Matrix API
