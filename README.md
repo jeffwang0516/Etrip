@@ -3,24 +3,30 @@
 ## Introduction
 An IOS App that help users plan for their trip
 
-People nowadays generally think that the work is too busy and leads to insufficient time. After returning home with a tired body, there is no time for a good tourism plan.So how do we solve it?
+### Usage Scenario
+People nowadays usually have heavy work loads. 
+Hardly can one has sufficient time or strength to come up with a good plan for vacations after tiring work.
+So we're solving this problem !!!
 
-For this issue, we have developed a travel app with automatic planning function named ETrip.
+### Our works
+For this issue, we developed a travel app with automatic planning function named **ETrip**.
 
-We integrated government's open data and used program to crawl folk materials for application.
+We integrated government's open data and crawled open data for our application.
+
+#### Autoplanning
+We designed an innovative automatic planning function based on weather and spot information combined with Google API.
+
+##### Planning factors
+- Spot selection: According to all users' ratings and **My Favorites** to recommend spots.
+
+- Spot detail: Opening times, location, transpotation
+
+- Weather information: Using the data to plan indoor or outdoor trips.
+
+- Google API: Design the smoothest itinerary based on the location of the spot.
 
 
-After collecting the data, we designed an innovative automatic planning function based on weather and scenic information combined with Google API.
-
-
-scenic information: According to all users' ratings and "My Favorites" recommended spots.
-
-Weather information: used to plan indoor or outdoor trips.
-
-Google API: Design the smoothest itinerary based on the location of the attraction.
-
-
-Finally save the trip as a "Travel Diary" for viewing.
+Finally, users can save the planned trip as a **Travel Diary** for future review.
 
 ## Prerequisite
 - Swift 4+
