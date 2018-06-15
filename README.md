@@ -45,8 +45,16 @@ class AutoPlanViewController: UIViewController {
 ### Autoplanning
 <img src="./Screenshots/5.PNG" width="300" height="500" />
 
-### Plan Histories
+### Plan Result
+#### Overview
 <img src="./Screenshots/6.PNG" width="300" height="500" />
+
+#### Detail view of each day
+<img src="./Screenshots/7.PNG" width="300" height="500" />
+
+### Plan History
+<img src="./Screenshots/8.PNG" width="300" height="500" />
+
 
 ## DEMO video
 - [LINK](https://www.youtube.com/watch?v=FJHvSbMxG7M&feature=youtu.be)
