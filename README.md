@@ -56,7 +56,9 @@ class AutoPlanViewController: UIViewController {
 
 ## Screenshots
 ### Place detail
+<kbd>
 <img src="./Screenshots/2.PNG" width="300" height="500" />
+</kbd>
 
 ### Search
 <img src="./Screenshots/1.PNG" width="300" height="500" />
