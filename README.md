@@ -61,26 +61,40 @@ class AutoPlanViewController: UIViewController {
 </kbd>
 
 ### Search
+<kbd>
 <img src="./Screenshots/1.PNG" width="300" height="500" />
+</kbd>
 
 ### Location Based
+<kbd>
 <img src="./Screenshots/3.PNG" width="300" height="500" />
+</kbd>
 
 ### Favorite Collections
+<kbd>
 <img src="./Screenshots/4.PNG" width="300" height="500" />
+</kbd>
 
 ### Autoplanning
+<kbd>
 <img src="./Screenshots/5.PNG" width="300" height="500" />
+</kbd>
 
 ### Plan Result
 #### Overview
+<kbd>
 <img src="./Screenshots/6.PNG" width="300" height="500" />
+</kbd>
 
 #### Detail view of each day
+<kbd>
 <img src="./Screenshots/7.PNG" width="300" height="500" />
+</kbd>
 
 ### Plan History
+<kbd>
 <img src="./Screenshots/8.PNG" width="300" height="500" />
+</kbd>
 
 
 ## DEMO video
