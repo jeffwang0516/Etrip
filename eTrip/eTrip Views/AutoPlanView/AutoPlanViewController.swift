@@ -12,8 +12,8 @@ import MapKit
 
 class AutoPlanViewController: UIViewController {
 
-    var googleAPIKey = "AIzaSyCyD8-Y9BQMszppbpw_xu34X3okXgKS8CI"
-    let backupKey = ["AIzaSyD8wDCzUntISMHr3CNFvMVVWCHUhJSHM78", "AIzaSyCq0tqZWsWzTiRxFC3ve0wU2ufQSreZwt8"]
+    var googleAPIKey = "------Please replace with your OWN Key------"
+    let backupKey = ["------Please replace with your OWN Key------"]
     var currentBackupIndex = 0
     
     let viewTitle = "自動規劃"
